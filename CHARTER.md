@@ -13,6 +13,17 @@ documentation, and the processes that produce them.
 
 It is a seed. It starts small and grows only by recorded decision.
 
+## Grounding
+
+The practice is grounded in **Unix**: an ecosystem of small, composable
+tools, joined by plain text, that run on anything from a coffee machine to a
+space station (ENG-P-13).
+
+The aim is **industrial discipline**, so that the process holds under
+pressure, and **institutional truth**, so that what the records say is what
+happened. Paradigms such as SOLID are tools within that ground, not the
+ground itself.
+
 ## Scope
 
 Every project, current and future. Current projects:
@@ -59,3 +70,4 @@ exactly what is taken from each.
 | Date       | Change          | Ref          |
 |------------|-----------------|--------------|
 | 2026-11-07 | Initial version | ENG-DEC-001  |
+| 2026-11-08 | Grounding section: Unix, industrial discipline, institutional truth | ENG-DEC-005 |

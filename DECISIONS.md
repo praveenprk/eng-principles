@@ -56,3 +56,28 @@ Decision: ISO/IEC/IEEE/IETF documents are cited for structure and vocabulary.
 Reason  : Claiming "ISO compliance" without audit would itself break ENG-P-06
           (honest state). Partial borrowing, declared explicitly, is honest.
 Status  : ACCEPTED
+
+---
+
+## ENG-DEC-005 — Unix is the ground. SOLID is one way.
+
+Date    : 2026-11-08
+Refs    : CHARTER.md §Grounding, ENG-P-13, ENG-STD-003 §0, REFERENCES.md (POSIX)
+Decision: The practice is grounded in the Unix philosophy: small tools,
+          plain text, composition, quiet success, and the smallest substrate.
+          ENG-P-13 is added and listed first. ENG-STD-003 becomes
+          "Design: Unix Discipline, Interface Contracts, SOLID", with §0
+          stating the Unix rules. The SOLID clauses are kept word for word
+          as §1–5. The file is renamed ENG-STD-003-design.md, and the ID is
+          unchanged. The charter states the aim: industrial discipline and
+          institutional truth.
+Reason  : Governor direction (PK). The target range is "coffee machine to
+          space station". Only a minimal, portable, text-based substrate
+          spans that range. SOLID describes class-level design in one
+          codebase. Unix describes how tools, systems, and hardware compose
+          across codebases and decades. POSIX (ISO/IEC/IEEE 9945) gives the
+          ground a citable standard.
+Risk    : Rule 0.2 (text first) can conflict with binary-efficient formats
+          on constrained hardware. Departure is allowed as a SHOULD with a
+          recorded reason.
+Status  : ACCEPTED

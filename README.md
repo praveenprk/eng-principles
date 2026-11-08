@@ -6,7 +6,7 @@ make them stricter, and they may never make them weaker without saying so.
 
 ## Read in this order
 1. [CHARTER.md](CHARTER.md): scope, authority, how this repo changes
-2. [PRINCIPLES.md](PRINCIPLES.md): 12 principles, each with a check
+2. [PRINCIPLES.md](PRINCIPLES.md): 13 principles, Unix discipline first, each with a check
 3. [standards/](standards/): the enforceable rules
 4. [REFERENCES.md](REFERENCES.md): which ISO/IEC/IEEE/IETF standards we borrow from, and what we leave out
 5. [CONFORMANCE.md](CONFORMANCE.md): where each project stands, with evidence
@@ -17,7 +17,7 @@ make them stricter, and they may never make them weaker without saying so.
 |----|-------|
 | [ENG-STD-001](standards/ENG-STD-001-language-and-identifiers.md) | Normative language, IDs, dates, versions |
 | [ENG-STD-002](standards/ENG-STD-002-lifecycle-gates.md) | RFC → SPEC → TEST → BUILD → REFINE (software + hardware) |
-| [ENG-STD-003](standards/ENG-STD-003-design-solid.md) | SOLID as testable rules, interface contracts |
+| [ENG-STD-003](standards/ENG-STD-003-design.md) | Unix discipline (ground), interface contracts, SOLID |
 | [ENG-STD-004](standards/ENG-STD-004-construction-clean-code.md) | Clean code, clean schematics |
 | [ENG-STD-005](standards/ENG-STD-005-change-control.md) | Commits, branches, review, hardware revisions |
 | [ENG-STD-006](standards/ENG-STD-006-registers-and-conformance.md) | DECISIONS / VIOLATIONS / ICS registers |

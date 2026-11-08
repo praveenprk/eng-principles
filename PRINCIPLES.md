@@ -5,6 +5,21 @@
 Each principle has a statement, a reason, and a **check**: how anyone can
 tell whether it is being followed. A principle without a check is a wish.
 
+IDs are never renumbered. ENG-P-13 was added after ENG-P-01..12, but it is
+the ground the others rest on, so it is listed first.
+
+---
+
+## ENG-P-13 — Unix discipline (the ground)
+Build small tools that do one thing, speak plain text, compose through
+pipes, stay quiet on success, fail loudly, and run on the smallest substrate
+they can.
+**Why:** Small composable parts outlive frameworks, vendors, and paradigms.
+Plain text outlives every file format. A tool that runs on a coffee machine
+also runs on a space station.
+**Check:** ENG-STD-003 §0. Each tool states its purpose in one sentence, its
+I/O contract, its exit codes, and its minimum substrate, and all four hold.
+
 ---
 
 ## ENG-P-01 — Intent before artifact
@@ -77,3 +92,4 @@ Deadlines, demos, customers, and "just this once" are not bypass conditions.
 | Date       | Change                                    | Ref         |
 |------------|-------------------------------------------|-------------|
 | 2026-11-07 | Initial 12 principles, derived from contextos practice | ENG-DEC-001, ENG-DEC-003 |
+| 2026-11-08 | Add ENG-P-13 Unix discipline as the ground | ENG-DEC-005 |
