@@ -27,9 +27,19 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
 ## 5. Releases
 5.1 A release is a signed tag `vX.Y.Z` (SemVer). The tag message references the decisions and violations closed.
 
+## 6. Agent instructions
+6.1 Instructions for automated contributors MUST live in one tool-agnostic
+    file at the repository root: `AGENTS.md`.
+6.2 Tool-specific instruction files (e.g. `CLAUDE.md`) MAY exist only as
+    adapters that point to `AGENTS.md`. They MUST NOT carry rules of their own.
+6.3 Rules that bind agents also bind humans. `AGENTS.md` names who may push
+    and merge. It never grants an agent more than a human contributor has.
+
 ## Enforcement
 | Clause | Mechanism |
 |--------|-----------|
-| 1.1–1.4 | `commit-msg` hook (port from contextos/scripts/hooks/commit-msg) |
-| 2.2, 2.3 | Git host branch protection + `pre-push` hook |
-| 3.x, 4.x | Review |
+| 1.1–1.4 | `hooks/commit-msg` (reference implementation, ENG-DEC-007) |
+| 2.2 | Git host branch protection (authoritative) + `hooks/pre-push` (local guardrail) |
+| 2.3, 3.x, 4.x, 6.x | Review |
+
+Amended: 2026-11-08 — §6 added (ENG-DEC-006). Enforcement table points to reference hooks (ENG-DEC-007).

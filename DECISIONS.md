@@ -81,3 +81,49 @@ Risk    : Rule 0.2 (text first) can conflict with binary-efficient formats
           on constrained hardware. Departure is allowed as a SHOULD with a
           recorded reason.
 Status  : ACCEPTED
+
+---
+
+## ENG-DEC-006 — Agent instructions are tool-agnostic: AGENTS.md
+
+Date    : 2026-11-08
+Refs    : ENG-STD-005 §6, ENG-P-10, ENG-P-11
+Decision: Instructions for automated contributors live in AGENTS.md. A
+          tool-specific file such as CLAUDE.md is a one-line adapter
+          (`@AGENTS.md`) and carries no rules. This repository's CLAUDE.md
+          is renamed to AGENTS.md accordingly.
+Reason  : Governor direction (PK): the practice is model- and tool-agnostic.
+          It thinks in substrates and protocols. Rules tied to one vendor's
+          filename break ENG-P-10 (substrate independence). The adapter
+          exists only because some tools read their own filename.
+Risk    : A tool that reads neither AGENTS.md nor follows the adapter gets
+          no instructions. Mitigated by mechanical enforcement (hooks), which
+          does not depend on any agent reading anything.
+Status  : ACCEPTED
+
+---
+
+## ENG-DEC-007 — Reference hooks: POSIX sh, plain-text config, vendored
+
+Date    : 2026-11-08
+Refs    : ENG-STD-005 §1–2, ENG-P-04, ENG-P-13, contextos scripts/hooks/
+Decision: `hooks/` holds the reference commit-msg and pre-push hooks, ported
+          from contextos and rewritten in POSIX sh. Policy lives in three
+          plain-text files: `types`, `anchors`, and `protected`. `hooks/test`
+          runs 20 cases and emits TAP. `hooks/install` sets core.hooksPath.
+          Projects copy (vendor) the directory. Nothing depends on this
+          repository at runtime.
+          pre-push refuses pushes to protected refs, branch deletion, and
+          force pushes for every pusher, human or agent. One push may be
+          overridden with ENG_GOVERNOR=1.
+Reason  : contextos's hooks are Python with JSON config, and its pre-push
+          detects agents by a vendor-specific environment variable
+          (CLAUDECODE). POSIX sh runs anywhere git runs (ENG-P-13). Treating
+          all pushers alike removes the tool dependency (ENG-DEC-006) and
+          matches ENG-STD-005 §2.2, which binds everyone.
+Risk    : Local hooks can be bypassed (--no-verify, ENG_GOVERNOR). They are
+          guardrails. Host branch protection is the authoritative control.
+          Bootstrap note: edec74a and 0bb16a2 went directly to main before
+          these hooks existed. This is a one-time exception for creating the
+          repository.
+Status  : ACCEPTED
