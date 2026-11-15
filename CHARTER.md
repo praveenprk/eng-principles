@@ -32,6 +32,9 @@ Every project, current and future. Current projects:
 |-----------|----------|----------------------------------|
 | contextos | software | ~/Desktop/contextos              |
 | phasectl  | software | ~/Desktop/phasectl               |
+| adp-protocol | specification | ~/Desktop/adp-protocol |
+| fid       | software | ~/Desktop/fid                    |
+| factory-protocol | documentation | ~/Desktop/factory-protocol |
 
 New projects are added to CONFORMANCE.md on creation, not later.
 
@@ -71,3 +74,4 @@ exactly what is taken from each.
 |------------|-----------------|--------------|
 | 2026-11-07 | Initial version | ENG-DEC-001  |
 | 2026-11-08 | Grounding section: Unix, industrial discipline, institutional truth | ENG-DEC-005 |
+| 2026-11-15 | Scope: add adp-protocol, fid, factory-protocol | ENG-DEC-008 |

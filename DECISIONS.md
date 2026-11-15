@@ -127,3 +127,27 @@ Risk    : Local hooks can be bypassed (--no-verify, ENG_GOVERNOR). They are
           these hooks existed. This is a one-time exception for creating the
           repository.
 Status  : ACCEPTED
+
+---
+
+## ENG-DEC-008 — Register adp-protocol, fid, and factory-protocol
+
+Date    : 2026-11-15
+Refs    : CHARTER.md §Scope, ENG-P-06, ENG-STD-006 §2.4, §3, README.md §"Adopting in a new project"
+Decision: adp-protocol (specification), fid (software), and
+          factory-protocol (documentation) are added to CHARTER.md §Scope
+          and given sections in CONFORMANCE.md. Their state is recorded as
+          read at these commits: adp-protocol 39abefb, fid bff71b4,
+          factory-protocol 1340fa7. This adds no rule. It closes a gap
+          against a rule that already exists.
+Reason  : CHARTER.md §Scope says "New projects are added to CONFORMANCE.md
+          on creation, not later." All three projects existed on GitHub
+          (github.com/praveenprk/adp-protocol, fid, factory-protocol),
+          but CHARTER.md and CONFORMANCE.md listed only contextos and
+          phasectl. A register that leaves out known projects breaks
+          ENG-P-06 (honest state). This is a charter-compliance gap.
+Risk    : Several rows are `not assessed`, because some standards do not
+          say how they apply to a specification-only or documentation-only
+          repository (adp-protocol, factory-protocol). Those rows stay
+          `not assessed` until the governor rules on applicability.
+Status  : ACCEPTED
