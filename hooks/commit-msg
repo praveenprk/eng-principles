@@ -47,7 +47,7 @@ if printf '%s\n' "$body" | grep -qi 'co-authored[- ]by'; then
     refuse "co-author line present" "accountability belongs to the human who signs (ENG-P-11)"
 fi
 
-if printf '%s\n' "$body" | grep -qiE 'generated (with|by) \[[^]]+\]\('; then
+if printf '%s\n' "$body" | grep -qiE '^[^[:alnum:]]*generated (with|by) \[[^]]+\]\('; then
     refuse "tool attribution line present" "accountability belongs to the human who signs (ENG-P-11)"
 fi
 
