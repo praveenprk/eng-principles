@@ -26,9 +26,23 @@ make them stricter, and they may never make them weaker without saying so.
 ## Adopting in a new project
 1. Copy `templates/` into the project's `docs/`.
 2. Create DECISIONS.md, VIOLATIONS.md, and an ICS (ENG-STD-006).
-3. Copy `hooks/` into the project (e.g. `scripts/hooks/`), edit `anchors`,
-   `types`, and `protected` for the project's registers, then run `hooks/test`
-   and `scripts/hooks/install`.
+3. Put the project's `types` and `anchors` in `scripts/hooks/` (copy them
+   from `hooks/` and edit for the project's registers; add an `ISSUE - -`
+   line if issues are anchors). Call the shared check from a workflow,
+   pinned to a full commit SHA (ENG-DEC-009, ENG-STD-005 §1.5):
+   ```yaml
+   on:
+     pull_request:
+       types: [opened, synchronize, reopened, edited]
+   jobs:
+     commit-check:
+       uses: praveenprk/eng-principles/.github/workflows/commit-check.yml@<sha>
+       with:
+         config: scripts/hooks
+   ```
+   Then require `commit-check / check` in the default branch's rules.
+   Optional, for feedback before pushing: copy `hooks/` itself into
+   `scripts/hooks/`, run `hooks/test` and `scripts/hooks/install`.
 4. Put agent instructions in `AGENTS.md`. Tool-specific files only point to it (ENG-STD-005 §6).
 5. Add a section for the project to [CONFORMANCE.md](CONFORMANCE.md).
 

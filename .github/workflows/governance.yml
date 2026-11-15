@@ -1,0 +1,23 @@
+name: Governance
+
+# eng-principles holds itself to the check it gives every project
+# (ENG-DEC-009), and runs the hook tests.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  hooks-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sh hooks/test
+  commit-check:
+    uses: ./.github/workflows/commit-check.yml
+    with:
+      config: hooks
