@@ -151,3 +151,43 @@ Risk    : Several rows are `not assessed`, because some standards do not
           repository (adp-protocol, factory-protocol). Those rows stay
           `not assessed` until the governor rules on applicability.
 Status  : ACCEPTED
+
+---
+
+## ENG-DEC-009 — Commit rules are checked on the git host, by one shared workflow
+
+Date    : 2026-11-16
+Refs    : ENG-STD-005 §1, new §1.5; ENG-DEC-007; ENG-P-04, ENG-P-08; phasectl V-ENG-005-02; fid DECISION-001; adp-protocol .github/workflows/adp.yml job `commits`
+Decision: ENG-STD-005 §1 (format, anchors, no co-author or attribution)
+          is checked on the git host for everything a pull request brings
+          to the default branch: its title, its description, and every
+          non-merge commit (new §1.5). A local hook alone does not satisfy
+          §1.
+          eng-principles holds the one implementation:
+          - hooks/commit-msg runs both locally and on the host. It reads the
+            project's config from $ENG_HOOKS_CONFIG, accepts issue anchors
+            (#N) when the project's `anchors` has an ISSUE line, and
+            refuses tool attribution lines ("Generated with [Tool](…)").
+          - hooks/check-pr runs commit-msg over a pull request.
+          - .github/workflows/commit-check.yml is a reusable workflow.
+            Projects call it pinned to a full commit SHA and keep only their
+            own `types` and `anchors`.
+          eng-principles calls it on itself (.github/workflows/governance.yml).
+          This supersedes ENG-DEC-007's "nothing depends on this repository
+          at runtime" for host checks only. Local hooks stay vendored and
+          optional.
+Reason  : One central place defines and enforces the standard; projects
+          do not each keep a copy of the checking code. A local hook does not
+          run on a merge made on the host and can be skipped. It let an
+          unanchored commit reach phasectl's main (V-ENG-005-02, b3a2376).
+          The same gap shows in every project: fid wrote its own host check
+          (scripts/commit_check.py), and adp-protocol runs its own
+          `commits` job. One implementation on the host binds every pusher
+          and every merge method (ENG-P-04 enforce mechanically, ENG-P-08
+          fail closed).
+Risk    : Projects depend on eng-principles at CI time. Pinning to a full
+          commit SHA keeps the check immutable until the project moves the
+          pin deliberately. If GitHub cannot fetch eng-principles, the check
+          fails, and a failed check blocks the merge (fail closed). The
+          check binds only where the project's ruleset requires it.
+Status  : ACCEPTED (governor, 2026-11-16)

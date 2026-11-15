@@ -1,0 +1,54 @@
+name: Commit check
+
+# Shared enforcement of ENG-STD-005 §1 on the git host (ENG-DEC-009).
+# A project calls it from its own workflow, pinned to a full commit SHA:
+#
+#   on:
+#     pull_request:
+#       types: [opened, synchronize, reopened, edited]
+#   jobs:
+#     commit-check:
+#       uses: praveenprk/eng-principles/.github/workflows/commit-check.yml@<sha>
+#       with:
+#         config: scripts/hooks      # the project's types and anchors
+#
+# It runs hooks/check-pr from the same eng-principles commit as this file,
+# against the project's own config and registers.
+on:
+  workflow_call:
+    inputs:
+      config:
+        description: Directory, relative to the project root, holding the project's `types` and `anchors`
+        type: string
+        default: scripts/hooks
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: praveenprk/eng-principles
+          ref: ${{ github.job_workflow_sha }}
+          path: .eng-principles
+      - name: Issues and pull requests of this repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --paginate "repos/$GITHUB_REPOSITORY/issues?state=all&per_page=100" --jq '.[].number' > "$RUNNER_TEMP/issues"
+      - name: Title, description and every commit follow ENG-STD-005 §1
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          CONFIG: ${{ inputs.config }}
+        run: ENG_HOOKS_CONFIG="$PWD/$CONFIG" ENG_ISSUES_FILE="$RUNNER_TEMP/issues" sh .eng-principles/hooks/check-pr

@@ -8,6 +8,10 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
     in that project (RFC/SPEC/INV/V/DECISION) or in this repository (ENG-*).
 1.4 Commits MUST NOT carry AI co-author or attribution lines. Accountability
     belongs to the human who signs (ENG-P-11).
+1.5 §1.1–1.4 MUST be checked on the git host for everything a change brings
+    to the default branch: the pull request's title and description, and
+    every non-merge commit, whatever the merge method. A local hook alone
+    does not satisfy §1.
 
 ## 2. Branches
 2.1 Pattern: `type/ANCHOR-short-description` (e.g. `fix/V-002-03-audit-write-aborts`).
@@ -38,8 +42,9 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
 ## Enforcement
 | Clause | Mechanism |
 |--------|-----------|
-| 1.1–1.4 | `hooks/commit-msg` (reference implementation, ENG-DEC-007) |
+| 1.1–1.5 | `.github/workflows/commit-check.yml` on the git host, required by the project's branch rules (authoritative, ENG-DEC-009) + `hooks/commit-msg` locally (optional, the same code, ENG-DEC-007) |
 | 2.2 | Git host branch protection (authoritative) + `hooks/pre-push` (local guardrail) |
 | 2.3, 3.x, 4.x, 6.x | Review |
 
 Amended: 2026-11-08 — §6 added (ENG-DEC-006). Enforcement table points to reference hooks (ENG-DEC-007).
+Amended: 2026-11-16 — §1.5 added: commit rules checked on the git host by one shared workflow (ENG-DEC-009).
