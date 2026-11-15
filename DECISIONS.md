@@ -150,4 +150,4 @@ Risk    : Several rows are `not assessed`, because some standards do not
           say how they apply to a specification-only or documentation-only
           repository (adp-protocol, factory-protocol). Those rows stay
           `not assessed` until the governor rules on applicability.
-Status  : PROPOSED
+Status  : ACCEPTED
