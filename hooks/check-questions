@@ -1,0 +1,29 @@
+#!/bin/sh
+# check-questions — refuse while the project's questions register has an
+# OPEN entry. Runs on pull requests into the default branch: nothing reaches
+# it with an open question (ENG-DEC-010, ENG-STD-005 §2.4).
+#
+# Usage: check-questions [register]    default: docs/QUESTIONS.md
+# A project without the register has not adopted the flow: pass.
+# Entries are `### Q-NNN` headings with a `Status   : ...` line.
+# Substrate: POSIX sh, awk. Exit: 0 none open, 1 any open.
+
+set -u
+
+file=${1:-docs/QUESTIONS.md}
+if [ ! -f "$file" ]; then
+    printf 'check-questions: %s not present, nothing to check\n' "$file"
+    exit 0
+fi
+
+open=$(awk '
+    /^### Q-[0-9]+/ { id = $2 }
+    /^Status[ \t]*:[ \t]*OPEN([ \t]|$)/ { if (id != "") print id; else print "(entry without a Q-NNN heading)" }
+' "$file")
+
+if [ -n "$open" ]; then
+    printf 'refused: open questions in %s; the governor answers them before main\n' "$file" >&2
+    printf '%s\n' "$open" | sed 's/^/  /' >&2
+    exit 1
+fi
+printf 'check-questions: no open questions in %s\n' "$file"

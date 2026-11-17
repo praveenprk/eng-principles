@@ -13,7 +13,9 @@ name: Commit check
 #         config: scripts/hooks      # the project's types and anchors
 #
 # It runs hooks/check-pr from the same eng-principles commit as this file,
-# against the project's own config and registers.
+# against the project's own config and registers. Job `questions` runs
+# hooks/check-questions on pull requests into the default branch
+# (ENG-DEC-010); a project without docs/QUESTIONS.md passes it.
 on:
   workflow_call:
     inputs:
@@ -21,6 +23,10 @@ on:
         description: Directory, relative to the project root, holding the project's `types` and `anchors`
         type: string
         default: scripts/hooks
+      questions:
+        description: The project's questions register, relative to the project root (ENG-DEC-010)
+        type: string
+        default: docs/QUESTIONS.md
 
 permissions:
   contents: read
@@ -52,3 +58,26 @@ jobs:
           HEAD: ${{ github.event.pull_request.head.sha }}
           CONFIG: ${{ inputs.config }}
         run: ENG_HOOKS_CONFIG="$PWD/$CONFIG" ENG_ISSUES_FILE="$RUNNER_TEMP/issues" sh .eng-principles/hooks/check-pr
+
+  questions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v4
+        with:
+          repository: praveenprk/eng-principles
+          ref: ${{ github.job_workflow_sha }}
+          path: .eng-principles
+      - name: No open question reaches the default branch (ENG-DEC-010)
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          QUESTIONS: ${{ inputs.questions }}
+        run: |
+          if [ "$BASE_REF" != "$DEFAULT_BRANCH" ]; then
+            echo "base is $BASE_REF, not $DEFAULT_BRANCH: questions may stay open"
+            exit 0
+          fi
+          sh .eng-principles/hooks/check-questions "$QUESTIONS"

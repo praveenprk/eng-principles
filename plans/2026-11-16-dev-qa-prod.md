@@ -1,7 +1,7 @@
 # Plan — develop, qa, main: agent integrates, governor judges
 
 Date    : 2026-11-16
-Status  : ACTIVE (open items closed 2026-11-17; decision drafted as ENG-DEC-010, PROPOSED)
+Status  : ACTIVE (ENG-DEC-010 ACCEPTED 2026-11-17; adoption in fid and phasectl next)
 Anchor  : ENG-STD-005 §2
 Owner   : PK (governor)
 

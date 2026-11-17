@@ -249,4 +249,4 @@ Risk    : More branches to keep in step. A promotion with conflicts means
           Adoption needs host rules for `develop` and `qa`, a change to
           the agent's merge guard, and the shared check for OPEN questions.
           Until those exist, §2.3 applies unchanged.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-17)

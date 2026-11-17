@@ -124,5 +124,14 @@ session_body=$(printf 'What\n\n---\nSession-Id: session_0123')
 check "tool attribution"     "attribution in PR description"    pr "$a" "$d" "$good_title" "$tool_body"
 check pass                   "Session-Id in PR description"     pr "$a" "$d" "$good_title" "$session_body"
 
+# check-questions: no OPEN entry reaches the default branch (ENG-DEC-010).
+q() { printf '%s\n' "$@" > "$work/QUESTIONS.md"; sh "$src/check-questions" "$work/QUESTIONS.md"; }
+echo "# check-questions"
+check pass                   "register absent"                  sh "$src/check-questions" "$work/none.md"
+check pass                   "all answered"                     q "### Q-001" "Status   : ANSWERED (governor, 2026-11-17): A → DECISION-002"
+check "Q-002"                "one open"                         q "### Q-001" "Status   : ANSWERED (governor, 2026-11-17): A" "### Q-002" "Status   : OPEN"
+check pass                   "OPEN only in prose"               q "### Q-001" "Scenario : the file is OPEN on disk" "Status   : ANSWERED (governor, 2026-11-17): B"
+check "without a Q-NNN"      "open entry without heading"       q "Status   : OPEN"
+
 printf '1..%d\n' "$n"
 [ "$failed" -eq 0 ]
