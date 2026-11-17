@@ -191,3 +191,62 @@ Risk    : Projects depend on eng-principles at CI time. Pinning to a full
           fails, and a failed check blocks the merge (fail closed). The
           check binds only where the project's ruleset requires it.
 Status  : ACCEPTED (governor, 2026-11-16)
+
+---
+
+## ENG-DEC-010 — develop, qa, main: the agent integrates, the governor judges
+
+Date    : 2026-11-17
+Refs    : ENG-STD-005 §2.3, §3.1, §1.5, §5.1; ENG-STD-006; ENG-P-04, ENG-P-11; plans/2026-11-16-dev-qa-prod.md
+Decision: A project MAY run three long-lived branches. A project that does
+          records it in its AGENTS.md.
+          - `develop`: feature branches merge here. An automated contributor
+            MAY merge into `develop` once the required checks pass.
+          - `qa`: `develop` is promoted here by a pull request that only the
+            governor merges. The governor answers the open questions and
+            gives judgments while the batch is in `qa`.
+          - `main` (the default branch): `qa` is promoted here by a pull
+            request that only the governor merges. Releases are tagged here
+            (§5.1).
+          ENG-STD-005 §2.3 ("Only a human merges") is refined to: only a
+          human merges into `qa` and the default branch. An automated
+          contributor MAY merge into `develop` and into feature branches.
+          Changes flow one way, develop → qa → main. A fix found in `qa`
+          is made on a feature branch, merged into `develop`, and promoted
+          again. Nothing is committed to `qa` or `main` directly.
+          Promotions use merge commits, so the three branches share the
+          same commits and never diverge. Feature PRs into `develop` are
+          squashed or rebased, so `develop`'s own history stays linear.
+          Linear history is required on `develop`, not on `qa` or `main`;
+          their first-parent history is the list of promotions.
+          Open questions and pending judgments live in a register,
+          docs/QUESTIONS.md (ENG-STD-006), one entry per question, id
+          Q-NNN:
+            Scenario : what a real user does, in what situation
+            Options  : the choices, and what each one changes
+            Recommend: the contributor's pick and why
+            Status   : OPEN | ANSWERED (governor, date): answer → DECISION-NNN
+          An entry is written when the work that raises it merges into
+          `develop`. An answer that changes behaviour becomes a DECISION
+          in the project's register. A pull request into the default branch
+          fails while any entry is OPEN. The check lives in eng-principles'
+          shared workflow (ENG-DEC-009).
+Reason  : The governor's time goes to judgment, not to merging each
+          change: integration does not wait for the governor, and every
+          decision the governor must make is in one place, asked as a
+          real-world scenario rather than as code. The governor's
+          approval of every change to `main` stays (§3.1, ENG-P-11). Merge
+          commits on promotions are what keep the branches in step:
+          squash and rebase merges create new commits, so `develop` and
+          `main` would drift apart after the first promotion. A file
+          register keeps questions with the code that raised them, in the
+          promotion diff the governor reviews (one fact, one register).
+Risk    : More branches to keep in step. A promotion with conflicts means
+          something was committed outside the flow; the host rules forbid
+          that. fid and phasectl give up linear history on `main` for merge
+          commits from `qa` only. A question left out of the register is
+          not caught by the check; review in `qa` is the backstop.
+          Adoption needs host rules for `develop` and `qa`, a change to
+          the agent's merge guard, and the shared check for OPEN questions.
+          Until those exist, §2.3 applies unchanged.
+Status  : PROPOSED
