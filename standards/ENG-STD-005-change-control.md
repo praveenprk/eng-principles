@@ -17,6 +17,17 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
 2.1 Pattern: `type/ANCHOR-short-description` (e.g. `fix/V-002-03-audit-write-aborts`).
 2.2 The default branch is protected. No direct pushes, no force-pushes.
 2.3 Only a human merges.
+    Refined by ENG-DEC-010: in a project that runs the flow in §2.4, an
+    automated contributor MAY merge into `develop` and into feature
+    branches once the required checks pass. Only a human merges into `qa`
+    and the default branch.
+2.4 A project MAY run three long-lived branches: `develop` (integration),
+    `qa` (the governor's judgment), and the default branch (release).
+    Changes flow one way, develop → qa → default branch, through pull
+    requests. Promotions use merge commits. Nothing is committed to `qa`
+    or the default branch directly. Open questions for the governor live
+    in docs/QUESTIONS.md (templates/question.md). A pull request into the
+    default branch MUST NOT merge while any entry is OPEN.
 
 ## 3. Review
 3.1 Every change to the default branch is reviewed before merge. An automated
@@ -44,7 +55,10 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
 |--------|-----------|
 | 1.1–1.5 | `.github/workflows/commit-check.yml` on the git host, required by the project's branch rules (authoritative, ENG-DEC-009) + `hooks/commit-msg` locally (optional, the same code, ENG-DEC-007) |
 | 2.2 | Git host branch protection (authoritative) + `hooks/pre-push` (local guardrail) |
-| 2.3, 3.x, 4.x, 6.x | Review |
+| 2.3 | Git host rules per branch (authoritative) + the agent's merge guard + review |
+| 2.4 | `commit-check.yml` job `questions`, required on the default branch (authoritative, ENG-DEC-010) + host rules + review |
+| 3.x, 4.x, 6.x | Review |
 
 Amended: 2026-11-08 — §6 added (ENG-DEC-006). Enforcement table points to reference hooks (ENG-DEC-007).
 Amended: 2026-11-16 — §1.5 added: commit rules checked on the git host by one shared workflow (ENG-DEC-009).
+Amended: 2026-11-17 — §2.3 refined and §2.4 added: develop, qa, main flow with a questions register (ENG-DEC-010).
