@@ -1,0 +1,29 @@
+{
+  "owner": "praveenprk",
+  "projects": [
+    {"name": "fid", "kinds": ["rust", "python", "spec"]},
+    {"name": "phasectl", "kinds": ["python"]},
+    {
+      "name": "adp-protocol",
+      "kinds": ["spec"],
+      "overrides": {
+        "registers": {
+          "status": "not assessed",
+          "why": "DEFECTS.md and proposals/ (ADP-0 §4, §5) stand in for violations and decisions; whether they satisfy ENG-STD-006 is not decided (CONFORMANCE.md)"
+        }
+      }
+    },
+    {
+      "name": "contextos",
+      "kinds": ["python"],
+      "overrides": {
+        "rules": {
+          "status": "fail",
+          "why": "blocked: private repository on GitHub's free plan; the host offers no branch rules (governor, 2026-11-18: keep private)"
+        }
+      }
+    },
+    {"name": "factory-protocol", "kinds": ["docs"]},
+    {"name": "eng-principles", "kinds": ["standards"]}
+  ]
+}
