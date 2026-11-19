@@ -250,3 +250,36 @@ Risk    : More branches to keep in step. A promotion with conflicts means
           the agent's merge guard, and the shared check for OPEN questions.
           Until those exist, §2.3 applies unchanged.
 Status  : ACCEPTED (governor, 2026-11-17)
+
+---
+
+## ENG-DEC-011 — Contributor readiness is a standard, measured on a live dashboard
+
+Date    : 2026-11-18
+Refs    : new ENG-STD-008; ENG-STD-004 §6; ENG-STD-005; ENG-STD-006 §2.4; ENG-DEC-004; OpenSSF Best Practices Badge, OpenSSF Scorecard
+Decision: ENG-STD-008 sets the bar every governed project meets: what an
+          experienced open-source contributor expects before contributing
+          (contribution and security policy, change control, CI, formatting
+          and linting, dependency hygiene, versioning and releases, Rust and
+          Python packaging, and IETF conventions for specifications). 33
+          checks, each MUST or SHOULD, each citing its source.
+          audit/audit.py measures every project in audit/projects.json from
+          the git host, with evidence. .github/workflows/dashboard.yml runs it
+          daily and on every merge to main and publishes the result on this
+          repository's GitHub Pages site. A private repository shows its name
+          and statuses only. Only the governor rules on a check for a
+          project, in projects.json, with the reason. contextos stays
+          private; its branch rules show as blocked by the host plan
+          (governor, 2026-11-18).
+Reason  : The governor needs one place that shows, without asking, how every
+          project stands against the standards, from evidence and not from
+          memory. The bar is the one outside contributors already use
+          (OpenSSF, Rust API Guidelines, IETF), so meeting it makes the
+          projects ready for them. One audit, kept here, keeps the bar the
+          same in every project (ENG-DEC-009's reasoning).
+Risk    : A heuristic check can be wrong in either direction. Every result
+          carries its evidence, so a wrong one is visible and gets fixed in
+          audit.py. The dashboard is public because this repository is.
+          The audit reads, never writes. Without an AUDIT_TOKEN secret,
+          private projects show as not assessed.
+Status  : PROPOSED

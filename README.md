@@ -22,6 +22,7 @@ make them stricter, and they may never make them weaker without saying so.
 | [ENG-STD-005](standards/ENG-STD-005-change-control.md) | Commits, branches, review, hardware revisions |
 | [ENG-STD-006](standards/ENG-STD-006-registers-and-conformance.md) | DECISIONS / VIOLATIONS / ICS registers |
 | [ENG-STD-007](standards/ENG-STD-007-quality-model.md) | ISO/IEC 25010 quality model, safety |
+| [ENG-STD-008](standards/ENG-STD-008-contributor-readiness.md) | Contributor readiness: what an experienced OSS contributor expects; measured on the [dashboard](https://praveenprk.github.io/eng-principles/) |
 
 ## Adopting in a new project
 1. Copy `templates/` into the project's `docs/`.
