@@ -1,5 +1,5 @@
 # ENG-STD-008 — Contributor Readiness
-Status: PROPOSED (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing level), OpenSSF Scorecard, GitHub community standards, SemVer 2.0.0, Keep a Changelog 1.1.0, Rust API Guidelines, PEP 621, IETF BCP 14 (RFC 2119, RFC 8174), RFC 3552, ISO/IEC/IEEE 12207, 29119, 29148
+Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing level), OpenSSF Scorecard, GitHub community standards, SemVer 2.0.0, Keep a Changelog 1.1.0, Rust API Guidelines, PEP 621, IETF BCP 14 (RFC 2119, RFC 8174), RFC 3552, ISO/IEC/IEEE 12207, 29119, 29148
 
 ## 1. Purpose
 1.1 A project meets this standard when an experienced open-source

@@ -282,4 +282,4 @@ Risk    : A heuristic check can be wrong in either direction. Every result
           audit.py. The dashboard is public because this repository is.
           The audit reads, never writes. Without an AUDIT_TOKEN secret,
           private projects show as not assessed.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-19)
