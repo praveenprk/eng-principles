@@ -36,8 +36,10 @@ registers.
 The CONTRIBUTING.md gap noted before adoption ("no pytest suite yet") was
 fixed in phasectl PR #12.
 
-## adp-protocol
+## agent-dispatch-protocol (ADP)
 
+Renamed from adp-protocol on 2026-11-21 (governor); GitHub redirects the old
+URL, and the Pages site moved to praveenprk.github.io/agent-dispatch-protocol/.
 Read at 39abefb (origin/main, 2026-11-15). Registered by ENG-DEC-008.
 
 | Standard | Status | Evidence |

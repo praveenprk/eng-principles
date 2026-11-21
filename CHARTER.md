@@ -32,7 +32,7 @@ Every project, current and future. Current projects:
 |-----------|----------|----------------------------------|
 | contextos | software | ~/Desktop/contextos              |
 | phasectl  | software | ~/Desktop/phasectl               |
-| adp-protocol | specification | ~/Desktop/adp-protocol |
+| agent-dispatch-protocol (ADP) | specification | ~/Desktop/adp-protocol |
 | fid       | software | ~/Desktop/fid                    |
 | factory-protocol | documentation | ~/Desktop/factory-protocol |
 
