@@ -1,7 +1,7 @@
 # CONFORMANCE.md
 # Cross-project conformance against ENG-STD-*
 # Vocabulary: conformant / partial / not yet / n/a / not assessed (ENG-STD-006 §2.4)
-# Every non-"not assessed" row cites evidence. Date of last update: 2026-11-16
+# Every non-"not assessed" row cites evidence. Date of last update: 2026-11-22
 
 ## contextos
 
@@ -45,11 +45,11 @@ Read at 39abefb (origin/main, 2026-11-15). Registered by ENG-DEC-008.
 | Standard | Status | Evidence |
 |----------|--------|----------|
 | ENG-STD-001 Language & IDs | not assessed | — |
-| ENG-STD-002 Lifecycle gates | not assessed | — How the RFC/SPEC/TEST/BUILD gates apply to a specification-only repository is not stated. ADP-0 §5 (proposals) is the project's own change process |
+| ENG-STD-002 Lifecycle gates | not yet | ENG-STD-002 §5 (ENG-DEC-015) lets the project meet the gates through its own process. ADP-0 §5.1–§5.4 at 5167c83 is that process: proposal, then SPEC text, then conformance vectors with one passing and one failing per changed rule, then schema and implementation, then informative and register (`spec/ADP-0.md` §5.4). Missing: the project decision recording that mapping once (§5.2), including how the failing-vector-first exit (§5.3) is shown when §5.4 lets steps 1–3 land in one commit. No such decision found (`gh api search/code?q=ENG-STD-002+repo:praveenprk/agent-dispatch-protocol` → 0) |
 | ENG-STD-003 Design / SOLID | not assessed | — |
-| ENG-STD-004 Clean code | not assessed | — The repository has code (scripts/ci/, scripts/hooks/), but whether ENG-STD-004 binds a specification repository's tooling is not stated |
+| ENG-STD-004 Clean code | partial | ENG-STD-004 §0 (ENG-DEC-015) makes scripts/ci/, scripts/hooks/ and the `run:` steps of .github/workflows/adp.yml code. Met at 5167c83: §7.2, Python dependencies pinned in CI (`adp.yml` line 31: jsonschema==4.26.0, pyyaml==6.0.3) and actions pinned to commits. Gap: §6.1, no formatter or linter for Python or shell runs in CI (`adp.yml` runs only hook tests and the check scripts), and the project has not recorded which languages §6.1 binds (§0.2) |
 | ENG-STD-005 Change control | partial | scripts/hooks/commit-msg, pre-push, test. AGENTS.md §Roles names the maintainer as the only one who merges. .github/workflows/adp.yml job `commits`. GitHub ruleset `adp-ruleset` active on the default branch: deletion, non_fast_forward, pull_request (merge only), required checks commits/schema/defects (`gh api repos/praveenprk/adp-protocol/rulesets/27276641`, 2026-11-15). Gap: 2 of 26 non-merge commits carry no anchor, 6042e27 and 739d2cb (`git log --no-merges --format='%h %s' 39abefb`), both from before ADP-0 |
-| ENG-STD-006 Registers | not assessed | — The project keeps DEFECTS.md (ADP-0 §4) and proposals/ in place of VIOLATIONS.md and DECISIONS.md, and has no ICS. DEFECTS.md holds 17 entries: 15 OPEN, 2 RESOLVED (ADP-D-005, ADP-D-012) (`git show 39abefb:DEFECTS.md \| grep -E '^Status +:' \| sort \| uniq -c`). Whether these registers satisfy §1 is not stated |
+| ENG-STD-006 Registers | not assessed | — Not decided by ENG-DEC-015. The project keeps DEFECTS.md (ADP-0 §4) and proposals/ in place of VIOLATIONS.md and DECISIONS.md, and has no ICS. DEFECTS.md holds 17 entries: 15 OPEN, 2 RESOLVED (ADP-D-005, ADP-D-012) (`git show 39abefb:DEFECTS.md \| grep -E '^Status +:' \| sort \| uniq -c`). Whether these registers satisfy §1 is not stated. Assessing it needs a governor ruling on whether DEFECTS.md and proposals/ stand in for VIOLATIONS.md and DECISIONS.md, and an ICS |
 | ENG-STD-007 Quality model | not assessed | — |
 
 ## fid
@@ -77,9 +77,9 @@ Read at 1340fa7 (main, 2026-11-15). Registered by ENG-DEC-008.
 | Standard | Status | Evidence |
 |----------|--------|----------|
 | ENG-STD-001 Language & IDs | not assessed | — |
-| ENG-STD-002 Lifecycle gates | not assessed | — How the gates apply to a documentation-only repository is not stated |
+| ENG-STD-002 Lifecycle gates | not yet | ENG-STD-002 §5.4 (ENG-DEC-015): a documentation-only project applies §3 with its trivial class recorded once. Missing at 1340fa7: that project decision; the repository has no DECISIONS.md (`git ls-files` lists LICENSE, NOTICE, README.md, factory-protocol.html, index.html) |
 | ENG-STD-003 Design / SOLID | not assessed | — |
-| ENG-STD-004 Clean code | not assessed | — The repository has no source tree, but index.html and factory-protocol.html each carry an inline `<script>` (`grep -c '<script' index.html factory-protocol.html` → 1, 1). Whether that is code under ENG-STD-004 is not stated |
+| ENG-STD-004 Clean code | not yet | The repository has no source tree, but index.html and factory-protocol.html each carry an inline `<script>` (`grep -c '<script' index.html factory-protocol.html` → 1, 1). Under ENG-STD-004 §0 (ENG-DEC-015) both are code. Missing at 1340fa7: no CI at all (no .github/ in `git ls-files`), so neither §6.1 nor a proportionate record of which languages it binds (§0.2) exists |
 | ENG-STD-005 Change control | partial | GitHub ruleset `factory-protocol-ruleset` active on the default branch: deletion, non_fast_forward, pull_request, required checks (`gh api repos/praveenprk/factory-protocol/rulesets/27276808`, 2026-11-15). The only commit straight to main is 6767f6e "Initial commit" (`git log --first-parent --no-merges 1340fa7`). Gaps: 0 of 4 non-merge commits carry an anchor (e.g. 13ad193 "chore: license under Apache-2.0 with NOTICE"). No hooks, no AGENTS.md (`git ls-files`) |
 | ENG-STD-006 Registers | not yet | No DECISIONS.md, VIOLATIONS.md, or ICS. `git ls-files` at 1340fa7 lists only LICENSE, NOTICE, README.md, factory-protocol.html, index.html |
 | ENG-STD-007 Quality model | not assessed | — |
