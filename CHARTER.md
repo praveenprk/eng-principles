@@ -13,6 +13,14 @@ documentation, and the processes that produce them.
 
 It is a seed. It starts small and grows only by recorded decision.
 
+**North Star** (aspiration, not a commitment to any programme): make
+productive capability, intelligence, infrastructure and access to resources
+steadily more abundant, affordable, safe, sustainable and widely owned, on
+Earth and beyond it. We pursue this through systems whose claims rest on
+physical reality and evidence, which people can inspect, repair, replace and
+own, and whose benefits reach the people who use them. Ambition sets the
+direction; measured evidence sets the pace (ENG-DEC-016).
+
 ## Grounding
 
 The practice is grounded in **Unix**: an ecosystem of small, composable
@@ -75,3 +83,4 @@ exactly what is taken from each.
 | 2026-11-07 | Initial version | ENG-DEC-001  |
 | 2026-11-08 | Grounding section: Unix, industrial discipline, institutional truth | ENG-DEC-005 |
 | 2026-11-15 | Scope: add adp-protocol, fid, factory-protocol | ENG-DEC-008 |
+| 2026-11-22 | Purpose: North Star, as aspiration | ENG-DEC-016 |
