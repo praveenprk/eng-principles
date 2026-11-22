@@ -29,9 +29,14 @@ Every project MUST keep three registers. All three are append-only.
     not meet it. The severity entry names the rule (a–d) and its source.
 2.4 Conformance status vocabulary: `conformant` / `partial` / `not yet` / `n/a`.
     `conformant` requires evidence (test ID or commit). `not assessed` is allowed only in the cross-project CONFORMANCE.md.
+    Refined by ENG-DEC-015: a project's own ICS MAY also use `not
+    assessed`. Each such row MUST state why it is not assessed and what
+    assessing it needs. A `not assessed` row without both is a violation
+    of this clause.
 2.5 One fact lives in one register. No parallel trackers (contextos DECISION-004).
 
 ## 3. Cross-project conformance
 3.1 This repository's CONFORMANCE.md records each project's status against each ENG-STD.
 3.2 It is updated whenever a project's adoption state changes, with evidence.
 Amended: 2026-11-22 — §2.3 severity graded by OpenSSF placement, then impact; security never below HIGH (ENG-DEC-013).
+Amended: 2026-11-22 — §2.4 refined: `not assessed` in a project ICS, with a reason (ENG-DEC-015, Q-001).
