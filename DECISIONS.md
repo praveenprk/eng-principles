@@ -494,3 +494,25 @@ Risk    : Until applied, none. Once applied: new principles without domain
           scheduling as a portfolio abstraction stay open, outside this
           decision.
 Status  : ACCEPTED (governor, 2026-11-22)
+
+---
+
+## ENG-DEC-017 — Evidence and maturity: L0–L6, read per kind of deliverable
+
+Date    : 2026-11-23
+Refs    : docs/QUESTIONS.md Q-013..Q-015; new ENG-STD-009; ENG-STD-006
+          §2.5; CONFORMANCE.md; ENG-P-02, ENG-P-06; ENG-DEC-016; ISO 16290
+          (TRL); RFC 7942; North Star review, validation 1 (2026-11-23)
+Decision: Per the governor's answers to Q-013 (the scale and its TRL
+          mapping), Q-014 (how software, specifications and documentation
+          read it) and Q-015 (levels per deliverable, recorded in
+          CONFORMANCE.md). No standard is written until those answers are
+          given.
+Reason  : Claims of maturity need one scale that outside partners can read
+          and that cannot be advanced by confidence alone. Validation 1
+          showed the scale works for software and needs readings per kind
+          of deliverable.
+Risk    : The TRL mapping is this practice's judgment and is checked
+          against ISO 16290's text before the standard cites it. No project
+          shows L4 yet: committed records of use are missing everywhere.
+Status  : PROPOSED
