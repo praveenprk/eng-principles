@@ -6,18 +6,18 @@
 
 ## Maturity (ENG-STD-009)
 
-One row per deliverable. Read from the git host on 2026-11-23 (validation 1).
+One row per deliverable, each with the date it was read (ENG-STD-009 §4.2).
 
-| Deliverable | Kind | Level | Evidence (commit) | Blocks the next level |
-|-------------|------|-------|-------------------|-----------------------|
-| fid | software | L3 | a460eab: release v0.2.0; tests incl. tests/conformance.rs; calibration results committed under calibration/results/; CI green | L4: a dated, committed record of runs in real use |
-| phasectl | software | L3 | b91611a: tag v0.1.0; SPEC-001..003 with tests; field-test runner (tests/field/); CI green | L4: field-test runs committed as a dated record |
-| contextos | software | L3 | c757698: 35 Python test files; CI green; daily use by the governor, not yet recorded | L4: a dated, committed record of runs in daily use |
-| contextos factory | software | L3 | factory/supervisor.sh and state machine since 53db88c; 11 work items with hashed gate transitions in .factory/ (local, git-ignored) | L4: transition records committed where others can check them |
-| agent-dispatch-protocol | specification | L2 | 5167c83: ADP-0/1/2; 101 conformance vector files checked against JSON schemas in CI; no implementation | L3: one implementation passes every vector (ADP issue #28) |
-| factory-protocol | documentation | L3 | 1340fa7: describes the contextos factory, which runs (row above) | L4: the factory reaches L4, and the page is checked against the running state machine |
-| eng-principles audit | software | L5 | d887b6c: audit runs daily and on every merge; dashboard on GitHub Pages; selftest in CI | L6: used by a second organisation |
-| eng-principles standards | documentation | L3 | Applied to six projects; measured by the audit (row above) | Level of the practice it describes; rises with the projects |
+| Deliverable | Kind | Level | Read | Evidence (commit) | Blocks the next level |
+|-------------|------|-------|------|-------------------|-----------------------|
+| fid | software | L3 | 2026-11-23 | a460eab: release v0.2.0; tests incl. tests/conformance.rs; calibration results committed under calibration/results/; CI green | L4: a dated, committed record of runs in real use |
+| phasectl | software | L3 | 2026-11-23 | b91611a: tag v0.1.0; SPEC-001..003 with tests; field-test runner (tests/field/); CI green | L4: field-test runs committed as a dated record |
+| contextos | software | L3 | 2026-11-23 | c757698: 35 Python test files; CI green; daily use by the governor, not yet recorded | L4: a dated, committed record of runs in daily use |
+| contextos factory | software | L2 | 2026-11-23 | contextos 53db88c: factory/supervisor.sh and factory/protocol/state-machine; one committed run, factory/gates/WID-20260520-001/transitions.log. No tests of the supervisor; other runs' records are in .factory/, git-ignored, which no one else can check | L3: tests of supervisor.sh against the state machine, passing on real work items |
+| agent-dispatch-protocol | specification | L2 | 2026-11-23 | 5167c83: ADP-0/1/2; 101 conformance vector files checked against JSON schemas in CI; no implementation | L3: one implementation passes every vector (ADP issue #28) |
+| factory-protocol | documentation | L2 | 2026-11-23 | 1340fa7: describes the contextos factory (row above) | L3: the factory reaches L3 |
+| eng-principles audit | software | L3 | 2026-11-23 | d887b6c: audit/selftest.py in CI; runs daily against six real repositories; dashboard deployed to GitHub Pages. Runs are not committed: dashboard.yml deploys and commits nothing | L4: a dated, committed record of audit runs |
+| eng-principles standards | documentation | L2 | 2026-11-23 | Takes the level of what it describes: the governed deliverables, lowest L2 (ADP, factory) | L3: every governed deliverable at L3 |
 
 ## contextos
 
