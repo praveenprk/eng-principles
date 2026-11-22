@@ -388,28 +388,35 @@ Status  : ACCEPTED (governor, 2026-11-22)
 
 ---
 
-## ENG-DEC-015 — Close the open rulings: `not assessed` in an ICS, equivalent change processes, executable text, normative keywords
+## ENG-DEC-015 — Close the open rulings: `not assessed` in an ICS, equivalent change processes, executable text, normative keywords, evidence-gated merges
 
 Date    : 2026-11-22
-Refs    : docs/QUESTIONS.md Q-001..Q-006; ENG-STD-006 §2.3, §2.4;
-          ENG-STD-005 §2.3, §3.1;
-          ENG-STD-002 §1, §3; ENG-STD-004; ENG-STD-001 §1.1, §1.2;
+Refs    : docs/QUESTIONS.md Q-001..Q-007; ENG-STD-006 §2.3, §2.4;
+          ENG-STD-005 §2.3, §2.4, §2.5, §3.1, §5.1;
+          ENG-STD-002 §1, §3, §4.1; ENG-STD-004; ENG-STD-001 §1.1, §1.2;
           ENG-DEC-010 (questions register), ENG-DEC-012, ENG-DEC-013;
-          ENG-P-11, ENG-P-12;
-          ENG-P-02, ENG-P-06; agent-dispatch-protocol ADP-0 §5.4
+          ENG-P-02, ENG-P-06, ENG-P-11, ENG-P-12;
+          agent-dispatch-protocol ADP-0 §5.4; ISO 9001:2015 §8.6
 Decision: Per the governor's answers to Q-001 (`not assessed` in a project
-          ICS), Q-002 (how specification-only and documentation-only
-          projects satisfy the lifecycle gates), Q-003 (whether executable
-          text outside a source tree is code under ENG-STD-004), Q-004
-          (RFC 2119 keywords in numbered requirement clauses that lack
-          one), Q-005 (merge and release gated on evidence, not on who
-          performs the step) and Q-006 (severity of a bypassed gate). No
-          standard or principle changes until those answers are given.
-Reason  : Six gaps leave rows of CONFORMANCE.md `not assessed` and put the
+          ICS), Q-002 (how any project meets the lifecycle gates through
+          the process it already uses), Q-003 (whether executable text
+          outside a source tree is code under ENG-STD-004), Q-004 (RFC 2119
+          keywords in numbered requirement clauses that lack one), Q-005
+          (merges into `main` gated on evidence, not on who performs them;
+          a record for every release), Q-006 (severity of a bypassed gate)
+          and Q-007 (who may release). No standard or principle changes
+          until those answers are given.
+Reason  : Seven gaps leave rows of CONFORMANCE.md `not assessed` and put the
           standards in conflict with the projects' own registers, with
           ENG-STD-001 §1.1, and with the checks of ENG-P-11 and ENG-P-12.
           Each is a judgment for the governor, framed as a scenario in
           docs/QUESTIONS.md.
-Risk    : None until applied. Each answer's effect on the standards and on
-          CONFORMANCE.md is stated in its question's options.
+Risk    : Until applied, none. Once applied: OpenSSF Scorecard's Code-Review
+          check (risk High) fails for merges made by automated contributors
+          without human review; under ENG-DEC-013 (a) that rating stands as
+          is, and the release record (Q-005) is the answer to it. Project
+          rules are not changed by this decision: fid DECISION-008 and
+          AGENTS.md, agent-dispatch-protocol ADP-0 §8.2, and the governor's
+          local merge guard follow, if at all, by their own decisions after
+          this one is ACCEPTED.
 Status  : PROPOSED

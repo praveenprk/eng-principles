@@ -244,21 +244,28 @@ Scenario : A software line runs like a factory floor: several automated
            approver") say a person must merge. ENG-DEC-012 already lets the
            agent merge into `main`, so the standard and the principle's check
            disagree today. Nothing states what evidence a release needs.
-Options  : A — Gate on evidence, not on who performs the step:
+           This question covers merges into `main` and the evidence a release
+           carries. Who may perform a release is Q-007.
+Options  : A — Gate merges on evidence, not on who performs them, and give
+               every release a record:
                ENG-STD-005 §2.3: any authorised contributor, human or
                automated, MAY merge into `main`; a merge MUST NOT happen
                until every required check passes and no question is OPEN.
+               This restates ENG-DEC-012's rule for `main` in role-neutral
+               words; it does not change who releases.
                New §2.6 Release record: a release (promotion to `stable` and
                its tag) MUST NOT happen without a release record stating the
                commit, every required check's result at that commit, the open
                violations, and who authorised the release. AGENTS.md MUST
                record which roles may merge and which may release.
                Security-related changes (§2.5) keep a human gate: only a
-               human merges them.
-               ENG-P-11 Check refined to match: releases, security-related
-               merges and hardware sign-offs carry a named human approver;
-               other merges carry evidence and trace to a named human
-               accountable for the line.
+               human merges them. ENG-STD-005 §2.5 and ENG-DEC-013 (d) are
+               unchanged.
+               ENG-P-11 Check refined to match ENG-DEC-012, which refined
+               ENG-STD-005 §2.3 but never this check: releases,
+               security-related merges and hardware sign-offs carry a named
+               human approver; other merges carry evidence and trace to a
+               named human accountable for the line.
                Reference models: ISO 9001:2015 §8.6 (release of products:
                evidence of conformity, traceability to the person authorising
                release); SLSA provenance and in-toto attestations as the
@@ -270,10 +277,11 @@ Recommend: A, because the gate that protects users is the evidence at
            named person answerable for each release and each security change,
            and makes ENG-P-11 and ENG-STD-005 agree again. Known cost, stated
            honestly: OpenSSF Scorecard's Code-Review check (risk High) scores
-           human review of changes, and under ENG-DEC-013 its rating is taken
-           as is, so a line where only machines merge will show HIGH on the
-           dashboard. The release record is the answer to that finding, not a
-           way to hide it.
+           human review of changes, and under ENG-DEC-013 (a) its rating is
+           taken as is, with no override, so a line where only machines merge
+           shows HIGH on the dashboard. That already follows from ENG-DEC-012.
+           The release record is the answer to that finding, not a way to
+           hide it.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
 Status   : OPEN
 
@@ -292,7 +300,11 @@ Options  : A — ENG-STD-002 §4.1 becomes: "Work found to have bypassed a gate
                "recorded as a violation of at least HIGH severity". Severity
                is then defined in one place (ENG-STD-006 §2.5, one fact in one
                register). ISO audit practice calls a bypassed required gate a
-               major nonconformity; HIGH is that floor.
+               major nonconformity; HIGH is that floor. The floor only adds:
+               a bypass that is security-related (e.g. a branch rule or a
+               required check skipped, ENG-STD-005 §2.5) stays under
+               ENG-DEC-013 (d), never below HIGH and CRITICAL for a known
+               vulnerability in released code; no bypass grades MEDIUM.
            B — Keep CRITICAL for a bypassed gate as a named exception in
                ENG-STD-006 §2.3. CRITICAL then means two different things.
 Recommend: A, because CRITICAL keeps the meaning outside readers already give
@@ -300,5 +312,35 @@ Recommend: A, because CRITICAL keeps the meaning outside readers already give
            below HIGH. Moving from CRITICAL to HIGH lowers a stated severity,
            which CHARTER (Amendment) counts as weakening unless the governor
            accepts it explicitly.
+Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
+Status   : OPEN
+
+### Q-007
+Scenario : The factory floor of Q-005 runs all day. At the end, an automated
+           quality-control station has the release record for a commit:
+           every required check green, the open violations listed. The
+           product could be packed and shipped now. Today the governor
+           promotes `main` to `stable` and signs the tag (ENG-DEC-012,
+           governor 2026-11-22: "I merge main -> stable and tag releases";
+           ENG-STD-005 §2.3, §2.4, §5.1). May the station release it?
+Options  : A — A human releases. The release record of Q-005 is the evidence
+               the human signs off. Changes: none beyond Q-005; ENG-DEC-012
+               stands as written.
+           B — An authorised automated station MAY promote to `stable` and
+               tag when the release record is complete, under a named human
+               accountable for the station. Changes: ENG-DEC-012 SUPERSEDED
+               in part (who releases); ENG-STD-005 §2.3, §2.4, §5.1 refined;
+               ENG-P-11 Check refined. Excluded until ruled separately:
+               security-related changes (§2.5), and anything that drives a
+               physical actuator (agent-dispatch-protocol ADP-2 R2/R3,
+               unruled). Needs first: a release signing identity for the
+               station, which is itself a security-related change (§2.5),
+               since Scorecard's Signed-Releases check (risk High) and
+               fid's V-ENG-008-01 are met today by the governor's signed tag.
+Recommend: A now, because B needs a signing identity and provenance that do
+           not exist yet, and would supersede a ruling the governor made the
+           day before. Q-005's release record is the step that makes B
+           possible later; B can be asked again as its own question once a
+           signing identity and attestations exist.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
 Status   : OPEN
