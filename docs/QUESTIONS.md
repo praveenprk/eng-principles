@@ -74,11 +74,18 @@ Options  : A — Add ENG-STD-002 §5 "Equivalent change processes": a
                two rows become `n/a`. This weakens a rule (CHARTER:
                Amendment), so it needs the governor to accept that
                explicitly.
-Recommend: A, because §1.2 already lets a project add gates but not
-           rename them, so a spec project cannot conform today however
-           disciplined its process; ADP-0 §5.4 already runs the same order
-           under other names; and A keeps the gate order and the
-           failing-test-first rule, so nothing is weakened.
+Recommend: A, widened to any project and any recognised process: the five
+           gates are read as exit conditions (ENG-STD-002 §2), and a project
+           MAY meet them through the process its organisation or industry
+           already uses (e.g. the IETF RFC process, the V-model, the ISO/IEC/
+           IEEE 12207 life-cycle processes, Stage-Gate, an agile definition
+           of done) when it records the mapping once as a project decision.
+           The order of §1.1 and the failing-test-first exit of §2.3 MUST be
+           kept. Because §1.2 lets a project add gates but not rename them, a
+           specification project cannot conform today however disciplined its
+           process; ADP-0 §5.4 already runs the same order under other names.
+           Nothing is weakened: the exit conditions are unchanged, only the
+           names of the artifacts that meet them.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
 Status   : OPEN
 
@@ -219,11 +226,79 @@ Notes on the `!` clauses:
   "Only a human merges" a MUST. ENG-DEC-012 has since refined both clauses
   (an automated contributor MAY merge into `main`; a human approves each
   promotion to `stable` and each security-related change). A MUST on the
-  base sentence would contradict that refinement, so the keyword goes on the
-  refined text only and the base sentence stays as history.
+  base sentence would contradict that refinement. Their wording is the
+  subject of Q-005; Q-004 applies to them as Q-005 is answered.
 - ENG-STD-002 §4.1 says to open a CRITICAL violation. ENG-STD-006 §2.3 (ENG-
   DEC-013) now grades our own rules HIGH or MEDIUM, and CRITICAL only for a
   known vulnerability in released code. Adding MUST to §4.1 as written would
-  make two MUST clauses disagree on the severity. Q-004 does not decide this;
-  answering A for §4.1 either keeps "CRITICAL" as a named exception to §2.3
-  or drops the word in favour of §2.3. The governor says which.
+  make two MUST clauses disagree on the severity. Its wording is the subject
+  of Q-006.
+
+### Q-005
+Scenario : A software line runs like a factory floor: several automated
+           contributors build, check and merge work into `main` all day. At
+           the end, a quality-control station checks the result, and only
+           what passes, with a record of the evidence, is packed for
+           distribution. ENG-STD-005 §2.3 ("Only a human merges") and ENG-P-11
+           ("Check: Merges, releases, and hardware sign-offs carry a human
+           approver") say a person must merge. ENG-DEC-012 already lets the
+           agent merge into `main`, so the standard and the principle's check
+           disagree today. Nothing states what evidence a release needs.
+Options  : A — Gate on evidence, not on who performs the step:
+               ENG-STD-005 §2.3: any authorised contributor, human or
+               automated, MAY merge into `main`; a merge MUST NOT happen
+               until every required check passes and no question is OPEN.
+               New §2.6 Release record: a release (promotion to `stable` and
+               its tag) MUST NOT happen without a release record stating the
+               commit, every required check's result at that commit, the open
+               violations, and who authorised the release. AGENTS.md MUST
+               record which roles may merge and which may release.
+               Security-related changes (§2.5) keep a human gate: only a
+               human merges them.
+               ENG-P-11 Check refined to match: releases, security-related
+               merges and hardware sign-offs carry a named human approver;
+               other merges carry evidence and trace to a named human
+               accountable for the line.
+               Reference models: ISO 9001:2015 §8.6 (release of products:
+               evidence of conformity, traceability to the person authorising
+               release); SLSA provenance and in-toto attestations as the
+               future form of the release record.
+           B — Keep a human at every merge: revert ENG-DEC-012's agent merge
+               into `main` and make "Only a human merges" a MUST.
+Recommend: A, because the gate that protects users is the evidence at
+           release, not who pressed merge. A records the evidence, keeps a
+           named person answerable for each release and each security change,
+           and makes ENG-P-11 and ENG-STD-005 agree again. Known cost, stated
+           honestly: OpenSSF Scorecard's Code-Review check (risk High) scores
+           human review of changes, and under ENG-DEC-013 its rating is taken
+           as is, so a line where only machines merge will show HIGH on the
+           dashboard. The release record is the answer to that finding, not a
+           way to hide it.
+Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
+Status   : OPEN
+
+### Q-006
+Scenario : A reviewer finds that a feature was built without its SPEC. ENG-
+           STD-002 §4.1 and ENG-P-12's check say to open a CRITICAL violation.
+           ENG-STD-006 §2.3 (ENG-DEC-013) grades our own rules HIGH or MEDIUM
+           and keeps CRITICAL for a known vulnerability in released code, as
+           CVSS, OpenSSF and security advisories use the word. The reviewer
+           cannot satisfy both.
+Options  : A — ENG-STD-002 §4.1 becomes: "Work found to have bypassed a gate
+               MUST stop. A violation MUST be opened, graded per ENG-STD-006
+               §2.3, and never below HIGH. The missing artifacts MUST be
+               backfilled honestly before work continues." ENG-STD-006 §2.3
+               gains the HIGH floor for a bypassed gate. ENG-P-12's check says
+               "recorded as a violation of at least HIGH severity". Severity
+               is then defined in one place (ENG-STD-006 §2.5, one fact in one
+               register). ISO audit practice calls a bypassed required gate a
+               major nonconformity; HIGH is that floor.
+           B — Keep CRITICAL for a bypassed gate as a named exception in
+               ENG-STD-006 §2.3. CRITICAL then means two different things.
+Recommend: A, because CRITICAL keeps the meaning outside readers already give
+           it, severity stays in one register, and a bypass can never grade
+           below HIGH. Moving from CRITICAL to HIGH lowers a stated severity,
+           which CHARTER (Amendment) counts as weakening unless the governor
+           accepts it explicitly.
+Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
+Status   : OPEN
