@@ -615,4 +615,5 @@ Recommend: A. It keeps the bar of the governor's own ruling without anyone
            governor's to give, not the agent's to assume. C is A plus a
            purchase.
 Raised by: this pull request (fix/ENG-DEC-018-maturity-corrections)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-23, PR #16 comment 7087583540):
+           "Q-016 A" → ENG-DEC-018

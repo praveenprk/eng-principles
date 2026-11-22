@@ -538,7 +538,13 @@ Decision: (1) The Maturity table is corrected (ENG-STD-009 §2.4: a level
           - eng-principles standards L3 → L2, the lowest of the
             deliverables it governs.
           - Each row gains the date it was read (§4.2).
-          (2) The ISO 16290 citation: per the governor's answer to Q-016.
+          (2) Per the governor's answer to Q-016 (A): ENG-STD-009 drops the
+          TRL column and the ISO 16290 citation, and REFERENCES.md its ISO
+          16290 row, until a check against the standard's own text is
+          recorded. The governor also asked that citations be grounded in
+          the real standard, in public summaries where available, and in a
+          procurement list for those that must be bought: a follow-up
+          decision.
 Reason  : An independent review of PR #15 advised against merging, on
           these findings; the review was not posted on the PR, and the
           governor merged without seeing it. The levels were the agent's
@@ -547,4 +553,4 @@ Reason  : An independent review of PR #15 advised against merging, on
 Risk    : Reviews held outside the pull request are not seen at merge
           time. Where an independent review is run, its findings belong on
           the pull request.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-23)
