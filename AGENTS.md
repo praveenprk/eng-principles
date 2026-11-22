@@ -14,4 +14,7 @@ Read CHARTER.md first.
 - Work on a branch named `type/ANCHOR-description`. Never commit to `main`.
 - Commit format: `type(scope): description — ENG-…`. No co-author or AI attribution lines.
 - Install the hooks before committing: `hooks/install`. Never bypass them (`--no-verify` is a violation).
-- Only the human governor pushes to `main` and merges.
+- Roles (ENG-STD-005 §2.6). Merge into `main`: the human governor only, because this
+  repository has not yet moved to `main` and `stable` (ENG-DEC-012); an automated
+  contributor does not merge here. Push to `main`: the human governor only. Release:
+  none yet (the repository is untagged); when it is, a human releases on a release record.

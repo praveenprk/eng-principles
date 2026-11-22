@@ -12,11 +12,11 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
     certification or compliance with them (ENG-DEC-004).
 
 ## 2. Checks
-2.1 Each check has an id, a level (MUST / SHOULD, RFC 2119), and the
+2.1 Each check MUST have an id, a level (MUST / SHOULD, RFC 2119), and the
     project kinds it applies to: `rust`, `python`, `spec`, `docs`,
     `standards`, or all. A project lists its kinds in audit/projects.json.
-2.2 The checks are implemented in audit/audit.py, from the git host's
-    current state, with evidence. The table below and that file list the
+2.2 The checks MUST be implemented in audit/audit.py, from the git host's
+    current state, with evidence. The table below and that file MUST list the
     same ids; CI fails if they differ.
 
 | Id | Group | Check | Level | Severity if failing | Applies to | Reference |
@@ -37,7 +37,7 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
 | `ci_green` | Quality | CI green on default branch | MUST | HIGH (ours: a red default branch can ship broken behaviour) | all | OpenSSF BP: test |
 | `required` | Quality | Build/test checks required to merge | MUST | HIGH (OpenSSF Scorecard: Branch-Protection (High)) | all | ENG-STD-004 §6; OpenSSF Scorecard: Branch-Protection |
 | `tests` | Quality | Automated tests | MUST | HIGH (OpenSSF BP MUST: test) | all | OpenSSF BP: test; ISO/IEC/IEEE 29119 |
-| `fmt_lint` | Quality | Formatter and linter in CI | MUST | HIGH (OpenSSF BP MUST: warnings) | rust, python | ENG-STD-004 §6.1; OpenSSF BP: warnings |
+| `fmt_lint` | Quality | Formatter and linter in CI, per language detected | MUST | HIGH (OpenSSF BP MUST: warnings) | all | ENG-STD-004 §0, §6.1; OpenSSF BP: warnings |
 | `dependabot` | Security | Automated dependency updates | SHOULD | HIGH (OpenSSF Scorecard: Dependency-Update-Tool (High)) | all | OpenSSF Scorecard: Dependency-Update-Tool |
 | `pinned` | Security | Actions pinned to a commit | SHOULD | HIGH (security floor (Scorecard: Pinned-Dependencies, Medium)) | all | OpenSSF Scorecard: Pinned-Dependencies |
 | `perms` | Security | Least-privilege workflow token | MUST | HIGH (OpenSSF Scorecard: Token-Permissions (High)) | all | OpenSSF Scorecard: Token-Permissions |
@@ -61,22 +61,23 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
     severity and its basis.
 
 ## 3. Status and rulings
-3.1 Each check reports `pass`, `fail`, `n/a` (does not apply), or `not
-    assessed` (ENG-STD-006 §2.4). A repository the audit cannot read is
-    `not assessed`, never passed or failed.
-3.2 Only the governor rules on a check for a project (e.g. that a
+3.1 Each check MUST report `pass`, `fail`, `n/a` (does not apply), or `not
+    assessed` (ENG-STD-006 §2.4). A repository the audit cannot read MUST be
+    reported `not assessed`, never passed or failed.
+3.2 Only the governor MAY rule on a check for a project (e.g. that a
     project's own registers stand in for ENG-STD-006, or that a host limit
-    blocks a check). A ruling is recorded in audit/projects.json under
+    blocks a check). A ruling MUST be recorded in audit/projects.json under
     `overrides`, with the reason, and shows on the dashboard.
-3.3 A failing MUST is a gap. A project registers its gaps as violations
+3.3 A failing MUST is a gap. A project MUST register its gaps as violations
     (ENG-STD-006) and closes them through its normal change process.
 
 ## 4. Dashboard
-4.1 `.github/workflows/dashboard.yml` runs the audit daily and on every
-    merge to `main`, and publishes the result (audit/render.py) on this
+4.1 `.github/workflows/dashboard.yml` MUST run the audit daily and on every
+    merge to `main`, and MUST publish the result (audit/render.py) on this
     repository's GitHub Pages site. The page is the current state of every
     governed project.
-4.2 A private repository shows its name and statuses only, never evidence.
+4.2 For a private repository the dashboard MUST show its name and statuses
+    only, and MUST NOT show evidence.
 
 ## Enforcement
 | Clause | Mechanism |
@@ -86,3 +87,5 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
 | 3.3 | Review; each project's violation register |
 
 Amended: 2026-11-22 — §2.3 and the Severity column added (ENG-DEC-013).
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-23 — `fmt_lint` applies to all projects, per language detected in the repository (ENG-DEC-015, Q-003).

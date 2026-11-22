@@ -18,10 +18,11 @@ Status: ACTIVE · Refs: ISO/IEC 25010:2023, ISO/IEC/IEEE 29119 (testing), IEC 61
 | Safety | Hazard list exists; each hazard has a mitigation and a test |
 
 ## 2. Release review
-2.1 Before a release, the governor walks the table for the changed scope and
-    records the result in the release notes. A row without evidence is `not yet`, not omitted.
+2.1 Before a release, the governor MUST walk the table for the changed scope and
+    record the result in the release notes. A row without evidence MUST be marked `not yet`, not omitted.
 
 ## 3. Safety-relevant hardware
 3.1 Hardware that can cause injury, fire, or property damage MUST have a hazard
     analysis before BUILD (ENG-STD-002 gate 4). IEC 61508 is the reference model
     for structure. Formal SIL assessment is out of scope unless a project's decision register adopts it.
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).

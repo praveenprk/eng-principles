@@ -65,4 +65,15 @@ check(secret not in html, "private project's evidence not rendered")
 check("not assessed" in html, "unreadable project shown as not assessed")
 check('class="sev HIGH"' in html, "failing check shows its severity")
 
+# fmt_lint detects languages from the repository, whatever its kinds
+# (ENG-STD-004 §0, ENG-DEC-015): extension, shebang under hooks/ or scripts/,
+# and inline <script> in HTML.
+files = {"hooks/commit-msg": "#!/bin/sh\n", "scripts/ci/check": "#!/usr/bin/env python3\n",
+         "index.html": "<p>x</p><script>let a = 1</script>", "page.html": '<script src="x.js"></script>',
+         "README.md": "", "src/lib.rs": ""}
+found = audit.languages(list(files), lambda p: files[p])
+check(set(found) == {"Shell", "Python", "JavaScript/TypeScript", "Rust"}, f"fmt_lint detects languages by extension, shebang and inline script ({sorted(found)})")
+check(found["JavaScript/TypeScript"] == "index.html (inline <script>)", "an external <script src> alone is not inline code")
+check(audit.languages(["README.md", "docs/a.md"], lambda p: "") == {}, "no executable text: fmt_lint is n/a")
+
 sys.exit(1 if failed else 0)
