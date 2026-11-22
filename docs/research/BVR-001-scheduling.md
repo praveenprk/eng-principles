@@ -10,8 +10,10 @@ Asked by : the governor, 2026-11-23: "I need this scheduler stuff also
            large scale where automation needs to be there in the future."
 
 Every row below says how it was verified (REFERENCES.md levels). **Fact**
-means read at the source on 2026-11-23. **Judgment** means this record's
-reasoning. **Hypothesis** means a claim still to be tested.
+means a claim about the source, at the level shown, read on 2026-11-23.
+Quotation marks are used only for text read at the source.
+**Judgment** means this record's reasoning. **Hypothesis** means a claim
+still to be tested.
 
 ## 1. The question
 
@@ -22,14 +24,14 @@ collaborators, researched, or built?
 
 ## 2. What existing systems already solve
 
-| Source | What it solves (fact, quoted) | Level |
+| Source | What it solves (fact; quoted only where primary) | Level |
 |--------|-------------------------------|-------|
 | OSTEP, ch. 7–10 ([site](https://pages.cs.wisc.edu/~remzi/OSTEP/)): CPU Scheduling, Multi-level Feedback, Lottery Scheduling, Multi-CPU Scheduling; ch. 6 Direct Execution | The base set: turnaround against response time; learning priority from behaviour when job length is unknown (MLFQ); proportional share; multiprocessor affinity; preemption through a timer | chapter list: primary. Content: secondary (from the governor's PDF, not re-read here) |
 | Linux SCHED_DEADLINE ([kernel docs](https://docs.kernel.org/scheduler/sched-deadline.html)) | "basically an implementation of the Earliest Deadline First (EDF) scheduling algorithm", with CBS; per-task "runtime", "period" and "deadline" | primary |
-| Kubernetes scheduling framework ([docs](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/)) | A "pluggable architecture" with extension points such as QueueSort, Filter, Score, Reserve, **Permit**, Bind. Policy is plugged in; the mechanism stays fixed | secondary (from a summary of the page) |
+| Kubernetes scheduling framework ([docs](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/)) | Scheduling policy is added as plug-ins at fixed extension points, among them QueueSort, Filter, Score, Reserve, **Permit** and Bind; the mechanism stays fixed | secondary (from a summary of the page) |
 | Temporal ([docs](https://docs.temporal.io/workflows)) | Workflows "can run—and keep running—for years, even if the underlying infrastructure fails"; after a crash "Temporal will automatically recreate its pre-failure state" | primary |
 | Ray ([docs](https://docs.ray.io/en/latest/ray-core/scheduling/index.html)) | Strategies DEFAULT, SPREAD, placement groups, node affinity; CPU, GPU, memory and custom resources | primary |
-| A2A protocol ([spec](https://a2a-protocol.org/latest/specification/)) | Agent task states include working, completed, failed, rejected, and **input-required**, an "interrupted state" for "human-in-the-loop scenarios" | partly primary (intro); states from a summary |
+| A2A protocol ([spec](https://a2a-protocol.org/latest/specification/)) | The specification says tasks "may involve human-in-the-loop scenarios" (§1.1–1.2). Its TaskState table includes working, completed, failed, rejected and **TASK_STATE_INPUT_REQUIRED**, where the agent waits for user input | human-in-the-loop: primary. The state list: secondary (from a summary) |
 | ROS 2 executors ([docs](https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Executors.html)) | Callback scheduling in robots | unverified: the site refused automated reads |
 | Borg ([Google Research](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)), Slurm, HTCondor, Airflow, Argo Workflows | Cluster and batch scheduling at scale; DAG workflows | sources reachable; content not read this pass |
 | agent-dispatch-protocol (this portfolio) | Dispatching work to agents, with conformance vectors | primary (ADP-0/1/2 in this portfolio) |
@@ -43,7 +45,7 @@ scheduler has to know about. AI-assisted work differs in these ways:
 | # | Property of the work | Nearest existing answer | Gap (hypothesis) |
 |---|----------------------|-------------------------|------------------|
 | 1 | **Unknown, heavy-tailed duration and cost** (tokens, money, retries) | MLFQ learns priority from behaviour (OSTEP ch. 8); CBS bounds a budget (SCHED_DEADLINE) | Budgets are in money and tokens, not CPU time; nobody schedules on them across tools |
-| 2 | **Waiting on a human** (a governor's ruling, a review) as a normal state | A2A `input-required`; Kubernetes `Permit`; Temporal waits for years | Human attention is a scarce resource with its own queue. Batching rulings ("review by exception", contextos RFC-032) is a scheduling decision |
+| 2 | **Waiting on a human** (a governor's ruling, a review) as a normal state | A2A TASK_STATE_INPUT_REQUIRED; Kubernetes `Permit`; Temporal waits for years | Human attention is a scarce resource with its own queue. Batching rulings ("review by exception", contextos RFC-032) is a scheduling decision |
 | 3 | **Evidence gates**: a step may only start when evidence exists | Kubernetes Filter and Permit; workflow DAGs | A gate predicate over records (questions OPEN, checks green, levels per ENG-STD-009) is not a standard plugin anywhere found |
 | 4 | **Preemption costs context**: stopping an agent loses state | Temporal recreates state by replay; OS context switch | Agent context is large and lossy; resuming means a handoff (phasectl's domain) |
 | 5 | **Authority bounded by evidence** (ENG-P-15): for physical work, the envelope limits what may be scheduled | SCHED_DEADLINE admission control; real-time executors | Admission control that consults a safety envelope and a safe state is domain work, not a general scheduler |
@@ -53,7 +55,7 @@ scheduler has to know about. AI-assisted work differs in these ways:
 
 | Option | What it would mean | Judgment |
 |--------|--------------------|----------|
-| Reuse | Adopt one system (e.g. Temporal) for everything | Covers durability (rows 2, 4), not evidence gates or envelopes; ties every product to one runtime, against "never a runtime dependency" (CHARTER) |
+| Reuse | Adopt one system (e.g. Temporal) for everything | Covers durability (rows 2, 4), but not evidence gates or envelopes. It would also tie every product to one runtime: lock-in, against systems people can replace (ENG-P-13, the North Star) |
 | **Integrate** | Keep mechanisms where they live (OS, Kubernetes, Temporal, ROS 2); write the *policy* as plug-ins at their existing extension points | Fits the Unix ground: small parts, a written contract. Most of rows 1–3 fit Filter, Permit or Score style hooks |
 | Adapt | Fork an existing scheduler | Not justified by any gap found |
 | Procure | Buy a commercial orchestrator | No requirement yet that only a vendor meets |
