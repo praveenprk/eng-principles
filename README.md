@@ -46,13 +46,13 @@ make them stricter, and they may never make them weaker without saying so.
    `scripts/hooks/`, run `hooks/test` and `scripts/hooks/install`.
 4. Put agent instructions in `AGENTS.md`. Tool-specific files only point to it (ENG-STD-005 §6).
 5. Add a section for the project to [CONFORMANCE.md](CONFORMANCE.md).
-6. Optional, the develop → qa → main flow (ENG-STD-005 §2.3–2.4, ENG-DEC-010):
-   create `develop` and `qa` from the default branch; rules on `develop`
-   (pull request, required checks, squash or rebase, linear history) and on
-   `qa` and the default branch (pull request, required checks, merge
-   commits); `docs/QUESTIONS.md` from templates/question.md; a `Q` line in
-   `anchors`; require `commit-check / questions` on the default branch; say
-   in AGENTS.md who merges where.
+6. Branches `main` (default) and `stable` (ENG-STD-005 §2.3–2.5, ENG-DEC-012):
+   create `stable` at the latest release; rules on `main` (pull request,
+   required checks, squash or rebase, linear history) and on `stable`
+   (pull request, required checks, merge commits only); `docs/QUESTIONS.md`
+   from templates/question.md; a `Q` line in `anchors`; require
+   `commit-check / questions` on `main`; a `security` label; say in
+   AGENTS.md who merges where.
 
 ## Changing this repository
 Every change needs an ENG-DEC entry. Commits follow ENG-STD-005 with ENG-* anchors.

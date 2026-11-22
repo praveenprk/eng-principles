@@ -1,7 +1,7 @@
 # Plan — develop, qa, main: agent integrates, governor judges
 
 Date    : 2026-11-16
-Status  : ACTIVE (ENG-DEC-010 ACCEPTED 2026-11-17; adoption in fid and phasectl next)
+Status  : SUPERSEDED (ENG-DEC-012, 2026-11-22: main and stable replace develop, qa, main)
 Anchor  : ENG-STD-005 §2
 Owner   : PK (governor)
 

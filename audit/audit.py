@@ -389,6 +389,49 @@ CHECKS = [
 ]
 
 
+# Severity of a failing check (ENG-DEC-013, ENG-STD-006 §2.3): an OpenSSF
+# Scorecard check's own risk; otherwise an OpenSSF Best Practices passing
+# criterion (MUST HIGH, SHOULD MEDIUM, SUGGESTED LOW); otherwise ours (HIGH if
+# behaviour, personal data or compliance is affected, else MEDIUM). Security
+# items are never below HIGH. The basis is shown next to each severity.
+SEVERITY = {
+    "readme": ("HIGH", "OpenSSF BP MUST: description_good"),
+    "license": ("LOW", "OpenSSF Scorecard: License (Low)"),
+    "contributing": ("HIGH", "OpenSSF BP MUST: contribution"),
+    "coc": ("MEDIUM", "ours (OpenSSF BP silver only)"),
+    "security": ("HIGH", "security floor (Scorecard: Security-Policy, Medium)"),
+    "issue_tpl": ("MEDIUM", "ours"),
+    "pr_tpl": ("MEDIUM", "ours"),
+    "about": ("MEDIUM", "ours"),
+    "agents": ("MEDIUM", "ours"),
+    "rules": ("HIGH", "OpenSSF Scorecard: Branch-Protection (High)"),
+    "commit_check": ("MEDIUM", "ours"),
+    "registers": ("MEDIUM", "ours"),
+    "ci": ("LOW", "OpenSSF Scorecard: CI-Tests (Low)"),
+    "ci_green": ("HIGH", "ours: a red default branch can ship broken behaviour"),
+    "required": ("HIGH", "OpenSSF Scorecard: Branch-Protection (High)"),
+    "tests": ("HIGH", "OpenSSF BP MUST: test"),
+    "fmt_lint": ("HIGH", "OpenSSF BP MUST: warnings"),
+    "dependabot": ("HIGH", "OpenSSF Scorecard: Dependency-Update-Tool (High)"),
+    "pinned": ("HIGH", "security floor (Scorecard: Pinned-Dependencies, Medium)"),
+    "perms": ("HIGH", "OpenSSF Scorecard: Token-Permissions (High)"),
+    "supply": ("HIGH", "OpenSSF Scorecard: Vulnerabilities (High); CRITICAL if a known vulnerability is present"),
+    "changelog": ("HIGH", "OpenSSF BP MUST: release_notes"),
+    "semver": ("LOW", "OpenSSF BP SUGGESTED: version_semver"),
+    "releases": ("MEDIUM", "ours"),
+    "signed": ("HIGH", "OpenSSF Scorecard: Signed-Releases (High)"),
+    "cargo_meta": ("MEDIUM", "ours"),
+    "msrv": ("MEDIUM", "ours"),
+    "docs": ("MEDIUM", "ours"),
+    "pyproject": ("MEDIUM", "ours"),
+    "py_min": ("MEDIUM", "ours"),
+    "bcp14": ("MEDIUM", "ours"),
+    "seccons": ("HIGH", "security floor (RFC 3552)"),
+    "trace": ("MEDIUM", "ours"),
+}
+SEVERITIES = ("CRITICAL", "HIGH", "MEDIUM", "LOW")
+
+
 def audit(owner, name, kinds, overrides):
     r = Repo(owner, name)
     readable = bool(r.meta)
@@ -406,7 +449,9 @@ def audit(owner, name, kinds, overrides):
                 res = fn(r, x)
             except Exception as e:  # a check that cannot run is reported, never silently passed
                 res = result("fail", f"check could not run: {type(e).__name__}")
-        out.append({"id": cid, "group": group, "title": title, "level": level, "ref": ref, **res})
+        sv, basis = SEVERITY[cid]
+        out.append({"id": cid, "group": group, "title": title, "level": level, "ref": ref,
+                    "severity": sv, "severity_basis": basis, **res})
     scored = ("pass", "fail")
     must = [c for c in out if c["level"] == "MUST" and c["status"] in scored]
     should = [c for c in out if c["level"] == "SHOULD" and c["status"] in scored]
@@ -419,6 +464,7 @@ def audit(owner, name, kinds, overrides):
         "head": (gh(f"repos/{r.full}/commits/{r.default}") or {}).get("sha", "")[:7],
         "must": [sum(c["status"] == "pass" for c in must), len(must)],
         "should": [sum(c["status"] == "pass" for c in should), len(should)],
+        "gaps": {v: sum(c["status"] == "fail" and c["severity"] == v for c in out) for v in SEVERITIES},
         "checks": out,
     }
 
