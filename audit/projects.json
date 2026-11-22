@@ -4,7 +4,7 @@
     {"name": "fid", "kinds": ["rust", "python", "spec"]},
     {"name": "phasectl", "kinds": ["python"]},
     {
-      "name": "adp-protocol",
+      "name": "agent-dispatch-protocol",
       "kinds": ["spec"],
       "overrides": {
         "registers": {
