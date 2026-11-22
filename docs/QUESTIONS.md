@@ -370,3 +370,121 @@ Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
            Q-005 release record. Automated release can be raised again as
            its own question once a signing identity and attestations
            exist." → ENG-DEC-015
+
+### Q-008
+Scenario : A robotics engineer joins and opens CHARTER.md to learn what the
+           practice is for. The Purpose section lists software, hardware,
+           firmware and documentation, and nothing says why the portfolio
+           exists or where it is heading. The North Star review
+           (2026-11-23) proposes one paragraph, labelled as aspiration, so
+           that no programme becomes a commitment by being named.
+Options  : A — Add to CHARTER Purpose, labelled aspiration: "Make productive
+               capability, intelligence, infrastructure and access to
+               resources steadily more abundant, affordable, safe,
+               sustainable and widely owned, on Earth and beyond it. We
+               pursue this through systems whose claims rest on physical
+               reality and evidence, which people can inspect, repair,
+               replace and own, and whose benefits reach the people who use
+               them. Ambition sets the direction; measured evidence sets the
+               pace." No programme is named in the charter.
+           B — Leave Purpose as is; keep the North Star in the review only.
+Recommend: A. The governor called the proposed text "good" in session on
+           2026-11-23; this entry asks for confirmation on the PR. Naming no
+           programme keeps the charter true whatever any programme's
+           feasibility turns out to be.
+Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
+Status   : OPEN
+
+### Q-009
+Scenario : A contributor designing an agricultural droid reads that the
+           practice is "grounded in Unix" (CHARTER Grounding; ENG-P-13 "the
+           ground"). Unix tells them how to compose the droid's software,
+           but nothing about soil, torque, batteries or a child walking into
+           the field. For physical systems the ground is physics.
+Options  : A — CHARTER Grounding: physical reality and evidence are the
+               ground; Unix is the software ground. ENG-P-13 is renamed
+               "Unix discipline (the software ground)", its rules unchanged.
+           B — Keep Unix as the ground of everything.
+Recommend: A. The governor ruled it in session on 2026-11-23: "ground is
+           physical reality and evidence", "unix as the software ground";
+           this entry asks for confirmation on the PR. Every ENG-P rule
+           survives unchanged; only what sits beneath them changes.
+Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
+Status   : OPEN
+
+### Q-010
+Scenario : ENG-DEC-015 replaced a human merge step with an evidence gate and
+           moved a severity from CRITICAL to a HIGH floor. Each time, the
+           governor had to accept explicitly that this was not "weakening" a
+           rule, because the charter says a rule "may never be weakened" and
+           never says what weakening is. The same question will return every
+           time a step changes hands or a term is aligned with an external
+           standard.
+Options  : A — Replace the word, in CHARTER (header and "Tighten, never
+               weaken"), PRINCIPLES.md header and AGENTS.md: "A rule may be
+               refined. Its bar may never be lowered." The bar is the
+               evidence, traceability and accountability the rule demands.
+               Changing who or what performs a step, or aligning a term with
+               the meaning an external standard gives it, is a refinement
+               when the bar is kept or raised; the decision making such a
+               change states why for each of the three. The AGENTS.md Roles
+               line is not touched.
+           B — Keep "weakened", undefined, and accept each case explicitly.
+Recommend: A. The governor, in session on 2026-11-23: "instead of 'weakened'
+           use something else word", then "bar may never be lowered is fine,
+           keep it". A adds a test every such change must pass, so the rule
+           itself is tightened, not loosened.
+Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
+Status   : OPEN
+
+### Q-011
+Scenario : A contributor starts writing a job scheduler for agents without
+           checking that operating systems solved most of it decades ago. A
+           robot team ships a manipulator whose software follows every
+           ENG-STD rule, but nothing required its operating envelope or safe
+           state. A cheap droid passes every test and cannot be repaired by
+           the farmer who owns it. Today's principles catch none of the
+           three.
+Options  : A — Add or extend three principles:
+               1. Look before you build (new): before original work, existing
+                  knowledge and technology are searched and a reuse, integrate,
+                  adapt, procure, collaborate, research or build decision is
+                  recorded. Operating systems are the first prior art for
+                  scheduling, isolation, protection, recovery and replaceable
+                  interfaces (OSTEP).
+               2. Authority is bounded by evidence (extends ENG-P-08 and
+                  ENG-P-11 to physical systems): autonomy stays inside a
+                  validated operating envelope with a defined safe state, and
+                  shrinks as evidence of deviation grows; the domain sets the
+                  envelope.
+               3. Lifecycle and access are design inputs (new): energy,
+                  materials, maintenance, lifecycle cost, repairability and
+                  ownership are assessed and recorded at SPEC. Recorded
+                  assessments, reviewed, not pass/fail gates.
+           B — Add none now; wait for a project in a physical domain.
+Recommend: A. The governor, in session on 2026-11-23: principles 2, 4 and 5
+           "good"; doctrine table "agree"; "what problems OS has solved we
+           just replicate and make superbly integrable". A sets direction
+           without writing any domain standard ahead of a project.
+Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
+Status   : OPEN
+
+### Q-012
+Scenario : A second engineering organisation wants to adopt eng-principles
+           for its own robots. It asks two things: which rules bind it and
+           which stay its own, and whether its products will need this
+           repository to build or run.
+Options  : A — CHARTER Authority Order gains the four layers: portfolio
+               doctrine (CHARTER, PRINCIPLES), domain standards (ENG-STD-*,
+               written only when a project in that domain exists), product
+               requirements and implementation contracts (each project, by
+               its own process, ENG-STD-002 §5). And: no product depends on
+               this repository to build or run (ENG-DEC-007); the only
+               exception is the shared commit check at CI time, called pinned
+               to a commit (ENG-DEC-009).
+           B — Leave the Authority Order as is.
+Recommend: A. It is what the repository already does, written down so a
+           second organisation can rely on it; the governor's review of the
+           North Star dispatch accepted the four layers.
+Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
+Status   : OPEN

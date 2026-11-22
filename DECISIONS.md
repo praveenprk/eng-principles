@@ -453,3 +453,29 @@ Risk    : OpenSSF Scorecard's Code-Review
           a release record, their next releases do not meet ENG-STD-005
           §2.6.
 Status  : ACCEPTED (governor, 2026-11-22)
+
+---
+
+## ENG-DEC-016 — North Star foundation: purpose, ground, the bar, three principles, four layers
+
+Date    : 2026-11-23
+Refs    : docs/QUESTIONS.md Q-008..Q-012; CHARTER (Purpose, Grounding,
+          Authority Order, Amendment); PRINCIPLES.md (ENG-P-08, ENG-P-11,
+          ENG-P-13); AGENTS.md; ENG-DEC-007, ENG-DEC-009, ENG-DEC-015;
+          Civilisational Engineering North Star dispatch and its
+          independent review (2026-11-23); OSTEP
+Decision: Per the governor's answers to Q-008 (North Star), Q-009 (the
+          ground), Q-010 (the bar may never be lowered), Q-011 (three
+          principles) and Q-012 (four layers; never a runtime dependency).
+          No change to CHARTER, PRINCIPLES or AGENTS until those answers are
+          given.
+Reason  : The practice is to govern a portfolio that reaches beyond
+          software, toward robots, factories and space. The charter names
+          neither that direction nor a ground that holds for physical
+          systems, and its no-weakening rule has no definition.
+Risk    : Until applied, none. Once applied: new principles without domain
+          standards behind them are reviewed, not checked (ENG-P-04).
+          Delegated release authority, the L0–L6 maturity scale and
+          scheduling as a portfolio abstraction stay open, outside this
+          decision.
+Status  : PROPOSED
