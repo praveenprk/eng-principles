@@ -527,8 +527,8 @@ Status  : ACCEPTED (governor, 2026-11-23)
 ## ENG-DEC-018 — Maturity corrections after independent review
 
 Date    : 2026-11-23
-Refs    : ENG-DEC-017; ENG-STD-009 §2.3, §2.4, §3.3, §4.2; CONFORMANCE.md
-          Maturity; docs/QUESTIONS.md Q-016, Q-017; ENG-P-06
+Refs    : ENG-DEC-017; ENG-STD-009 §2.3, §2.4, §4.2; CONFORMANCE.md
+          Maturity; docs/QUESTIONS.md Q-016; ENG-P-06
 Decision: (1) The Maturity table is corrected (ENG-STD-009 §2.4: a level
           drops in the change that records the lost evidence):
           - eng-principles audit L5 → L3. L4 needs a committed record of
@@ -548,9 +548,6 @@ Decision: (1) The Maturity table is corrected (ENG-STD-009 §2.4: a level
           the real standard, in public summaries where available, and in a
           procurement list for those that must be bought: a follow-up
           decision.
-          (3) Per Q-017 (A, under the governor's standing instruction to
-          take the recommended option): ENG-STD-009 §3.3, a document that
-          describes several deliverables takes the lowest of their levels.
 Reason  : An independent review of PR #15 advised against merging, on
           these findings; the review was not posted on the PR, and the
           governor merged without seeing it. The levels were the agent's
@@ -560,3 +557,18 @@ Risk    : Reviews held outside the pull request are not seen at merge
           time. Where an independent review is run, its findings belong on
           the pull request.
 Status  : ACCEPTED (governor, 2026-11-23)
+
+---
+
+## ENG-DEC-019 — Maturity of a document that describes several deliverables
+
+Date    : 2026-11-23
+Refs    : docs/QUESTIONS.md Q-017; ENG-STD-009 §3.3; ENG-DEC-018;
+          CONFORMANCE.md Maturity; ENG-P-06
+Decision: Per the governor's answer to Q-017.
+Reason  : ENG-DEC-018 placed the eng-principles standards at "the lowest
+          of the deliverables it governs", a rule written into a register
+          and not into the standard (independent review of PR #16).
+Risk    : None beyond the rule itself; the level it gives is already in
+          CONFORMANCE.md.
+Status  : PROPOSED

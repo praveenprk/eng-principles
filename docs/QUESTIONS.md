@@ -633,5 +633,4 @@ Options  : A — §3.3 gains: a document that describes several deliverables
 Recommend: A. A claim is only as strong as its weakest evidence (ENG-P-06);
            the lowest level cannot overstate.
 Raised by: this pull request (fix/ENG-DEC-018-maturity-corrections)
-Status   : ANSWERED (governor's standing instruction, 2026-11-23: "whatever
-           Qs requires my answer go with recommended one"): A → ENG-DEC-018
+Status   : OPEN
