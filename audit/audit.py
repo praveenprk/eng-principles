@@ -76,6 +76,7 @@ def ok(cond, yes, no):
 # ---------------------------------------------------------------- checks
 # Each check: id, group, title, level (MUST / SHOULD), ref, kinds (None = all), fn(repo, ctx)
 
+
 def c_readme(r, x):
     p = r.has(r"README(\.md|\.rst|\.txt)?")
     return ok(p, p, "no README at the root")
@@ -113,8 +114,11 @@ def c_pr_tpl(r, x):
 
 def c_about(r, x):
     d, t = r.meta.get("description"), r.meta.get("topics") or []
-    return ok(d and t, f"description and {len(t)} topics", "missing " + " and ".join(
-        [s for s, v in (("description", d), ("topics", t)) if not v]))
+    return ok(
+        d and t,
+        f"description and {len(t)} topics",
+        "missing " + " and ".join([s for s, v in (("description", d), ("topics", t)) if not v]),
+    )
 
 
 def c_agents(r, x):
@@ -123,10 +127,20 @@ def c_agents(r, x):
 
 
 def c_registers(r, x):
-    found = [n for n, pat in (("decisions", r"(docs/)?DECISIONS\.md"), ("violations", r"(docs/)?(VIOLATIONS|DEFECTS)\.md"),
-                              ("ICS", r"(docs/conformance/.*ICS.*\.md|CONFORMANCE\.md)")) if r.has(pat)]
-    return ok(len(found) == 3, ", ".join(found), "missing: " + ", ".join(
-        sorted({"decisions", "violations", "ICS"} - set(found))))
+    found = [
+        n
+        for n, pat in (
+            ("decisions", r"(docs/)?DECISIONS\.md"),
+            ("violations", r"(docs/)?(VIOLATIONS|DEFECTS)\.md"),
+            ("ICS", r"(docs/conformance/.*ICS.*\.md|CONFORMANCE\.md)"),
+        )
+        if r.has(pat)
+    ]
+    return ok(
+        len(found) == 3,
+        ", ".join(found),
+        "missing: " + ", ".join(sorted({"decisions", "violations", "ICS"} - set(found))),
+    )
 
 
 def c_ruleset(r, x):
@@ -138,8 +152,12 @@ def c_ruleset(r, x):
     need = {"pull_request", "non_fast_forward", "deletion"}
     if need <= types:
         return result("pass", "ruleset: " + ", ".join(sorted(need)))
-    if prot and not (prot.get("allow_force_pushes") or {}).get("enabled") and not (prot.get("allow_deletions") or {}).get("enabled") \
-            and prot.get("required_pull_request_reviews") is not None:
+    if (
+        prot
+        and not (prot.get("allow_force_pushes") or {}).get("enabled")
+        and not (prot.get("allow_deletions") or {}).get("enabled")
+        and prot.get("required_pull_request_reviews") is not None
+    ):
         return result("pass", "classic branch protection")
     return result("fail", "default branch rules lack: " + ", ".join(sorted(need - types)))
 
@@ -167,7 +185,11 @@ def c_ci(r, x):
 
 def c_ci_green(r, x):
     runs = gh(f"repos/{r.full}/commits/{r.default}/check-runs?per_page=100") or {}
-    done = [c for c in runs.get("check_runs", []) if c["status"] == "completed" and c["conclusion"] not in ("skipped", "neutral")]
+    done = [
+        c
+        for c in runs.get("check_runs", [])
+        if c["status"] == "completed" and c["conclusion"] not in ("skipped", "neutral")
+    ]
     if not done:
         return result("fail", f"nothing verifies {r.default} after a merge: no checks ran on its HEAD")
     bad = sorted({c["name"] for c in done if c["conclusion"] != "success"})
@@ -186,11 +208,25 @@ def c_required_checks(r, x):
 # here, with its usual formatter and linter.
 LANGUAGES = [
     ("Rust", r".+\.rs", ("cargo fmt", r"cargo fmt"), ("clippy", r"cargo clippy")),
-    ("Python", r".+\.pyi?", ("ruff format/black", r"\bruff\b|\bblack\b"), ("ruff/flake8/pylint", r"\bruff\b|flake8|pylint")),
+    (
+        "Python",
+        r".+\.pyi?",
+        ("ruff format/black", r"\bruff\b|\bblack\b"),
+        ("ruff/flake8/pylint", r"\bruff\b|flake8|pylint"),
+    ),
     ("Shell", r".+\.(sh|bash)", ("shfmt", r"\bshfmt\b"), ("shellcheck", r"\bshellcheck\b")),
-    ("JavaScript/TypeScript", r".+\.(m?js|cjs|jsx|tsx?)", ("prettier/biome/deno fmt", r"\bprettier\b|\bbiome\b|deno fmt"),
-     ("eslint/biome/deno lint", r"\beslint\b|\bbiome\b|deno lint")),
-    ("Go", r".+\.go", ("gofmt", r"\bgofmt\b|go fmt"), ("go vet/golangci-lint/staticcheck", r"go vet|golangci-lint|staticcheck")),
+    (
+        "JavaScript/TypeScript",
+        r".+\.(m?js|cjs|jsx|tsx?)",
+        ("prettier/biome/deno fmt", r"\bprettier\b|\bbiome\b|deno fmt"),
+        ("eslint/biome/deno lint", r"\beslint\b|\bbiome\b|deno lint"),
+    ),
+    (
+        "Go",
+        r".+\.go",
+        ("gofmt", r"\bgofmt\b|go fmt"),
+        ("go vet/golangci-lint/staticcheck", r"go vet|golangci-lint|staticcheck"),
+    ),
 ]
 SHEBANG = re.compile(r"#!\s*(?:/usr/bin/env\s+)?(?:\S*/)?(sh|bash|dash|zsh|python3?|node)\b")
 SCRIPT_DIRS = re.compile(r"(?:^|.*/)(?:hooks|scripts|bin)/(?:[^/]+/)*[^/.]+")
@@ -208,9 +244,15 @@ def languages(paths, text):
         if SCRIPT_DIRS.fullmatch(p) and not p.startswith(".git"):
             m = SHEBANG.match(text(p)[:120])
             if m:
-                name = {"python": "Python", "python3": "Python", "node": "JavaScript/TypeScript"}.get(m.group(1), "Shell")
+                name = {"python": "Python", "python3": "Python", "node": "JavaScript/TypeScript"}.get(
+                    m.group(1), "Shell"
+                )
                 found.setdefault(name, p)
-        if re.fullmatch(r".+\.html?", p, re.I) and "JavaScript/TypeScript" not in found and re.search(r"<script\b(?![^>]*\bsrc=)", text(p), re.I):
+        if (
+            re.fullmatch(r".+\.html?", p, re.I)
+            and "JavaScript/TypeScript" not in found
+            and re.search(r"<script\b(?![^>]*\bsrc=)", text(p), re.I)
+        ):
             found["JavaScript/TypeScript"] = p + " (inline <script>)"
     return found
 
@@ -240,11 +282,20 @@ def c_dependabot(r, x):
 
 
 def c_actions_pinned(r, x):
-    uses = [(p, u.strip()) for p, t in r.workflows().items() for u in re.findall(r"uses:\s*(\S+)", t) if not u.startswith("./")]
+    uses = [
+        (p, u.strip())
+        for p, t in r.workflows().items()
+        for u in re.findall(r"uses:\s*(\S+)", t)
+        if not u.startswith("./")
+    ]
     if not uses:
         return result("n/a", "no third-party actions")
     loose = [u for _, u in uses if not SHA.search(u + " ") and "praveenprk/" not in u]
-    return ok(not loose, f"{len(uses)} actions pinned", f"{len(loose)} of {len(uses)} actions not pinned to a commit, e.g. {loose[0]}" if loose else "")
+    return ok(
+        not loose,
+        f"{len(uses)} actions pinned",
+        f"{len(loose)} of {len(uses)} actions not pinned to a commit, e.g. {loose[0]}" if loose else "",
+    )
 
 
 def c_token_perms(r, x):
@@ -266,7 +317,11 @@ def c_semver_tags(r, x):
     x["semver_tags"] = sv
     if not tags:
         return result("fail", "no tags: no release yet")
-    return ok(len(sv) == len(tags), f"{len(sv)} SemVer tags, latest {sv[0]}" if sv else "", "tags not vX.Y.Z: " + ", ".join(t for t in tags if t not in sv)[:80])
+    return ok(
+        len(sv) == len(tags),
+        f"{len(sv)} SemVer tags, latest {sv[0]}" if sv else "",
+        "tags not vX.Y.Z: " + ", ".join(t for t in tags if t not in sv)[:80],
+    )
 
 
 def c_releases(r, x):
@@ -317,15 +372,25 @@ def c_msrv_ci(r, x):
     if not msrv:
         return result("n/a" if c is None else "fail", "no rust-version declared")
     t = "\n".join(r.workflows().values())
-    return ok(re.search(rf"\b{re.escape(msrv)}(\.\d+)?\b", t), f"CI builds on the MSRV {msrv}", f"rust-version {msrv} is declared but CI never builds with it")
+    return ok(
+        re.search(rf"\b{re.escape(msrv)}(\.\d+)?\b", t),
+        f"CI builds on the MSRV {msrv}",
+        f"rust-version {msrv} is declared but CI never builds with it",
+    )
 
 
 def c_supply_chain(r, x):
     t = "\n".join(r.workflows().values())
     if "rust" in x["kinds"]:
-        return ok(re.search(r"cargo[- ](deny|audit)|rustsec", t), "cargo-deny/audit in CI", "no cargo-deny or cargo-audit in CI")
+        return ok(
+            re.search(r"cargo[- ](deny|audit)|rustsec", t),
+            "cargo-deny/audit in CI",
+            "no cargo-deny or cargo-audit in CI",
+        )
     if "python" in x["kinds"]:
-        return ok(re.search(r"pip-audit|safety|osv-scanner", t), "dependency audit in CI", "no pip-audit/osv-scanner in CI")
+        return ok(
+            re.search(r"pip-audit|safety|osv-scanner", t), "dependency audit in CI", "no pip-audit/osv-scanner in CI"
+        )
     return result("n/a", "no package dependencies")
 
 
@@ -335,7 +400,11 @@ def c_docs_lint(r, x):
         return result("n/a", "no library crate")
     c = cargo(r) or {}
     lints = json.dumps(c.get("lints", {}))
-    return ok("missing_docs" in r.text(lib) or "missing_docs" in lints, "missing_docs lint on", "public API docs not enforced (no missing_docs lint)")
+    return ok(
+        "missing_docs" in r.text(lib) or "missing_docs" in lints,
+        "missing_docs lint on",
+        "public API docs not enforced (no missing_docs lint)",
+    )
 
 
 def c_pyproject(r, x):
@@ -360,7 +429,11 @@ def c_py_min(r, x):
     if not m:
         return result("fail", "no requires-python lower bound")
     t = "\n".join(r.workflows().values())
-    return ok(re.search(rf"['\"]?{re.escape(m.group(1))}['\"]?", t), f"CI tests Python {m.group(1)} (the minimum)", f"requires-python >={m.group(1)} but CI never runs {m.group(1)}")
+    return ok(
+        re.search(rf"['\"]?{re.escape(m.group(1))}['\"]?", t),
+        f"CI tests Python {m.group(1)} (the minimum)",
+        f"requires-python >={m.group(1)} but CI never runs {m.group(1)}",
+    )
 
 
 def spec_files(r):
@@ -371,15 +444,21 @@ def c_bcp14(r, x):
     files = spec_files(r)
     if not files:
         return result("fail", "no specification documents under spec/")
-    hit = [p for p in files if "{::boilerplate bcp14" in r.text(p)
-           or (re.search(r"RFC\s*2119", r.text(p)) and re.search(r"RFC\s*8174", r.text(p)))]
+    hit = [
+        p
+        for p in files
+        if "{::boilerplate bcp14" in r.text(p)
+        or (re.search(r"RFC\s*2119", r.text(p)) and re.search(r"RFC\s*8174", r.text(p)))
+    ]
     return ok(hit, f"BCP 14 (RFC 2119 + 8174) in {hit[0]}" if hit else "", "no spec cites both RFC 2119 and RFC 8174")
 
 
 def c_security_considerations(r, x):
     files = spec_files(r)
     hit = [p for p in files if re.search(r"^#+\s*(\d+(\.\d+)*\.?\s*)?Security Considerations", r.text(p), re.M | re.I)]
-    return ok(hit, f"Security Considerations in {hit[0]}" if hit else "", "no Security Considerations section (RFC 3552)")
+    return ok(
+        hit, f"Security Considerations in {hit[0]}" if hit else "", "no Security Considerations section (RFC 3552)"
+    )
 
 
 def c_traceability(r, x):
@@ -393,35 +472,179 @@ CHECKS = [
     ("license", "Front door", "OSI licence, detected", "MUST", "OpenSSF BP: floss_license", None, c_license),
     ("contributing", "Front door", "CONTRIBUTING", "MUST", "OpenSSF BP: contribution", None, c_contributing),
     ("coc", "Front door", "Code of conduct", "SHOULD", "GitHub community standards", None, c_coc),
-    ("security", "Front door", "SECURITY.md (private reporting)", "MUST", "OpenSSF BP: vulnerability_report_process", None, c_security),
+    (
+        "security",
+        "Front door",
+        "SECURITY.md (private reporting)",
+        "MUST",
+        "OpenSSF BP: vulnerability_report_process",
+        None,
+        c_security,
+    ),
     ("issue_tpl", "Front door", "Issue templates", "SHOULD", "GitHub community standards", None, c_issue_tpl),
     ("pr_tpl", "Front door", "PR template", "SHOULD", "GitHub community standards", None, c_pr_tpl),
     ("about", "Front door", "Description and topics", "SHOULD", "GitHub community standards", None, c_about),
     ("agents", "Change control", "AGENTS.md", "MUST", "ENG-STD-005 §6", None, c_agents),
-    ("rules", "Change control", "Default branch protected", "MUST", "ENG-STD-005 §2.2; ISO/IEC/IEEE 12207 6.3.5", None, c_ruleset),
-    ("commit_check", "Change control", "Shared commit check required", "MUST", "ENG-STD-005 §1.5 (ENG-DEC-009)", None, c_commit_check),
+    (
+        "rules",
+        "Change control",
+        "Default branch protected",
+        "MUST",
+        "ENG-STD-005 §2.2; ISO/IEC/IEEE 12207 6.3.5",
+        None,
+        c_ruleset,
+    ),
+    (
+        "commit_check",
+        "Change control",
+        "Shared commit check required",
+        "MUST",
+        "ENG-STD-005 §1.5 (ENG-DEC-009)",
+        None,
+        c_commit_check,
+    ),
     ("registers", "Change control", "Decisions, violations, ICS", "MUST", "ENG-STD-006", None, c_registers),
     ("ci", "Quality", "CI on every PR", "MUST", "OpenSSF BP: test_continuous_integration", None, c_ci),
     ("ci_green", "Quality", "CI green on default branch", "MUST", "OpenSSF BP: test", None, c_ci_green),
-    ("required", "Quality", "Build/test checks required to merge", "MUST", "ENG-STD-004 §6; OpenSSF Scorecard: Branch-Protection", None, c_required_checks),
+    (
+        "required",
+        "Quality",
+        "Build/test checks required to merge",
+        "MUST",
+        "ENG-STD-004 §6; OpenSSF Scorecard: Branch-Protection",
+        None,
+        c_required_checks,
+    ),
     ("tests", "Quality", "Automated tests", "MUST", "OpenSSF BP: test; ISO/IEC/IEEE 29119", None, c_tests),
-    ("fmt_lint", "Quality", "Formatter and linter in CI, per language detected", "MUST", "ENG-STD-004 §0, §6.1; OpenSSF BP: warnings", None, c_fmt_lint),
-    ("dependabot", "Security", "Automated dependency updates", "SHOULD", "OpenSSF Scorecard: Dependency-Update-Tool", None, c_dependabot),
-    ("pinned", "Security", "Actions pinned to a commit", "SHOULD", "OpenSSF Scorecard: Pinned-Dependencies", None, c_actions_pinned),
-    ("perms", "Security", "Least-privilege workflow token", "MUST", "OpenSSF Scorecard: Token-Permissions", None, c_token_perms),
-    ("supply", "Security", "Dependency vulnerability audit", "SHOULD", "OpenSSF Scorecard: Vulnerabilities", ("rust", "python"), c_supply_chain),
-    ("changelog", "Versioning", "CHANGELOG", "MUST", "Keep a Changelog 1.1.0; OpenSSF BP: release_notes", ("rust", "python", "spec"), c_changelog),
-    ("semver", "Versioning", "SemVer release tags", "MUST", "SemVer 2.0.0; ENG-STD-005 §5.1", ("rust", "python"), c_semver_tags),
-    ("releases", "Versioning", "Release page per tag", "SHOULD", "OpenSSF BP: release_notes", ("rust", "python"), c_releases),
-    ("signed", "Versioning", "Latest tag signed", "MUST", "ENG-STD-005 §5.1; OpenSSF Scorecard: Signed-Releases", ("rust", "python"), c_signed_tag),
-    ("cargo_meta", "Rust", "Cargo.toml metadata complete", "MUST", "Rust API Guidelines C-METADATA", ("rust",), c_cargo_meta),
-    ("msrv", "Rust", "MSRV declared and tested", "MUST", "Rust API Guidelines; cargo rust-version", ("rust",), c_msrv_ci),
-    ("docs", "Rust", "Public API documented (missing_docs)", "SHOULD", "Rust API Guidelines C-CRATE-DOC", ("rust",), c_docs_lint),
+    (
+        "fmt_lint",
+        "Quality",
+        "Formatter and linter in CI, per language detected",
+        "MUST",
+        "ENG-STD-004 §0, §6.1; OpenSSF BP: warnings",
+        None,
+        c_fmt_lint,
+    ),
+    (
+        "dependabot",
+        "Security",
+        "Automated dependency updates",
+        "SHOULD",
+        "OpenSSF Scorecard: Dependency-Update-Tool",
+        None,
+        c_dependabot,
+    ),
+    (
+        "pinned",
+        "Security",
+        "Actions pinned to a commit",
+        "SHOULD",
+        "OpenSSF Scorecard: Pinned-Dependencies",
+        None,
+        c_actions_pinned,
+    ),
+    (
+        "perms",
+        "Security",
+        "Least-privilege workflow token",
+        "MUST",
+        "OpenSSF Scorecard: Token-Permissions",
+        None,
+        c_token_perms,
+    ),
+    (
+        "supply",
+        "Security",
+        "Dependency vulnerability audit",
+        "SHOULD",
+        "OpenSSF Scorecard: Vulnerabilities",
+        ("rust", "python"),
+        c_supply_chain,
+    ),
+    (
+        "changelog",
+        "Versioning",
+        "CHANGELOG",
+        "MUST",
+        "Keep a Changelog 1.1.0; OpenSSF BP: release_notes",
+        ("rust", "python", "spec"),
+        c_changelog,
+    ),
+    (
+        "semver",
+        "Versioning",
+        "SemVer release tags",
+        "MUST",
+        "SemVer 2.0.0; ENG-STD-005 §5.1",
+        ("rust", "python"),
+        c_semver_tags,
+    ),
+    (
+        "releases",
+        "Versioning",
+        "Release page per tag",
+        "SHOULD",
+        "OpenSSF BP: release_notes",
+        ("rust", "python"),
+        c_releases,
+    ),
+    (
+        "signed",
+        "Versioning",
+        "Latest tag signed",
+        "MUST",
+        "ENG-STD-005 §5.1; OpenSSF Scorecard: Signed-Releases",
+        ("rust", "python"),
+        c_signed_tag,
+    ),
+    (
+        "cargo_meta",
+        "Rust",
+        "Cargo.toml metadata complete",
+        "MUST",
+        "Rust API Guidelines C-METADATA",
+        ("rust",),
+        c_cargo_meta,
+    ),
+    (
+        "msrv",
+        "Rust",
+        "MSRV declared and tested",
+        "MUST",
+        "Rust API Guidelines; cargo rust-version",
+        ("rust",),
+        c_msrv_ci,
+    ),
+    (
+        "docs",
+        "Rust",
+        "Public API documented (missing_docs)",
+        "SHOULD",
+        "Rust API Guidelines C-CRATE-DOC",
+        ("rust",),
+        c_docs_lint,
+    ),
     ("pyproject", "Python", "pyproject metadata complete", "MUST", "PEP 621", ("python",), c_pyproject),
     ("py_min", "Python", "Minimum Python tested in CI", "MUST", "PEP 621 requires-python", ("python",), c_py_min),
     ("bcp14", "Specification", "BCP 14 keywords (RFC 2119 + 8174)", "MUST", "IETF BCP 14", ("spec",), c_bcp14),
-    ("seccons", "Specification", "Security Considerations", "MUST", "IETF RFC 3552", ("spec",), c_security_considerations),
-    ("trace", "Specification", "Requirements trace to tests", "MUST", "ISO/IEC/IEEE 29148 (traceability)", ("spec",), c_traceability),
+    (
+        "seccons",
+        "Specification",
+        "Security Considerations",
+        "MUST",
+        "IETF RFC 3552",
+        ("spec",),
+        c_security_considerations,
+    ),
+    (
+        "trace",
+        "Specification",
+        "Requirements trace to tests",
+        "MUST",
+        "ISO/IEC/IEEE 29148 (traceability)",
+        ("spec",),
+        c_traceability,
+    ),
 ]
 
 
@@ -486,8 +709,18 @@ def audit(owner, name, kinds, overrides):
             except Exception as e:  # a check that cannot run is reported, never silently passed
                 res = result("fail", f"check could not run: {type(e).__name__}")
         sv, basis = SEVERITY[cid]
-        out.append({"id": cid, "group": group, "title": title, "level": level, "ref": ref,
-                    "severity": sv, "severity_basis": basis, **res})
+        out.append(
+            {
+                "id": cid,
+                "group": group,
+                "title": title,
+                "level": level,
+                "ref": ref,
+                "severity": sv,
+                "severity_basis": basis,
+                **res,
+            }
+        )
     scored = ("pass", "fail")
     must = [c for c in out if c["level"] == "MUST" and c["status"] in scored]
     should = [c for c in out if c["level"] == "SHOULD" and c["status"] in scored]

@@ -25,11 +25,11 @@ refuse() {
 all_zero() {
     case $1 in
         *[!0]*) return 1 ;;
-        *)      return 0 ;;
+        *) return 0 ;;
     esac
 }
 
-while read -r local_ref local_sha remote_ref remote_sha; do
+while read -r _local_ref local_sha remote_ref remote_sha; do
     if [ -r "$dir/protected" ] && grep -v '^#' "$dir/protected" | grep -qxF "$remote_ref"; then
         refuse "push to protected ref $remote_ref — push a branch and open a PR"
     fi
@@ -39,7 +39,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     fi
 
     if ! all_zero "$remote_sha"; then
-        if ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+        if ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2> /dev/null; then
             refuse "non-fast-forward push to $remote_ref (fetch and rebase, or ask the governor)"
         fi
     fi

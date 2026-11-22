@@ -55,7 +55,12 @@ td.ref{color:var(--muted);font-size:12px;max-width:240px}
 footer{color:var(--muted);font-size:13px;margin-top:40px;border-top:1px solid var(--line);padding-top:16px}
 """
 
-STATUS = {"pass": ("pass", "pass"), "fail": ("fail", "fail"), "n/a": ("na", "n/a"), "not assessed": ("na", "not assessed")}
+STATUS = {
+    "pass": ("pass", "pass"),
+    "fail": ("fail", "fail"),
+    "n/a": ("na", "n/a"),
+    "not assessed": ("na", "not assessed"),
+}
 
 
 def chip(status):
@@ -94,12 +99,19 @@ def project_rows(p):
     order = {"fail": 0, "not assessed": 1, "pass": 2, "n/a": 3}
     rank = {v: i for i, v in enumerate(SEVS)}
     rows = []
-    for c in sorted(p["checks"], key=lambda c: (order.get(c["status"], 9), rank.get(c.get("severity"), 9), c["level"] != "MUST")):
+    for c in sorted(
+        p["checks"], key=lambda c: (order.get(c["status"], 9), rank.get(c.get("severity"), 9), c["level"] != "MUST")
+    ):
         ev = "" if p["private"] else e(c["evidence"])
-        sv = (f'{sev(c["severity"])}<br><span class="kind">{e(c.get("severity_basis", ""))}</span>'
-              if c["status"] == "fail" and c.get("severity") else '<span class="kind">—</span>')
-        rows.append(f'<tr><td>{e(c["title"])}<br><span class="kind">{e(c["group"])} · {e(c["id"])}</span></td>'
-                    f'<td>{e(c["level"])}</td><td>{chip(c["status"])}</td><td>{sv}</td><td class="ev">{ev}</td><td class="ref">{e(c["ref"])}</td></tr>')
+        sv = (
+            f'{sev(c["severity"])}<br><span class="kind">{e(c.get("severity_basis", ""))}</span>'
+            if c["status"] == "fail" and c.get("severity")
+            else '<span class="kind">—</span>'
+        )
+        rows.append(
+            f'<tr><td>{e(c["title"])}<br><span class="kind">{e(c["group"])} · {e(c["id"])}</span></td>'
+            f'<td>{e(c["level"])}</td><td>{chip(c["status"])}</td><td>{sv}</td><td class="ev">{ev}</td><td class="ref">{e(c["ref"])}</td></tr>'
+        )
     return "\n".join(rows)
 
 
@@ -108,24 +120,34 @@ def page(report):
     head = "".join(f"<th>{e(g)}</th>" for g in GROUPS)
     summary = []
     for p in ps:
-        name = f'<a href="{e(p["url"])}">{e(p["name"])}</a>' if not p["private"] else f'{e(p["name"])} <span class="kind">(private)</span>'
+        name = (
+            f'<a href="{e(p["url"])}">{e(p["name"])}</a>'
+            if not p["private"]
+            else f'{e(p["name"])} <span class="kind">(private)</span>'
+        )
         if not p.get("readable", True):
-            summary.append(f'<tr><td>{name}<br><span class="kind">{e(", ".join(p["kinds"]))}</span></td>'
-                           f'<td colspan="{3 + len(GROUPS)}"><span class="chip na">not assessed</span> '
-                           f'<span class="kind">repository not readable by the audit token</span></td></tr>')
+            summary.append(
+                f'<tr><td>{name}<br><span class="kind">{e(", ".join(p["kinds"]))}</span></td>'
+                f'<td colspan="{3 + len(GROUPS)}"><span class="chip na">not assessed</span> '
+                f'<span class="kind">repository not readable by the audit token</span></td></tr>'
+            )
             continue
         cells = "".join(f"<td>{group_cell(p['checks'], g)}</td>" for g in GROUPS)
-        summary.append(f'<tr><td>{name}<br><span class="kind">{e(", ".join(p["kinds"]))} · {e(p["head"])}</span></td>'
-                       f'<td>{gaps_cell(p)}</td><td class="num">{meter(*p["must"])}</td><td class="num">{meter(*p["should"])}</td>{cells}</tr>')
+        summary.append(
+            f'<tr><td>{name}<br><span class="kind">{e(", ".join(p["kinds"]))} · {e(p["head"])}</span></td>'
+            f'<td>{gaps_cell(p)}</td><td class="num">{meter(*p["must"])}</td><td class="num">{meter(*p["should"])}</td>{cells}</tr>'
+        )
     details = []
     for p in ps:
         if not p.get("readable", True):
             continue
         fails = sum(c["status"] == "fail" for c in p["checks"])
-        details.append(f'<details><summary>{e(p["name"])} — {fails} gap{"s" if fails != 1 else ""}'
-                       f' · required {p["must"][0]}/{p["must"][1]} · recommended {p["should"][0]}/{p["should"][1]}</summary>'
-                       f'<div style="overflow-x:auto"><table><thead><tr><th>Check</th><th>Level</th><th>Status</th><th>Severity</th><th>Evidence</th><th>Standard</th></tr></thead>'
-                       f'<tbody>{project_rows(p)}</tbody></table></div></details>')
+        details.append(
+            f'<details><summary>{e(p["name"])} — {fails} gap{"s" if fails != 1 else ""}'
+            f' · required {p["must"][0]}/{p["must"][1]} · recommended {p["should"][0]}/{p["should"][1]}</summary>'
+            f'<div style="overflow-x:auto"><table><thead><tr><th>Check</th><th>Level</th><th>Status</th><th>Severity</th><th>Evidence</th><th>Standard</th></tr></thead>'
+            f'<tbody>{project_rows(p)}</tbody></table></div></details>'
+        )
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Engineering Standards Dashboard</title><style>{CSS}</style></head>

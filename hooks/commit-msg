@@ -30,7 +30,7 @@ refuse() {
 
 root=$(git rev-parse --show-toplevel) || refuse "not inside a git work tree"
 
-[ -r "$dir/types" ]   || refuse "missing config: $dir/types"
+[ -r "$dir/types" ] || refuse "missing config: $dir/types"
 [ -r "$dir/anchors" ] || refuse "missing config: $dir/anchors"
 
 # Body without git comment lines.
@@ -62,7 +62,7 @@ fi
 
 case $subject in
     *" — "*) refs=${subject##* — } ;;
-    *)       refs=${subject##* - } ;;
+    *) refs=${subject##* - } ;;
 esac
 
 anchors=$(printf '%s\n' "$refs" | tr -cs 'A-Z0-9-' '\n' | grep -E '^[A-Z]+(-[A-Z]+)*(-[0-9]+)+$')
@@ -89,7 +89,7 @@ for anchor in $anchors; do
     found=no
     while read -r files prefix; do
         if [ "$files" = "-" ]; then
-            found=yes   # exempt type (e.g. INV): existence not checked
+            found=yes # exempt type (e.g. INV): existence not checked
             break
         fi
         for file in $root/$files; do
@@ -99,7 +99,7 @@ for anchor in $anchors; do
                 break 2
             fi
         done
-    done <<EOF
+    done << EOF
 $sources
 EOF
 
