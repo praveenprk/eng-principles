@@ -131,7 +131,7 @@ def c_registers(r, x):
 
 def c_ruleset(r, x):
     if r.meta.get("private") and gh(f"repos/{r.full}/rules/branches/{r.default}") is None:
-        return result("fail", "blocked: GitHub offers no branch rules for a private repository on the free plan")
+        return result("fail", "branch rules unreadable: none exist, or this token cannot read them (private repository)")
     rules = gh(f"repos/{r.full}/rules/branches/{r.default}") or []
     types = {ru["type"] for ru in rules}
     prot = gh(f"repos/{r.full}/branches/{r.default}/protection")
