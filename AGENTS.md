@@ -7,7 +7,7 @@ point here (ENG-STD-005 §6).
 This repository holds the cross-project engineering principles and standards.
 Read CHARTER.md first.
 
-- Principles and standards are append-only. Refine or supersede them. Never delete or weaken a rule.
+- Principles and standards are append-only. Refine or supersede them. Never delete a rule or lower its bar (CHARTER: The bar).
 - Every change to PRINCIPLES.md or standards/ needs a new ENG-DEC entry in DECISIONS.md.
 - Do not mark anything `conformant` in CONFORMANCE.md without a cited test, commit, or file.
 - Do not claim ISO/IEC certification or compliance. These standards are reference models only (ENG-DEC-004).

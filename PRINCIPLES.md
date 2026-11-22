@@ -1,16 +1,17 @@
 # PRINCIPLES.md
 # Engineering — Core Principles
-# Status: Append only. A principle may be refined. It may never be weakened or removed.
+# Status: Append only. A principle may be refined. Its bar may never be lowered, and it may never be removed (CHARTER: The bar).
 
 Each principle has a statement, a reason, and a **check**: how anyone can
 tell whether it is being followed. A principle without a check is a wish.
 
 IDs are never renumbered. ENG-P-13 was added after ENG-P-01..12, but it is
-the ground the others rest on, so it is listed first.
+the software ground the others rest on, so it is listed first. The ground of
+the whole practice is physical reality and evidence (CHARTER, ENG-DEC-016).
 
 ---
 
-## ENG-P-13 — Unix discipline (the ground)
+## ENG-P-13 — Unix discipline (the software ground)
 Build small tools that do one thing, speak plain text, compose through
 pipes, stay quiet on success, fail loudly, and run on the smallest substrate
 they can.
@@ -92,6 +93,40 @@ Refined by ENG-DEC-015: work done without an open gate is recorded as a
 violation of at least HIGH severity (ENG-STD-006 §2.3 e) and backfilled
 honestly. CRITICAL is kept for a known vulnerability in released code.
 
+## ENG-P-14 — Look before you build
+Before original work, find what already exists: knowledge, technology,
+standards, products, research. Then decide, and record, whether to reuse,
+integrate, adapt, procure, collaborate, research, or build. Operating
+systems are the first prior art to search for scheduling, isolation,
+protection, recovery and replaceable interfaces: what they solved is
+replicated and made to integrate, not reinvented (OSTEP).
+**Why:** Most problems have been met before. Rebuilding what exists costs
+time and repeats old mistakes; a novelty claim without a search is a guess.
+**Check:** Original development traces to a recorded build-versus-reuse
+decision that names the sources searched, the date, and why each existing
+option was not enough.
+
+## ENG-P-15 — Authority is bounded by evidence
+A system acts only within what its evidence supports. For a machine that
+moves in the world, autonomy stays inside a validated operating envelope
+with a defined safe state, and shrinks as evidence of deviation grows. The
+domain defines the envelope; no number is universal. This extends ENG-P-08
+and ENG-P-11 from software to physical systems.
+**Why:** Software can be rolled back; a physical action often cannot.
+Authority that outruns its evidence is how machines hurt people.
+**Check:** Anything that drives an actuator has, before BUILD, a recorded
+operating envelope, its deviation measures, its safe state, the monitor
+independent of what it monitors, and the protocol for re-authorisation.
+
+## ENG-P-16 — Lifecycle and access are design inputs
+Energy, materials, maintenance, lifecycle cost, repairability and who can
+afford and own the result are assessed when a system is specified, not
+after it ships.
+**Why:** A system that works but cannot be repaired, afforded or owned by
+the people it is for does not serve the North Star.
+**Check:** A SPEC records the assessment and its evidence. It is reviewed,
+not a pass/fail gate (ENG-DEC-016).
+
 ---
 
 ## Amendment Log
@@ -102,3 +137,4 @@ honestly. CRITICAL is kept for a known vulnerability in released code.
 | 2026-11-08 | Add ENG-P-13 Unix discipline as the ground | ENG-DEC-005 |
 | 2026-11-22 | ENG-P-11 check refined: human approver on releases, security merges and hardware sign-offs; evidence on other merges | ENG-DEC-015 |
 | 2026-11-22 | ENG-P-12 check refined: a bypassed gate is at least HIGH; CRITICAL kept for known vulnerabilities | ENG-DEC-015 |
+| 2026-11-22 | ENG-P-13 renamed the software ground; add ENG-P-14 Look before you build, ENG-P-15 Authority is bounded by evidence, ENG-P-16 Lifecycle and access are design inputs | ENG-DEC-016 |
