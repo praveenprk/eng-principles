@@ -4,6 +4,17 @@ Status: ACTIVE · Refs: Clean Code (R. C. Martin), ISO/IEC 25010 (maintainabilit
 Rules are falsifiable. Where a number is given, it is a default. A project MAY
 tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visible).
 
+## 0. Scope
+0.1 Code is any executable text, wherever it lives: source files, scripts,
+    inline `<script>` in documents, and `run:` steps in CI workflows. This
+    standard MUST be applied to all of it, whether or not the project has a
+    source tree.
+0.2 It applies proportionately: each clause binds where it has something to
+    act on. A two-line `run:` step is held to §4 (errors) and §7
+    (dependencies); §6.1 binds each language the project writes enough of
+    to pin a formatter and linter for, and the project records which
+    languages those are.
+
 ## 1. Naming
 1.1 Names MUST state intent in the domain's vocabulary. No unexplained abbreviations except well-known ones (id, url, i2c).
 1.2 Booleans read as predicates (`is_signed`, `has_provenance`).
@@ -43,4 +54,5 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 | 2.2, 6.1 | Linter / formatter in CI |
 | 6.2 | EDA tool ERC/DRC |
 | 5.3 | CI grep: every xfail has a V-ID |
-| 1, 3, 4 | Review |
+| 0, 1, 3, 4 | Review |
+Amended: 2026-11-22 — §0 Scope added: code is any executable text, applied proportionately (ENG-DEC-015, Q-003).
