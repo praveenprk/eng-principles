@@ -25,8 +25,11 @@ Every project MUST keep three registers. All three are append-only.
     d. A security-related violation (ENG-STD-005 §2.5) is never below HIGH,
        whatever a–c give. It is CRITICAL when a known vulnerability (a CVE
        or advisory) is present in released code.
+    e. A bypassed gate (ENG-STD-002 §4.1) is never below HIGH, whatever
+       a–c give; d still applies when the bypass is security-related
+       (ENG-DEC-015).
     A rule is broken when what is on the default branch or released does
-    not meet it. The severity entry names the rule (a–d) and its source.
+    not meet it. The severity entry names the rule (a–e) and its source.
 2.4 Conformance status vocabulary: `conformant` / `partial` / `not yet` / `n/a`.
     `conformant` requires evidence (test ID or commit). `not assessed` is allowed only in the cross-project CONFORMANCE.md.
     Refined by ENG-DEC-015: a project's own ICS MAY also use `not
@@ -40,3 +43,4 @@ Every project MUST keep three registers. All three are append-only.
 3.2 It is updated whenever a project's adoption state changes, with evidence.
 Amended: 2026-11-22 — §2.3 severity graded by OpenSSF placement, then impact; security never below HIGH (ENG-DEC-013).
 Amended: 2026-11-22 — §2.4 refined: `not assessed` in a project ICS, with a reason (ENG-DEC-015, Q-001).
+Amended: 2026-11-22 — §2.3 rule e added: a bypassed gate is never below HIGH (ENG-DEC-015, Q-006).

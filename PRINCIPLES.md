@@ -88,6 +88,9 @@ named human accountable for the line (ENG-STD-005 §2.3, §2.6).
 Deadlines, demos, customers, and "just this once" are not bypass conditions.
 **Why:** If pressure can open a gate, the gate offers no protection.
 **Check:** Work done without an open gate is recorded as a CRITICAL violation and backfilled honestly.
+Refined by ENG-DEC-015: work done without an open gate is recorded as a
+violation of at least HIGH severity (ENG-STD-006 §2.3 e) and backfilled
+honestly. CRITICAL is kept for a known vulnerability in released code.
 
 ---
 
@@ -98,3 +101,4 @@ Deadlines, demos, customers, and "just this once" are not bypass conditions.
 | 2026-11-07 | Initial 12 principles, derived from contextos practice | ENG-DEC-001, ENG-DEC-003 |
 | 2026-11-08 | Add ENG-P-13 Unix discipline as the ground | ENG-DEC-005 |
 | 2026-11-22 | ENG-P-11 check refined: human approver on releases, security merges and hardware sign-offs; evidence on other merges | ENG-DEC-015 |
+| 2026-11-22 | ENG-P-12 check refined: a bypassed gate is at least HIGH; CRITICAL kept for known vulnerabilities | ENG-DEC-015 |

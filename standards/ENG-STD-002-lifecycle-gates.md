@@ -37,6 +37,11 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 ## 4. Backfill
 4.1 Work found to have bypassed a gate: stop, open a CRITICAL violation, write the
     missing RFC/SPEC honestly (describing what was actually built), then continue.
+    Refined by ENG-DEC-015: work found to have bypassed a gate MUST stop. A
+    violation MUST be opened, graded per ENG-STD-006 §2.3 and never below
+    HIGH. The missing artifacts MUST be written honestly (describing what
+    was actually built) before work continues. CRITICAL keeps the meaning
+    ENG-STD-006 §2.3 (d) gives it.
 
 ## 5. Equivalent change processes
 5.1 The five gates are exit conditions (§2), not artifact names. A project
@@ -64,4 +69,5 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 | 1.1, 2.1, 2.2 | Governor review |
 | 5.x | Governor review of the project's mapping decision |
 
+Amended: 2026-11-22 — §4.1 refined: MUST stop, open and backfill; severity per ENG-STD-006 §2.3 with a HIGH floor (ENG-DEC-015, Q-006).
 Amended: 2026-11-22 — §5 added: equivalent change processes, mapping recorded once (ENG-DEC-015, Q-002).
