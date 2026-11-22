@@ -11,8 +11,8 @@ Every project MUST keep three registers. All three are append-only.
 | CONFORMANCE.md (ICS) | Which requirements are met, and with what evidence? | templates/ics.md |
 
 ## 2. Rules
-2.1 Entries are never deleted. Superseded decisions are marked SUPERSEDED and point to their replacement.
-2.2 A resolved violation records the date and the commit or revision that resolved it.
+2.1 Entries MUST NOT be deleted. Superseded decisions MUST be marked SUPERSEDED and point to their replacement.
+2.2 A resolved violation MUST record the date and the commit or revision that resolved it.
 2.3 Severity is CRITICAL, HIGH, MEDIUM or LOW. Grading MUST follow these
     rules, in order (ENG-DEC-013, replacing the earlier MUST/SHOULD grading):
     a. The violation matches an OpenSSF Scorecard check: that check's risk
@@ -29,18 +29,19 @@ Every project MUST keep three registers. All three are append-only.
        a–c give; d still applies when the bypass is security-related
        (ENG-DEC-015).
     A rule is broken when what is on the default branch or released does
-    not meet it. The severity entry names the rule (a–e) and its source.
+    not meet it. The severity entry MUST name the rule (a–e) and its source.
 2.4 Conformance status vocabulary: `conformant` / `partial` / `not yet` / `n/a`.
-    `conformant` requires evidence (test ID or commit). `not assessed` is allowed only in the cross-project CONFORMANCE.md.
+    `conformant` MUST cite evidence (test ID or commit). `not assessed` is allowed only in the cross-project CONFORMANCE.md.
     Refined by ENG-DEC-015: a project's own ICS MAY also use `not
     assessed`. Each such row MUST state why it is not assessed and what
     assessing it needs. A `not assessed` row without both is a violation
     of this clause.
-2.5 One fact lives in one register. No parallel trackers (contextos DECISION-004).
+2.5 One fact MUST live in one register. Parallel trackers MUST NOT be kept (contextos DECISION-004).
 
 ## 3. Cross-project conformance
-3.1 This repository's CONFORMANCE.md records each project's status against each ENG-STD.
-3.2 It is updated whenever a project's adoption state changes, with evidence.
+3.1 This repository's CONFORMANCE.md MUST record each project's status against each ENG-STD.
+3.2 It MUST be updated whenever a project's adoption state changes, with evidence.
 Amended: 2026-11-22 — §2.3 severity graded by OpenSSF placement, then impact; security never below HIGH (ENG-DEC-013).
 Amended: 2026-11-22 — §2.4 refined: `not assessed` in a project ICS, with a reason (ENG-DEC-015, Q-001).
 Amended: 2026-11-22 — §2.3 rule e added: a bypassed gate is never below HIGH (ENG-DEC-015, Q-006).
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).

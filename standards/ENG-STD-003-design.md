@@ -14,24 +14,24 @@ applies.
     one sentence. A second "and…" means split it.
 0.2 **Text is the interface.** Inputs, outputs, configuration, and records
     SHOULD be plain text: line-oriented, human-readable, diffable. A
-    machine format (e.g. `--json`) is an addition, never a replacement.
+    machine format (e.g. `--json`) MAY be added; it MUST NOT replace the text.
 0.3 **Compose.** A tool MUST read from stdin or named files, write results to
-    stdout, and write diagnostics to stderr. stdout stays clean for piping.
-0.4 **Quiet on success, loud on failure.** A tool prints nothing unasked on
-    success. On failure it says what failed and exits non-zero.
-0.5 **Exit codes are contract.** 0 means success. Every non-zero code a tool
-    can return is documented.
+    stdout, and write diagnostics to stderr. stdout MUST stay clean for piping.
+0.4 **Quiet on success, loud on failure.** A tool SHOULD print nothing unasked
+    on success. On failure it MUST say what failed and MUST exit non-zero.
+0.5 **Exit codes are contract.** 0 MUST mean success. Every non-zero code a
+    tool can return MUST be documented.
 0.6 **Smallest substrate.** Each tool MUST state the smallest environment it
     runs on: POSIX shell, libc, interpreter, MCU class, RAM. It MUST NOT need
-    more than it declares. Platform specifics live behind an adapter
+    more than it declares. Platform specifics SHOULD live behind an adapter
     ("coffee machine to space station").
-0.7 **Mechanism, not policy.** Tools provide mechanism. Policy lives in
-    plain-text configuration the operator owns.
-0.8 **Built to be replaced.** Any tool can be swapped for another that
-    honours the same text contract (Liskov at system scale, §3).
-0.9 *Hardware:* a device exposes a line-oriented text console (serial/UART
-    or equivalent) for status and diagnostics. Status codes are documented
-    like exit codes. Boards compose through standard buses.
+0.7 **Mechanism, not policy.** Tools SHOULD provide mechanism. Policy
+    SHOULD live in plain-text configuration the operator owns.
+0.8 **Built to be replaced.** Any tool SHOULD be replaceable by another
+    that honours the same text contract (Liskov at system scale, §3).
+0.9 *Hardware:* a device SHOULD expose a line-oriented text console
+    (serial/UART or equivalent) for status and diagnostics. Status codes MUST
+    be documented like exit codes. Boards compose through standard buses.
 
 **Check:** `tool < input > out 2> err; echo $?` behaves as documented. The
 tool runs on its declared minimum substrate in CI or on a bench.
@@ -45,7 +45,7 @@ tool runs on its declared minimum substrate in CI or on a bench.
 ## 2. O — Open/Closed
 2.1 New behaviour SHOULD be added by extension (new implementation of an
     existing interface, new phase file, new connector) and not by editing a stable core.
-2.2 *Hardware:* expansion goes through defined headers or buses, not by reworking the core layout.
+2.2 *Hardware:* expansion SHOULD go through defined headers or buses, not by reworking the core layout.
 **Check:** adding a provider, connector, or variant touches no core file other than a registry.
 
 ## 3. L — Liskov Substitution
@@ -56,12 +56,12 @@ tool runs on its declared minimum substrate in CI or on a bench.
 
 ## 4. I — Interface Segregation
 4.1 Interfaces MUST expose only what their consumers use. Split wide interfaces by consumer.
-4.2 *Hardware:* connectors and buses carry only the signals that cross the boundary.
+4.2 *Hardware:* connectors and buses MUST carry only the signals that cross the boundary.
 **Check:** no consumer implements stubs that raise "not supported" for half an interface.
 
 ## 5. D — Dependency Inversion
 5.1 Core logic MUST depend on interfaces it owns, not on vendor SDKs, drivers, or concrete stores.
-5.2 *Hardware:* firmware core logic depends on a HAL, not on register addresses.
+5.2 *Hardware:* firmware core logic MUST depend on a HAL, not on register addresses.
 **Check:** vendor imports appear only in adapter modules.
 
 ## 6. Interface contracts
@@ -71,9 +71,10 @@ tool runs on its declared minimum substrate in CI or on a bench.
     - **Guarantees:** outputs, postconditions, timing, invariants
     - **Refuses:** rejected inputs and the exact error, code, or state produced
 6.2 Refusals MUST be explicit and tested (ENG-P-08).
-6.3 For a CLI tool, the contract includes stdin/stdout/stderr usage and every
+6.3 For a CLI tool, the contract MUST include stdin/stdout/stderr usage and every
     exit code (§0.3–0.5).
 
 ## 7. Architecture description
 7.1 Each project SHOULD keep one ARCHITECTURE.md that names its stakeholders, their
     concerns, and the views that address those concerns (ISO/IEC/IEEE 42010 structure, lightweight).
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).

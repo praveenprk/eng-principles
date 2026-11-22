@@ -17,22 +17,23 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
     DESIGN between SPEC and TEST). It MUST NOT remove or reorder gates.
 
 ## 2. Exit conditions (minimum)
-2.1 **RFC closed:** problem statement, options considered, decision recorded,
-    no open questions left unanswered.
-2.2 **SPEC closed:** every requirement is falsifiable (ENG-P-02), includes an
+2.1 **RFC MUST NOT close until:** the problem statement and the options
+    considered are written, the decision is recorded, and no question is left
+    unanswered.
+2.2 **SPEC MUST NOT close until:** every requirement is falsifiable (ENG-P-02), includes an
     explicit out-of-scope statement, and follows ISO/IEC/IEEE 29148 characteristics
     (necessary, unambiguous, complete, singular, feasible, verifiable, traceable).
-2.3 **TEST closed:** every MUST/MUST NOT has at least one test or inspection,
+2.3 **TEST MUST NOT close until:** every MUST/MUST NOT has at least one test or inspection,
     known failures are marked expected-fail with a violation ID, and the suite runs.
-2.4 **BUILD closed:** all non-expected-fail tests pass, and every change is anchored (ENG-STD-005).
-2.5 **REFINE closed:** same pass and expected-fail counts as at BUILD close,
-    no new violations, and registers updated.
+2.4 **BUILD MUST NOT close until:** all non-expected-fail tests pass, and every change is anchored (ENG-STD-005).
+2.5 **REFINE MUST NOT close until:** the pass and expected-fail counts equal
+    those at BUILD close, no new violation exists, and the registers are updated.
 
 ## 3. Proportionality
 3.1 Trivial changes (typos, formatting, dependency patch bumps with no behaviour
     change) MAY skip gates 1–3 but MUST still carry an anchor.
-3.2 What counts as trivial is decided by the project's governor and recorded
-    once as a project decision. It is not decided per change.
+3.2 What counts as trivial MUST be decided by the project's governor and
+    recorded once as a project decision. It MUST NOT be decided per change.
 
 ## 4. Backfill
 4.1 Work found to have bypassed a gate: stop, open a CRITICAL violation, write the
@@ -71,3 +72,4 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 
 Amended: 2026-11-22 — §4.1 refined: MUST stop, open and backfill; severity per ENG-STD-006 §2.3 with a HIGH floor (ENG-DEC-015, Q-006).
 Amended: 2026-11-22 — §5 added: equivalent change processes, mapping recorded once (ENG-DEC-015, Q-002).
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).

@@ -17,36 +17,36 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 
 ## 1. Naming
 1.1 Names MUST state intent in the domain's vocabulary. No unexplained abbreviations except well-known ones (id, url, i2c).
-1.2 Booleans read as predicates (`is_signed`, `has_provenance`).
-1.3 *Hardware:* every net that leaves a sheet MUST be named. Names describe function (`VBAT_SENSE`, `I2C1_SDA`), not pin numbers.
+1.2 Booleans SHOULD read as predicates (`is_signed`, `has_provenance`).
+1.3 *Hardware:* every net that leaves a sheet MUST be named. Names MUST describe function (`VBAT_SENSE`, `I2C1_SDA`), not pin numbers.
 
 ## 2. Functions and modules
-2.1 A function does one thing at one level of abstraction.
-2.2 Default limits: function ≤ 40 lines, ≤ 4 parameters, nesting ≤ 3. Exceeding these needs a stated reason in review.
-2.3 Pure decision logic is separated from I/O (contextos DECISION-001 pattern: one read, one pure decision).
-2.4 No flag arguments that switch behaviour. Write two functions.
+2.1 A function SHOULD do one thing at one level of abstraction.
+2.2 Default limits: function ≤ 40 lines, ≤ 4 parameters, nesting ≤ 3. Code SHOULD stay within them; exceeding them MUST be given a stated reason in review.
+2.3 Pure decision logic SHOULD be separated from I/O (contextos DECISION-001 pattern: one read, one pure decision).
+2.4 A function MUST NOT take a flag argument that switches its behaviour. Write two functions.
 
 ## 3. Comments
-3.1 Comments explain **why**, not what. (Already the phasectl style rule.)
+3.1 Comments SHOULD explain **why**, not what. (Already the phasectl style rule.)
 3.2 A comment that restates the code MUST be deleted. A comment that contradicts the code is a defect.
-3.3 Requirement references in code use anchors (`# INV-007-01`), so a grep finds every implementation site.
+3.3 Requirement references in code MUST use anchors (`# INV-007-01`), so a grep finds every implementation site.
 
 ## 4. Errors
 4.1 Errors MUST NOT be silently swallowed. Each catch either handles the error, adds context and re-raises, or refuses (fail closed, ENG-P-08).
-4.2 Error messages state what failed, with which input, and what the caller can do.
+4.2 Error messages SHOULD state what failed, with which input, and what the caller can do.
 
 ## 5. Tests
-5.1 Tests are first-class code under the same rules.
-5.2 Test names state the requirement under test (`test_inv_001_03_rejected_claim_never_reaches_resolver`).
-5.3 Expected-fail tests MUST cite a violation ID. Skips without a reason are not permitted.
+5.1 Tests are first-class code and MUST follow the same rules.
+5.2 Test names SHOULD state the requirement under test (`test_inv_001_03_rejected_claim_never_reaches_resolver`).
+5.3 Expected-fail tests MUST cite a violation ID. A test MUST NOT be skipped without a stated reason.
 
 ## 6. Formatting and static checks
 6.1 Each project MUST pin one formatter and one linter per language and run them in CI. Style debates end there.
 6.2 *Hardware:* ERC and DRC MUST pass with zero unwaived errors before fabrication. Waivers are listed in the revision notes.
 
 ## 7. Dependencies
-7.1 Every new dependency or BOM part is justified in the change that adds it (ENG-P-09).
-7.2 Versions are pinned for applications. Libraries declare ranges.
+7.1 Every new dependency or BOM part MUST be justified in the change that adds it (ENG-P-09).
+7.2 Applications MUST pin versions. Libraries SHOULD declare ranges.
 
 ## Enforcement
 | Clause | Mechanism |
@@ -56,3 +56,4 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 | 5.3 | CI grep: every xfail has a V-ID |
 | 0, 1, 3, 4 | Review |
 Amended: 2026-11-22 — §0 Scope added: code is any executable text, applied proportionately (ENG-DEC-015, Q-003).
+Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
