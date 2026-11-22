@@ -53,6 +53,10 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
     Reference models: ISO 9001:2015 §8.6 (release of products and
     services); SLSA provenance and in-toto attestations as the record's
     later machine-verifiable form.
+    A human MUST authorise each release and sign it (§5.1). An automated
+    contributor MUST NOT promote to `stable` or tag. Allowing it needs its
+    own decision, with a signing identity for the automated contributor
+    (itself security-related, §2.5) (ENG-DEC-015, Q-007).
 
 ## 3. Review
 3.1 Every change to the default branch is reviewed before merge. An automated
@@ -99,3 +103,4 @@ Amended: 2026-11-16 — §1.5 added: commit rules checked on the git host by one
 Amended: 2026-11-17 — §2.3 refined and §2.4 added: develop, qa, main flow with a questions register (ENG-DEC-010).
 Amended: 2026-11-22 — §2.3, §2.4, §3.1, §5.1 refined and §2.5 added: `main` and `stable`, work branches, security changes merged by a human (ENG-DEC-012, superseding ENG-DEC-010's develop and qa).
 Amended: 2026-11-22 — §2.3, §3.1 refined in role-neutral words and §2.6 added: merges gated on evidence, a release record for every release (ENG-DEC-015, Q-005).
+Amended: 2026-11-22 — §2.6: a human authorises and signs each release (ENG-DEC-015, Q-007).
