@@ -250,6 +250,9 @@ Risk    : More branches to keep in step. A promotion with conflicts means
           the agent's merge guard, and the shared check for OPEN questions.
           Until those exist, §2.3 applies unchanged.
 Status  : ACCEPTED (governor, 2026-11-17)
+          SUPERSEDED in part by ENG-DEC-012 (2026-11-22): develop and qa
+          are replaced by main and stable. The questions register and its
+          check remain.
 
 ---
 
@@ -283,3 +286,76 @@ Risk    : A heuristic check can be wrong in either direction. Every result
           The audit reads, never writes. Without an AUDIT_TOKEN secret,
           private projects show as not assessed.
 Status  : ACCEPTED (governor, 2026-11-19)
+
+---
+
+## ENG-DEC-012 — main and stable, as Rust does; judgment on the work branch
+
+Date    : 2026-11-22
+Refs    : ENG-STD-005 §2.3, §2.4, §2.5 (new), §3.1, §5.1; ENG-DEC-010 (superseded in part); rust-lang/rust branches `main`, `beta`, `stable`
+Decision: Software and specification projects (fid, phasectl,
+          agent-dispatch-protocol, and other CLI-type projects) run two
+          long-lived branches:
+          - `main`, the default branch: integration. Every change comes
+            from a work branch `type/ANCHOR-short-description` through a
+            pull request into `main`.
+          - `stable`: what is released. The governor promotes `main` →
+            `stable` with a merge commit and tags releases on `stable`.
+          A judgment the work needs is a Q-NNN entry in docs/QUESTIONS.md,
+          added by that work branch's pull request; the governor answers
+          on that pull request. The agent merges a pull request into
+          `main` once all required checks pass and no question is OPEN.
+          Security-related changes (ENG-STD-005 §2.5) are the exception:
+          the agent waits, and the governor merges them. develop and qa
+          (ENG-DEC-010) are retired. contextos's branching is decided
+          separately.
+Reason  : Governor, 2026-11-22: "lets we also use main and stable then like
+          rust", "judgment is given on work-id-feature-based-branch", "when
+          it has no open Qs, then you merge it once all checks pass and no
+          Qs open. I merge main -> stable and tag releases", "if anything
+          security stuff related is it those are EXCEPTIONS where you wait
+          for human". Two branches named as the Rust project names them
+          are what an outside contributor expects; three (develop, qa,
+          main) added a branch without adding a judgment. Judging each
+          piece of work where it is raised keeps the answer next to the
+          change it decides.
+Risk    : Changes reach `main` without a human reading them. Bounded by:
+          the required checks; the questions check; security-related
+          changes merged by the governor only; and the governor's review
+          of each `main` → `stable` promotion before anything is released.
+          A change wrongly left unlabelled as security-related is caught
+          at that review.
+Status  : ACCEPTED (governor, 2026-11-22)
+
+---
+
+## ENG-DEC-013 — Severity follows OpenSSF first, then impact; security is never below HIGH
+
+Date    : 2026-11-22
+Refs    : ENG-STD-006 §2.3 (replaced); ENG-STD-008 §2.3 (new); OpenSSF Scorecard checks.yaml (risk per check); OpenSSF Best Practices criteria.yml (passing level)
+Decision: A violation's severity is, in order:
+          a. its OpenSSF Scorecard check's risk level, if one matches;
+          b. otherwise its OpenSSF Best Practices passing criterion's
+             level: MUST → HIGH, SHOULD → MEDIUM, SUGGESTED → LOW;
+          c. otherwise, for our own rules: HIGH if it changes behaviour,
+             affects personal data, or breaks a compliance obligation;
+             otherwise MEDIUM, or the governor rules;
+          d. security-related violations are never below HIGH, and are
+             CRITICAL when a known vulnerability (CVE or advisory) is in
+             released code.
+          ENG-STD-008 gives every check its severity and basis, and the
+          dashboard shows it for every failing check.
+Reason  : The earlier wording graded by keyword ("a MUST is broken" →
+          CRITICAL) and never defined "broken", so a missing CONTRIBUTING
+          ranked with a security hole. Governor, 2026-11-21: "if it changes
+          behaviour or affects some PII or high level compliance then it is
+          high otherwise MEDIUM"; 2026-11-22: "OpenSSF violations … remain
+          as is … based on how the openssf places it", "security stuff
+          always go for HIGH or CRITICAL depending on CVE", "for items that
+          are ours only … and doesn't change behaviour those go to MEDIUM
+          or ask for severity ruling". OpenSSF's placement is the one
+          outside contributors already use.
+Risk    : Scorecard rates some items lower than intuition (License Low,
+          CI-Tests Low). Rule a is applied as written; the governor may
+          rule otherwise for a project in audit/projects.json.
+Status  : ACCEPTED (governor, 2026-11-22)
