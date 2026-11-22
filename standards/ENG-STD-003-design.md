@@ -31,7 +31,7 @@ applies.
     that honours the same text contract (Liskov at system scale, §3).
 0.9 *Hardware:* a device SHOULD expose a line-oriented text console
     (serial/UART or equivalent) for status and diagnostics. Status codes MUST
-    be documented like exit codes. Boards compose through standard buses.
+    be documented like exit codes. Boards SHOULD compose through standard buses.
 
 **Check:** `tool < input > out 2> err; echo $?` behaves as documented. The
 tool runs on its declared minimum substrate in CI or on a bench.

@@ -415,6 +415,10 @@ Decision: Per the governor's answers to Q-001..Q-007 (all option A):
             docs project that contain scripts, it should be lang agnostic").
           - Q-004: every listed clause gains an RFC 2119 keyword with its
             meaning unchanged; J clauses take the recommended keyword.
+            ENG-STD-004 §2.4 takes MUST NOT (governor, 2026-11-23: "as
+            is"). Three clauses the scan missed also take keywords:
+            ENG-STD-004 §1.1 MUST NOT, §6.2 MUST, ENG-STD-003 §0.9 SHOULD
+            (governor, 2026-11-23: "add the keywords").
           - Q-005: any authorised contributor, human or automated, MAY merge
             into `main` once required checks pass and no question is OPEN;
             security-related changes keep a human gate; every release

@@ -16,7 +16,7 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
     languages those are.
 
 ## 1. Naming
-1.1 Names MUST state intent in the domain's vocabulary. No unexplained abbreviations except well-known ones (id, url, i2c).
+1.1 Names MUST state intent in the domain's vocabulary. Names MUST NOT use unexplained abbreviations, except well-known ones (id, url, i2c).
 1.2 Booleans SHOULD read as predicates (`is_signed`, `has_provenance`).
 1.3 *Hardware:* every net that leaves a sheet MUST be named. Names MUST describe function (`VBAT_SENSE`, `I2C1_SDA`), not pin numbers.
 
@@ -42,7 +42,7 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 
 ## 6. Formatting and static checks
 6.1 Each project MUST pin one formatter and one linter per language and run them in CI. Style debates end there.
-6.2 *Hardware:* ERC and DRC MUST pass with zero unwaived errors before fabrication. Waivers are listed in the revision notes.
+6.2 *Hardware:* ERC and DRC MUST pass with zero unwaived errors before fabrication. Waivers MUST be listed in the revision notes.
 
 ## 7. Dependencies
 7.1 Every new dependency or BOM part MUST be justified in the change that adds it (ENG-P-09).
