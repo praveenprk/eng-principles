@@ -636,3 +636,30 @@ Raised by: PR #18 (fix/ENG-DEC-018-review-followups)
 Status   : ANSWERED (governor, 2026-11-24, given in the engineering-fa
            session and relayed; PR #18 comment 7139324060): "Q-017 A"
            → ENG-DEC-019
+### Q-018
+Scenario : An auditor asks where ENG-STD-007's "nine product-quality
+           characteristics" come from, and whether anyone here has read ISO/IEC
+           25010:2023. Nobody has: iso.org refuses automated reads and the text
+           is paywalled. Today REFERENCES.md names standards without saying
+           where each was read or how far, and ISO 16290 was cited from a
+           summary (Q-016). The governor asked that citations be grounded:
+           "be specific and redirect me to the real standard", public
+           summaries such as ESA's where available, and a maintained list of
+           what must be bought.
+Options  : A — Adopt contextos's register policy (RFC-032 RP-7) as prior art
+               (ENG-P-14). CHARTER External Standards states the rule.
+               REFERENCES.md gains Source and Verified columns, with levels
+               primary / abstract-only / secondary / unverified. No rule
+               relies on content beyond what was read. Paywalls do not block.
+               docs/PROCUREMENT.md lists what to obtain, by priority, with the
+               free route first and prices carrying their own verification
+               level. The governor decides purchases.
+           B — Links only, no levels or procurement list.
+Recommend: A. It is the governor's request, and contextos has run this policy
+           since 2026-11-08. This pull request applies A. It shows that of 22
+           references only RFC 2119/8174 has been read at its primary source;
+           six more are free to read (POSIX, SemVer, RFC 7942, OSTEP, the 1978
+           BSTJ article, SEVOCAB); the rest are paywalled, and four of those
+           (ISO 16290, 29148, 25010, 12207) carry content our rules rely on.
+Raised by: this pull request (docs/ENG-DEC-019-citation-grounding)
+Status   : OPEN
