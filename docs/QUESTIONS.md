@@ -617,3 +617,21 @@ Recommend: A. It keeps the bar of the governor's own ruling without anyone
 Raised by: this pull request (fix/ENG-DEC-018-maturity-corrections)
 Status   : ANSWERED (governor, 2026-11-23, PR #16 comment 7087583540):
            "Q-016 A" → ENG-DEC-018
+
+### Q-017
+Scenario : The Maturity table placed the eng-principles standards at L2,
+           "the lowest of the deliverables it governs". ENG-STD-009 §3.3
+           says a document takes the level of what it describes, but not
+           which level when it describes several deliverables at different
+           levels. The independent review of PR #16 found this was a new
+           rule written into a register, not into the standard.
+Options  : A — §3.3 gains: a document that describes several deliverables
+               takes the lowest of their levels.
+           B — Such a document is not placed until it describes one
+               deliverable.
+           C — It takes the level of most of the deliverables it describes.
+Recommend: A. A claim is only as strong as its weakest evidence (ENG-P-06);
+           the lowest level cannot overstate.
+Raised by: this pull request (fix/ENG-DEC-018-maturity-corrections)
+Status   : ANSWERED (governor's standing instruction, 2026-11-23: "whatever
+           Qs requires my answer go with recommended one"): A → ENG-DEC-018
