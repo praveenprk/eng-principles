@@ -591,3 +591,28 @@ Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
 Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
            "Q-015 — A. Levels belong to deliverables, not repositories, and are
            recorded in one Maturity table in CONFORMANCE.md." → ENG-DEC-017
+
+### Q-016
+Scenario : The governor accepted Q-013 option A, which said the TRL mapping
+           "is checked against ISO 16290's text before the standard cites
+           it". ENG-STD-009 was merged citing ISO 16290 in its header, §2.1
+           and REFERENCES.md, after a check against ESA's published level
+           headings only. The full standard is paywalled and was not read.
+           An independent review found this after the merge: the condition
+           of the governor's ruling was not met.
+Options  : A — Hold the citation until the check is done: remove the "Nearest
+               TRL" column, the ISO 16290 reference in the header and the
+               REFERENCES.md row; restore them in the change that records a
+               check against the standard's own text.
+           B — The governor narrows the condition: the mapping is to level
+               headings only, and a check against those headings as ESA
+               publishes them is sufficient. ENG-STD-009 §2.2 already says
+               this; the decision records that the governor accepted it.
+           C — Obtain ISO 16290:2013 and check the mapping now, keeping the
+               citation once the check is recorded.
+Recommend: A. It keeps the bar of the governor's own ruling without anyone
+           lowering it; nothing depends on the TRL column today. B is the
+           governor's to give, not the agent's to assume. C is A plus a
+           purchase.
+Raised by: this pull request (fix/ENG-DEC-018-maturity-corrections)
+Status   : OPEN

@@ -518,3 +518,33 @@ Risk    : The TRL mapping is this practice's judgment and is checked
           §2.2). No project
           shows L4 yet: committed records of use are missing everywhere.
 Status  : ACCEPTED (governor, 2026-11-23)
+
+---
+
+## ENG-DEC-018 — Maturity corrections after independent review
+
+Date    : 2026-11-23
+Refs    : ENG-DEC-017; ENG-STD-009 §2.3, §2.4, §4.2; CONFORMANCE.md
+          Maturity; docs/QUESTIONS.md Q-016; ENG-P-06
+Decision: (1) The Maturity table is corrected (ENG-STD-009 §2.4: a level
+          drops in the change that records the lost evidence):
+          - eng-principles audit L5 → L3. L4 needs a committed record of
+            runs; the dashboard workflow commits none. L5 needs use beyond
+            the author; none is cited.
+          - contextos factory L3 → L2. Its L3 rested on records in a
+            git-ignored directory; one run is committed, and the supervisor
+            has no tests.
+          - factory-protocol L3 → L2, following the factory it describes.
+          - eng-principles standards L3 → L2, the lowest of the
+            deliverables it governs.
+          - Each row gains the date it was read (§4.2).
+          (2) The ISO 16290 citation: per the governor's answer to Q-016.
+Reason  : An independent review of PR #15 advised against merging, on
+          these findings; the review was not posted on the PR, and the
+          governor merged without seeing it. The levels were the agent's
+          errors: L5 was placed without the evidence §2.3 requires, against
+          ENG-DEC-017's own statement that no project shows L4.
+Risk    : Reviews held outside the pull request are not seen at merge
+          time. Where an independent review is run, its findings belong on
+          the pull request.
+Status  : PROPOSED
