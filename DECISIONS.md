@@ -464,18 +464,33 @@ Refs    : docs/QUESTIONS.md Q-008..Q-012; CHARTER (Purpose, Grounding,
           ENG-P-13); AGENTS.md; ENG-DEC-007, ENG-DEC-009, ENG-DEC-015;
           Civilisational Engineering North Star dispatch and its
           independent review (2026-11-23); OSTEP
-Decision: Per the governor's answers to Q-008 (North Star), Q-009 (the
-          ground), Q-010 (the bar may never be lowered), Q-011 (three
-          principles) and Q-012 (four layers; never a runtime dependency).
-          No change to CHARTER, PRINCIPLES or AGENTS until those answers are
-          given.
+Decision: Per the governor's answers to Q-008..Q-012 (all option A):
+          - Q-008: CHARTER Purpose states the North Star, labelled
+            aspiration, naming no programme.
+          - Q-009: the ground is physical reality and evidence; Unix is the
+            software ground; ENG-P-13 renamed, its rules unchanged.
+          - Q-010: "A rule may be refined. Its bar may never be lowered."
+            The bar is the evidence, traceability and accountability a rule
+            demands; changing who performs a step, or aligning a term with
+            an external standard, is a refinement when the bar is kept or
+            raised (CHARTER, PRINCIPLES.md, AGENTS.md).
+          - Q-011: ENG-P-14 Look before you build; ENG-P-15 Authority is
+            bounded by evidence; ENG-P-16 Lifecycle and access are design
+            inputs.
+          - Q-012: CHARTER Authority Order names the four layers and states
+            that no product depends on this repository to build or run,
+            except the shared commit check at CI time (ENG-DEC-009).
 Reason  : The practice is to govern a portfolio that reaches beyond
           software, toward robots, factories and space. The charter names
           neither that direction nor a ground that holds for physical
-          systems, and its no-weakening rule has no definition.
+          systems, and its no-weakening rule has no definition. Governor,
+          in session 2026-11-23: "ground is physical reality and evidence",
+          "unix as the software ground", "bar may never be lowered is fine,
+          keep it", "what problems OS has solved we just replicate and make
+          superbly integrable"; on PR #14: "all as recommended".
 Risk    : Until applied, none. Once applied: new principles without domain
           standards behind them are reviewed, not checked (ENG-P-04).
           Delegated release authority, the L0–L6 maturity scale and
           scheduling as a portfolio abstraction stay open, outside this
           decision.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-22)

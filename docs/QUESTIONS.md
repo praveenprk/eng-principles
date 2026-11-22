@@ -393,7 +393,9 @@ Recommend: A. The governor called the proposed text "good" in session on
            programme keeps the charter true whatever any programme's
            feasibility turns out to be.
 Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
+           "Q-008 — A. Add the North Star paragraph to CHARTER Purpose,
+           labelled as aspiration and naming no programme." → ENG-DEC-016
 
 ### Q-009
 Scenario : A contributor designing an agricultural droid reads that the
@@ -410,7 +412,10 @@ Recommend: A. The governor ruled it in session on 2026-11-23: "ground is
            this entry asks for confirmation on the PR. Every ENG-P rule
            survives unchanged; only what sits beneath them changes.
 Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
+           "Q-009 — A. The ground is physical reality and evidence. Unix is the
+           software ground, and ENG-P-13 is renamed accordingly with its
+           rules unchanged." → ENG-DEC-016
 
 ### Q-010
 Scenario : ENG-DEC-015 replaced a human merge step with an evidence gate and
@@ -435,7 +440,10 @@ Recommend: A. The governor, in session on 2026-11-23: "instead of 'weakened'
            keep it". A adds a test every such change must pass, so the rule
            itself is tightened, not loosened.
 Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
+           "Q-010 — A. Replace 'weakened' with 'A rule may be refined. Its bar
+           may never be lowered.' The bar is the evidence, traceability and
+           accountability a rule demands." → ENG-DEC-016
 
 ### Q-011
 Scenario : A contributor starts writing a job scheduler for agents without
@@ -467,7 +475,11 @@ Recommend: A. The governor, in session on 2026-11-23: principles 2, 4 and 5
            just replicate and make superbly integrable". A sets direction
            without writing any domain standard ahead of a project.
 Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
+           "Q-011 — A. Add the three principles as framed: look before you
+           build, with operating systems as the first prior art; authority
+           bounded by evidence for physical systems; and lifecycle and
+           access as recorded design assessments." → ENG-DEC-016
 
 ### Q-012
 Scenario : A second engineering organisation wants to adopt eng-principles
@@ -487,4 +499,8 @@ Recommend: A. It is what the repository already does, written down so a
            second organisation can rely on it; the governor's review of the
            North Star dispatch accepted the four layers.
 Raised by: this pull request (docs/ENG-DEC-016-north-star-foundation)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
+           "Q-012 — A. Write the four governance layers and the rule that no
+           product depends on this repository at runtime into the CHARTER
+           Authority Order, with the CI-time exception of ENG-DEC-009." →
+           ENG-DEC-016
