@@ -531,7 +531,10 @@ Recommend: A. The governor, in session on 2026-11-23: "good starting point
            now", "it will be more detailed in future". Mapping to TRL avoids
            duplicating an existing industry scale (North Star dispatch §10).
 Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-013 — A. Adopt ENG-STD-009 with L0–L6 mapped to ISO 16290 TRL. A
+           level advances only on met acceptance criteria and named
+           evidence." → ENG-DEC-017
 
 ### Q-014
 Scenario : Validation 1 could not place three projects on a scale written
@@ -560,7 +563,13 @@ Recommend: A. The governor, in session on 2026-11-23, on software: "my daily
            specification ladder is this review's proposal; the governor said
            "okay I am listening" and has not ruled on it.
 Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-014 — A. Each kind of deliverable has its own reading of the
+           scale." Software counts the governor's daily use, with a dated,
+           committed record; documentation takes the level of what it
+           describes; specifications use the ladder L2 vectors, L3 one
+           implementation, L4 two interoperating, L5 others in production.
+           → ENG-DEC-017
 
 ### Q-015
 Scenario : eng-principles holds both an audit tool that runs daily and a set
@@ -579,4 +588,6 @@ Recommend: A. The governor, in session on 2026-11-23, on levels per
            project's evidence-backed status, so adding a table there keeps
            one register.
 Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-015 — A. Levels belong to deliverables, not repositories, and are
+           recorded in one Maturity table in CONFORMANCE.md." → ENG-DEC-017
