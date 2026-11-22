@@ -50,8 +50,9 @@ Status: ACTIVE (ENG-DEC-017) · Refs: RFC 7942 (Implementation Status), IETF BCP
 3.3 **Documentation.** A document takes the level of what it describes. A
     page describing an untested process is at that process's level,
     however well it is written.
-3.4 **Hardware and physical systems.** §2.1 applies as written. A domain standard MAY refine it when a project in that domain
-    exists (CHARTER: Authority Order).
+3.4 **Hardware and physical systems.** §2.1 applies as written. A domain
+    standard MAY refine it when a project in that domain exists (CHARTER:
+    Authority Order).
 
 ## 4. Where levels are recorded
 4.1 A level belongs to a deliverable, not a repository. A repository that
