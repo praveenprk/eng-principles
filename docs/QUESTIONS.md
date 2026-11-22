@@ -38,7 +38,9 @@ Recommend: A, because §2.4 today forbids what both project ICS files and this
            mandatory reason rather than loosening it, and ENG-STD-008 §3.1
            already uses `not assessed` for a check the audit cannot read.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A. A project ICS may use `not assessed`, provided each such row
+           states why it is not assessed and what assessing it needs." → ENG-DEC-015
 
 ### Q-002
 Scenario : A contributor wants to change a rule in agent-dispatch-protocol, a
@@ -87,7 +89,13 @@ Recommend: A, widened to any project and any recognised process: the five
            Nothing is weakened: the exit conditions are unchanged, only the
            names of the artifacts that meet them.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A, as widened in the entry. Not all work follows RFC → SPEC → TEST
+           → BUILD → REFINE by those names. A project may meet the gates
+           through whatever process its organisation or industry already
+           uses, provided it records the mapping once and keeps the gate
+           order and the failing-test-first exit. This lays the foundation
+           for that. It does not build any specific process mapping now." → ENG-DEC-015
 
 ### Q-003
 Scenario : A contributor opens factory-protocol, a documentation repository
@@ -116,7 +124,9 @@ Recommend: A, because a script runs whether or not it sits in src/; a `run:`
            "Proportionately" keeps it from demanding a linter for two
            lines; that is the same latitude ENG-STD-002 §3 already gives.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A. All executable text is code under ENG-STD-004, including inline
+           `<script>` and CI `run:` steps. It is applied proportionately." → ENG-DEC-015
 
 ### Q-004
 Scenario : A reviewer checks a project against ENG-STD-005 and finds the
@@ -148,7 +158,10 @@ Recommend: A, with the governor ruling the J clauses (that is, C for those
            clauses the recommended keyword is given, but the choice changes
            what a project must do, so it is the governor's.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A. Add a keyword to every listed clause without changing its
+           meaning. For the clauses marked J, use the recommended keyword
+           in each row." → ENG-DEC-015
 
 Clauses with a requirement and no RFC 2119 keyword, scanned at 3ed6f10
 (`J` = MUST versus SHOULD is a real judgment; `!` = see the note below the
@@ -283,7 +296,13 @@ Recommend: A, because the gate that protects users is the evidence at
            The release record is the answer to that finding, not a way to
            hide it.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A. I don't want 'only a human merges' as the rule. [...] merges
+           into `main` are gated on evidence, not on who performs them, and
+           every release carries a release record. Security-related
+           changes keep a human gate. I accept the stated cost: Scorecard's
+           Code-Review check will show HIGH for machine-only merges, and the
+           release record is our answer to that finding." → ENG-DEC-015
 
 ### Q-006
 Scenario : A reviewer finds that a feature was built without its SPEC. ENG-
@@ -313,7 +332,10 @@ Recommend: A, because CRITICAL keeps the meaning outside readers already give
            which CHARTER (Amendment) counts as weakening unless the governor
            accepts it explicitly.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A. [...] I explicitly accept moving the stated severity from
+           CRITICAL to the HIGH floor, so that CRITICAL keeps the meaning
+           OpenSSF and CVSS give it." → ENG-DEC-015
 
 ### Q-007
 Scenario : The factory floor of Q-005 runs all day. At the end, an automated
@@ -343,4 +365,8 @@ Recommend: A now, because B needs a signing identity and provenance that do
            possible later; B can be asked again as its own question once a
            signing identity and attestations exist.
 Raised by: this pull request (docs/ENG-DEC-015-open-rulings)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-22, PR #13 comment 7084073611):
+           "A, for now. A human promotes to `stable` and tags, signing off the
+           Q-005 release record. Automated release can be raised again as
+           its own question once a signing identity and attestations
+           exist." → ENG-DEC-015

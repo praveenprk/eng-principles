@@ -326,6 +326,8 @@ Risk    : Changes reach `main` without a human reading them. Bounded by:
           A change wrongly left unlabelled as security-related is caught
           at that review.
 Status  : ACCEPTED (governor, 2026-11-22)
+          Refined by ENG-DEC-015 (2026-11-22): the rule for `main` restated
+          in role-neutral words; every release carries a release record.
 
 ---
 
@@ -397,26 +399,49 @@ Refs    : docs/QUESTIONS.md Q-001..Q-007; ENG-STD-006 §2.3, §2.4;
           ENG-DEC-010 (questions register), ENG-DEC-012, ENG-DEC-013;
           ENG-P-02, ENG-P-06, ENG-P-11, ENG-P-12;
           agent-dispatch-protocol ADP-0 §5.4; ISO 9001:2015 §8.6
-Decision: Per the governor's answers to Q-001 (`not assessed` in a project
-          ICS), Q-002 (how any project meets the lifecycle gates through
-          the process it already uses), Q-003 (whether executable text
-          outside a source tree is code under ENG-STD-004), Q-004 (RFC 2119
-          keywords in numbered requirement clauses that lack one), Q-005
-          (merges into `main` gated on evidence, not on who performs them;
-          a record for every release), Q-006 (severity of a bypassed gate)
-          and Q-007 (who may release). No standard or principle changes
-          until those answers are given.
-Reason  : Seven gaps leave rows of CONFORMANCE.md `not assessed` and put the
+Decision: Per the governor's answers to Q-001..Q-007 (all option A):
+          - Q-001: a project ICS MAY use `not assessed`; each such row MUST
+            state why and what assessing it needs (ENG-STD-006 §2.4).
+          - Q-002: a project MAY meet the five gates through the process its
+            organisation or industry already uses, recorded once as a
+            project decision; gate order and the failing-test-first exit
+            are kept (ENG-STD-002 §5, new).
+          - Q-003: code is any executable text, including inline `<script>`
+            and CI `run:` steps; ENG-STD-004 applies proportionately
+            (ENG-STD-004 Scope, new).
+          - Q-004: every listed clause gains an RFC 2119 keyword with its
+            meaning unchanged; J clauses take the recommended keyword.
+          - Q-005: any authorised contributor, human or automated, MAY merge
+            into `main` once required checks pass and no question is OPEN;
+            security-related changes keep a human gate; every release
+            carries a release record (ENG-STD-005 §2.3, §2.6 new, §3.1;
+            ENG-P-11 check). This restates ENG-DEC-012's rule for `main` in
+            role-neutral words and refines it with the release record.
+          - Q-006: a bypassed gate MUST stop work, open a violation graded
+            per ENG-STD-006 §2.3 and never below HIGH, and be backfilled
+            (ENG-STD-002 §4.1; ENG-STD-006 §2.3; ENG-P-12 check).
+          - Q-007: a human promotes to `stable` and tags, signing off the
+            release record. ENG-DEC-012 stands on who releases.
+Reason  : Seven gaps left rows of CONFORMANCE.md `not assessed` and put the
           standards in conflict with the projects' own registers, with
           ENG-STD-001 §1.1, and with the checks of ENG-P-11 and ENG-P-12.
-          Each is a judgment for the governor, framed as a scenario in
-          docs/QUESTIONS.md.
-Risk    : Until applied, none. Once applied: OpenSSF Scorecard's Code-Review
+          Governor, PR #13, 2026-11-22: "Not all work follows RFC → SPEC →
+          TEST → BUILD → REFINE by those names"; "I don't want 'only a human
+          merges' as the rule. Like a factory floor, several automated
+          contributors can work together and merge. What gates distribution
+          is a quality-control check that passes with a record of the
+          evidence"; "I explicitly accept moving the stated severity from
+          CRITICAL to the HIGH floor, so that CRITICAL keeps the meaning
+          OpenSSF and CVSS give it"; "A human promotes to `stable` and tags,
+          signing off the Q-005 release record."
+Risk    : OpenSSF Scorecard's Code-Review
           check (risk High) fails for merges made by automated contributors
           without human review; under ENG-DEC-013 (a) that rating stands as
           is, and the release record (Q-005) is the answer to it. Project
           rules are not changed by this decision: fid DECISION-008 and
           AGENTS.md, agent-dispatch-protocol ADP-0 §8.2, and the governor's
           local merge guard follow, if at all, by their own decisions after
-          this one is ACCEPTED.
-Status  : PROPOSED
+          this one is ACCEPTED. Until fid and agent-dispatch-protocol adopt
+          a release record, their next releases do not meet ENG-STD-005
+          §2.6.
+Status  : ACCEPTED (governor, 2026-11-22)
