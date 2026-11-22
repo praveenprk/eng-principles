@@ -38,8 +38,30 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 4.1 Work found to have bypassed a gate: stop, open a CRITICAL violation, write the
     missing RFC/SPEC honestly (describing what was actually built), then continue.
 
+## 5. Equivalent change processes
+5.1 The five gates are exit conditions (§2), not artifact names. A project
+    MAY meet them through the change process its organisation or industry
+    already uses (for example the IETF RFC process, the V-model, the
+    ISO/IEC/IEEE 12207 life-cycle processes, Stage-Gate, or an agile
+    definition of done).
+5.2 A project that does so MUST record the mapping once, as a project
+    decision, naming for each gate the artifact that meets its exit
+    condition. For a specification project the mapping is: RFC ↔ proposal;
+    SPEC ↔ normative text, before and after; TEST ↔ conformance vectors,
+    at least one passing and one failing per changed rule; BUILD ↔ schema
+    or reference implementation; REFINE ↔ informative artifacts and
+    registers. Reference implementation: agent-dispatch-protocol ADP-0 §5.4.
+5.3 The mapping MUST keep the order of §1.1 and the exit conditions of §2,
+    including that tests exist and fail before the work that makes them
+    pass (§2.3, §2.4). It MUST NOT be used to skip a gate.
+5.4 A documentation-only project applies §3 with its trivial class recorded
+    once (§3.2). Work outside that class passes the gates under §5.2.
+
 ## Enforcement
 | Clause | Mechanism |
 |--------|-----------|
 | 2.3, 2.4 | CI test run |
 | 1.1, 2.1, 2.2 | Governor review |
+| 5.x | Governor review of the project's mapping decision |
+
+Amended: 2026-11-22 — §5 added: equivalent change processes, mapping recorded once (ENG-DEC-015, Q-002).
