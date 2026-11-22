@@ -154,10 +154,24 @@ def required_checks(r):
     return ctx
 
 
+SHARED_CHECK = re.compile(r"eng-principles/\.github/workflows/commit-check\.yml@([^\s'\"]+)")
+
+
+def shared_check_ref(texts):
+    """How the shared check is called: 'pinned', 'unpinned' (a branch or tag), or None.
+    ENG-DEC-009: it is called pinned to a commit, a full 40-hex SHA."""
+    refs = [m for t in texts for m in SHARED_CHECK.findall(t)]
+    if not refs:
+        return None
+    return "pinned" if all(re.fullmatch(r"[0-9a-f]{40}", ref) for ref in refs) else "unpinned"
+
+
 def c_commit_check(r, x):
-    wf = any("eng-principles/.github/workflows/commit-check.yml@" in t for t in r.workflows().values())
+    how = shared_check_ref(r.workflows().values())
     req = "commit-check / check" in x["required"]
-    return ok(wf and req, "shared check, required", "shared check " + ("not required" if wf else "not called"))
+    if how == "unpinned":
+        return result("fail", "shared check called by branch or tag, not pinned to a commit (ENG-DEC-009)")
+    return ok(how and req, "shared check, pinned and required", "shared check " + ("not required" if how else "not called"))
 
 
 def c_ci(r, x):
