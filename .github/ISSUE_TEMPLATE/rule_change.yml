@@ -1,0 +1,24 @@
+name: Rule change
+description: Propose a new or refined principle, standard or check
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario
+      description: A concrete situation where today's rules give the wrong result, or none.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: The choices you see, and the one you recommend. It becomes a Q-NNN entry in docs/QUESTIONS.md.
+    validations:
+      required: true
+  - type: textarea
+    id: bar
+    attributes:
+      label: The bar
+      description: Does this keep or raise the evidence, traceability and accountability the rule demands? (CHARTER, The bar)
+    validations:
+      required: true

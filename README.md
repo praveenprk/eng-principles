@@ -2,11 +2,11 @@
 
 The engineering principles and standards for everything built here: software,
 hardware, firmware, docs, and process. Projects inherit these rules. They may
-make them stricter, and they may never make them weaker without saying so.
+make them stricter; they may never lower their bar (CHARTER: The bar).
 
 ## Read in this order
 1. [CHARTER.md](CHARTER.md): scope, authority, how this repo changes
-2. [PRINCIPLES.md](PRINCIPLES.md): 13 principles, Unix discipline first, each with a check
+2. [PRINCIPLES.md](PRINCIPLES.md): 16 principles, each with a check; Unix discipline is the software ground
 3. [standards/](standards/): the enforceable rules
 4. [REFERENCES.md](REFERENCES.md): which ISO/IEC/IEEE/IETF standards we borrow from, and what we leave out
 5. [CONFORMANCE.md](CONFORMANCE.md): where each project stands, with evidence
