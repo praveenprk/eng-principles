@@ -29,6 +29,12 @@ Status: ACTIVE · Refs: RFC 2119, RFC 8174, ISO 8601, ISO/IEC/IEEE 24765, SemVer
 3.2 Released artifacts MUST be versioned with SemVer 2.0.0. Hardware revisions
     SHOULD use `REV <letter>` for the board and SemVer for firmware.
 3.3 Relative dates ("last week", "Thursday") MUST NOT appear in governed documents.
+3.4 A project stays at major version 0 (`0.y.z`) until the governor declares
+    it market-ready in a project decision; `1.0.0` is released only with that
+    decision. Before it, a breaking change bumps the minor version and any
+    other change bumps the patch version, as Cargo reads `0.y.z`. Versions
+    already released at `1.0.0` or above keep their numbers and are never
+    renumbered (ENG-DEC-014).
 
 ## 4. Vocabulary
 4.1 Where a term exists in ISO/IEC/IEEE 24765 (systems and software engineering
@@ -39,3 +45,6 @@ Status: ACTIVE · Refs: RFC 2119, RFC 8174, ISO 8601, ISO/IEC/IEEE 24765, SemVer
 |--------|-----------|
 | 2.x, 3.1 | Hook / CI regex (planned per project) |
 | 1.x, 4.1 | Review |
+| 3.4 | Review; only the governor tags releases (ENG-STD-005 §5.1) |
+
+Amended: 2026-11-22 — §3.4 added: major version 0 until the governor declares a project market-ready (ENG-DEC-014).

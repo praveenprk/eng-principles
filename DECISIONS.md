@@ -359,3 +359,29 @@ Risk    : Scorecard rates some items lower than intuition (License Low,
           CI-Tests Low). Rule a is applied as written; the governor may
           rule otherwise for a project in audit/projects.json.
 Status  : ACCEPTED (governor, 2026-11-22)
+
+---
+
+## ENG-DEC-014 — Major version 0 until the governor declares a project market-ready
+
+Date    : 2026-11-22
+Refs    : ENG-STD-001 §3.2, §3.4 (new); SemVer 2.0.0 §4 ("Major version zero
+          (0.y.z) is for initial development"); Cargo's reading of 0.y.z
+Decision: Every project releases `0.y.z` until the governor declares it
+          market-ready in a project decision. Only that decision allows
+          `1.0.0`. Before it, a breaking change bumps the minor version and
+          any other change bumps the patch version. Versions already
+          released at `1.0.0` or above (agent-dispatch-protocol: ADP-0
+          1.x, ADP-1 1.x, ADP-2 2.x) keep their numbers and continue from
+          them: released numbers are cited by tags, releases and evidence,
+          and are never renumbered.
+Reason  : `1.0.0` tells users the public interface is stable. None of the
+          projects is market-ready yet. Governor, 2026-11-22: "most of the
+          things we are building should be in 0.1.1 only minor and patch
+          increases until fully market ready". At the time of writing: fid
+          v0.2.0, phasectl v0.1.0, factory-protocol, contextos and
+          eng-principles untagged.
+Risk    : agent-dispatch-protocol reads as more mature than its Draft status.
+          Its specs say Draft and its releases are marked pre-release, which
+          carries the same signal.
+Status  : ACCEPTED (governor, 2026-11-22)
