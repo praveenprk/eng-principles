@@ -51,7 +51,8 @@ Status: ACTIVE (ENG-DEC-017) · Refs: RFC 7942 (Implementation Status), IETF BCP
     page describing an untested process is at that process's level,
     however well it is written. A document that describes several
     deliverables, such as a set of standards, takes the lowest of their
-    levels (ENG-DEC-019, Q-017).
+    levels (ENG-DEC-019, Q-017; pending the governor's answer, option A
+    applied as recommended).
 3.4 **Hardware and physical systems.** §2.1 applies as written. A domain
     standard MAY refine it when a project in that domain exists (CHARTER:
     Authority Order).
@@ -72,4 +73,4 @@ Status: ACTIVE (ENG-DEC-017) · Refs: RFC 7942 (Implementation Status), IETF BCP
 | 2.4 | Review; a contradicted claim is a violation of ENG-P-06 |
 
 Amended: 2026-11-23 — TRL column and ISO 16290 citation held until checked against the standard's text (ENG-DEC-018, Q-016).
-Amended: 2026-11-23 — §3.3: a document describing several deliverables takes the lowest of their levels (ENG-DEC-019, Q-017).
+Amended: 2026-11-23 — §3.3: a document describing several deliverables takes the lowest of their levels (ENG-DEC-019, Q-017, pending).
