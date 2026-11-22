@@ -408,7 +408,11 @@ Decision: Per the governor's answers to Q-001..Q-007 (all option A):
             are kept (ENG-STD-002 §5, new).
           - Q-003: code is any executable text, including inline `<script>`
             and CI `run:` steps; ENG-STD-004 applies proportionately
-            (ENG-STD-004 Scope, new).
+            (ENG-STD-004 Scope, new). The audit follows: check `fmt_lint`
+            applies to every project and asks for a formatter and a linter
+            in CI for each language found in the repository, whatever the
+            project's kinds (governor, 2026-11-23: "it should cover spec and
+            docs project that contain scripts, it should be lang agnostic").
           - Q-004: every listed clause gains an RFC 2119 keyword with its
             meaning unchanged; J clauses take the recommended keyword.
           - Q-005: any authorised contributor, human or automated, MAY merge

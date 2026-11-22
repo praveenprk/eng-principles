@@ -179,18 +179,54 @@ def c_required_checks(r, x):
     return ok(extra, "required: " + ", ".join(sorted(extra)), "no build or test check is required to merge")
 
 
+# Languages ENG-STD-004 §6.1 binds, detected from the repository itself, not
+# from the project's kinds: code is any executable text (ENG-STD-004 §0,
+# ENG-DEC-015). Each entry: name, path regex, formatter (label, CI regex),
+# linter (label, CI regex). A language not listed here is not detected; add it
+# here, with its usual formatter and linter.
+LANGUAGES = [
+    ("Rust", r".+\.rs", ("cargo fmt", r"cargo fmt"), ("clippy", r"cargo clippy")),
+    ("Python", r".+\.pyi?", ("ruff format/black", r"\bruff\b|\bblack\b"), ("ruff/flake8/pylint", r"\bruff\b|flake8|pylint")),
+    ("Shell", r".+\.(sh|bash)", ("shfmt", r"\bshfmt\b"), ("shellcheck", r"\bshellcheck\b")),
+    ("JavaScript/TypeScript", r".+\.(m?js|cjs|jsx|tsx?)", ("prettier/biome/deno fmt", r"\bprettier\b|\bbiome\b|deno fmt"),
+     ("eslint/biome/deno lint", r"\beslint\b|\bbiome\b|deno lint")),
+    ("Go", r".+\.go", ("gofmt", r"\bgofmt\b|go fmt"), ("go vet/golangci-lint/staticcheck", r"go vet|golangci-lint|staticcheck")),
+]
+SHEBANG = re.compile(r"#!\s*(?:/usr/bin/env\s+)?(?:\S*/)?(sh|bash|dash|zsh|python3?|node)\b")
+SCRIPT_DIRS = re.compile(r"(?:^|.*/)(?:hooks|scripts|bin)/(?:[^/]+/)*[^/.]+")
+
+
+def languages(paths, text):
+    """Languages present as executable text: by extension; extensionless
+    files under hooks/, scripts/ or bin/ by their shebang; HTML pages that
+    carry an inline <script> as JavaScript. Returns {name: example path}."""
+    found = {}
+    for p in paths:
+        for name, pat, _, _ in LANGUAGES:
+            if name not in found and re.fullmatch(pat, p, re.I):
+                found[name] = p
+        if SCRIPT_DIRS.fullmatch(p) and not p.startswith(".git"):
+            m = SHEBANG.match(text(p)[:120])
+            if m:
+                name = {"python": "Python", "python3": "Python", "node": "JavaScript/TypeScript"}.get(m.group(1), "Shell")
+                found.setdefault(name, p)
+        if re.fullmatch(r".+\.html?", p, re.I) and "JavaScript/TypeScript" not in found and re.search(r"<script\b(?![^>]*\bsrc=)", text(p), re.I):
+            found["JavaScript/TypeScript"] = p + " (inline <script>)"
+    return found
+
+
 def c_fmt_lint(r, x):
+    found = languages(r.paths, r.text)
+    if not found:
+        return result("n/a", "no executable text found")
     t = "\n".join(r.workflows().values())
-    langs = x["kinds"]
-    need = []
-    if "rust" in langs:
-        need += [("cargo fmt", r"cargo fmt"), ("clippy", r"cargo clippy")]
-    if "python" in langs:
-        need += [("ruff/black", r"\bruff\b|\bblack\b"), ("ruff/flake8", r"\bruff\b|flake8|pylint")]
-    if not need:
-        return result("n/a", "no Rust or Python code")
-    miss = [n for n, pat in need if not re.search(pat, t)]
-    return ok(not miss, "in CI: " + ", ".join(n for n, _ in need), "not in CI: " + ", ".join(miss))
+    have, miss = [], []
+    for name, _, fmt, lint in LANGUAGES:
+        if name in found:
+            for label, pat in (fmt, lint):
+                (have if re.search(pat, t) else miss).append(f"{name}: {label}")
+    langs = ", ".join(f"{n} (e.g. {p})" for n, p in found.items())
+    return ok(not miss, f"{langs}; in CI: " + ", ".join(have), f"{langs}; not in CI: " + ", ".join(miss))
 
 
 def c_tests(r, x):
@@ -369,7 +405,7 @@ CHECKS = [
     ("ci_green", "Quality", "CI green on default branch", "MUST", "OpenSSF BP: test", None, c_ci_green),
     ("required", "Quality", "Build/test checks required to merge", "MUST", "ENG-STD-004 §6; OpenSSF Scorecard: Branch-Protection", None, c_required_checks),
     ("tests", "Quality", "Automated tests", "MUST", "OpenSSF BP: test; ISO/IEC/IEEE 29119", None, c_tests),
-    ("fmt_lint", "Quality", "Formatter and linter in CI", "MUST", "ENG-STD-004 §6.1; OpenSSF BP: warnings", ("rust", "python"), c_fmt_lint),
+    ("fmt_lint", "Quality", "Formatter and linter in CI, per language detected", "MUST", "ENG-STD-004 §0, §6.1; OpenSSF BP: warnings", None, c_fmt_lint),
     ("dependabot", "Security", "Automated dependency updates", "SHOULD", "OpenSSF Scorecard: Dependency-Update-Tool", None, c_dependabot),
     ("pinned", "Security", "Actions pinned to a commit", "SHOULD", "OpenSSF Scorecard: Pinned-Dependencies", None, c_actions_pinned),
     ("perms", "Security", "Least-privilege workflow token", "MUST", "OpenSSF Scorecard: Token-Permissions", None, c_token_perms),

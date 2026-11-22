@@ -37,7 +37,7 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
 | `ci_green` | Quality | CI green on default branch | MUST | HIGH (ours: a red default branch can ship broken behaviour) | all | OpenSSF BP: test |
 | `required` | Quality | Build/test checks required to merge | MUST | HIGH (OpenSSF Scorecard: Branch-Protection (High)) | all | ENG-STD-004 §6; OpenSSF Scorecard: Branch-Protection |
 | `tests` | Quality | Automated tests | MUST | HIGH (OpenSSF BP MUST: test) | all | OpenSSF BP: test; ISO/IEC/IEEE 29119 |
-| `fmt_lint` | Quality | Formatter and linter in CI | MUST | HIGH (OpenSSF BP MUST: warnings) | rust, python | ENG-STD-004 §6.1; OpenSSF BP: warnings |
+| `fmt_lint` | Quality | Formatter and linter in CI, per language detected | MUST | HIGH (OpenSSF BP MUST: warnings) | all | ENG-STD-004 §0, §6.1; OpenSSF BP: warnings |
 | `dependabot` | Security | Automated dependency updates | SHOULD | HIGH (OpenSSF Scorecard: Dependency-Update-Tool (High)) | all | OpenSSF Scorecard: Dependency-Update-Tool |
 | `pinned` | Security | Actions pinned to a commit | SHOULD | HIGH (security floor (Scorecard: Pinned-Dependencies, Medium)) | all | OpenSSF Scorecard: Pinned-Dependencies |
 | `perms` | Security | Least-privilege workflow token | MUST | HIGH (OpenSSF Scorecard: Token-Permissions (High)) | all | OpenSSF Scorecard: Token-Permissions |
@@ -88,3 +88,4 @@ Status: ACTIVE (ENG-DEC-011) · Refs: OpenSSF Best Practices Badge (passing leve
 
 Amended: 2026-11-22 — §2.3 and the Severity column added (ENG-DEC-013).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-23 — `fmt_lint` applies to all projects, per language detected in the repository (ENG-DEC-015, Q-003).
