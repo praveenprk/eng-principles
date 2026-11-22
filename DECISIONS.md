@@ -385,3 +385,26 @@ Risk    : agent-dispatch-protocol reads as more mature than its Draft status.
           Its specs say Draft and its releases are marked pre-release, which
           carries the same signal.
 Status  : ACCEPTED (governor, 2026-11-22)
+
+---
+
+## ENG-DEC-015 — Close the open rulings: `not assessed` in an ICS, equivalent change processes, executable text, normative keywords
+
+Date    : 2026-11-22
+Refs    : docs/QUESTIONS.md Q-001, Q-002, Q-003, Q-004; ENG-STD-006 §2.4;
+          ENG-STD-002 §1, §3; ENG-STD-004; ENG-STD-001 §1.1, §1.2;
+          ENG-DEC-010 (questions register), ENG-DEC-012, ENG-DEC-013;
+          ENG-P-02, ENG-P-06; agent-dispatch-protocol ADP-0 §5.4
+Decision: Per the governor's answers to Q-001 (`not assessed` in a project
+          ICS), Q-002 (how specification-only and documentation-only
+          projects satisfy the lifecycle gates), Q-003 (whether executable
+          text outside a source tree is code under ENG-STD-004) and Q-004
+          (RFC 2119 keywords in numbered requirement clauses that lack
+          one). No standard changes until those answers are given.
+Reason  : Four gaps leave rows of CONFORMANCE.md `not assessed` and put the
+          standards in conflict with the projects' own registers and with
+          ENG-STD-001 §1.1. Each is a judgment for the governor, framed as a
+          scenario in docs/QUESTIONS.md.
+Risk    : None until applied. Each answer's effect on the standards and on
+          CONFORMANCE.md is stated in its question's options.
+Status  : PROPOSED
