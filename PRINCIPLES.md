@@ -79,6 +79,10 @@ At every threshold where consequences outlast the moment, a named human signs of
 AI and automation contribute. They do not hold authority.
 **Why:** Accountability has to rest with someone who can be held to it.
 **Check:** Merges, releases, and hardware sign-offs carry a human approver.
+Refined by ENG-DEC-015: releases, security-related merges, and hardware
+sign-offs carry a named human approver. Other merges into `main` carry
+their evidence (required checks passed, no open question) and trace to a
+named human accountable for the line (ENG-STD-005 §2.3, §2.6).
 
 ## ENG-P-12 — Pressure does not open gates
 Deadlines, demos, customers, and "just this once" are not bypass conditions.
@@ -93,3 +97,4 @@ Deadlines, demos, customers, and "just this once" are not bypass conditions.
 |------------|-------------------------------------------|-------------|
 | 2026-11-07 | Initial 12 principles, derived from contextos practice | ENG-DEC-001, ENG-DEC-003 |
 | 2026-11-08 | Add ENG-P-13 Unix discipline as the ground | ENG-DEC-005 |
+| 2026-11-22 | ENG-P-11 check refined: human approver on releases, security merges and hardware sign-offs; evidence on other merges | ENG-DEC-015 |

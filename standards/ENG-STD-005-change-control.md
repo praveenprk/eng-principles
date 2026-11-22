@@ -22,6 +22,11 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
     (`main`) once the required checks pass and no question is OPEN, unless
     the change is security-related (§2.5). Only a human merges into
     `stable` and merges security-related changes.
+    Refined by ENG-DEC-015, in role-neutral words: any authorised
+    contributor, human or automated, MAY merge a pull request into `main`.
+    A merge MUST NOT happen until every required check passes and no
+    question is OPEN. A security-related change (§2.5) MUST be merged by a
+    human. The gate is the evidence, not who performs the merge.
 2.4 A project runs two long-lived branches, as Rust does with `main` and
     `stable`:
     - `main`, the default branch: integration. Every pull request targets
@@ -38,6 +43,16 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
     branch rules or required checks; or code that authenticates,
     authorizes, encrypts, signs or checks integrity. It carries the label
     `security`, and only a human merges it.
+2.6 Release record. A release (a promotion to `stable` and its tag) MUST
+    NOT happen without a release record stating: the commit released;
+    every required check's result at that commit; the open violations;
+    and who authorised the release. The record is kept with the release
+    (the tag message or the release page) and is the evidence the release
+    is signed off on. A project's AGENTS.md MUST record which roles, human
+    or automated, may merge into `main` and which may release.
+    Reference models: ISO 9001:2015 §8.6 (release of products and
+    services); SLSA provenance and in-toto attestations as the record's
+    later machine-verifiable form.
 
 ## 3. Review
 3.1 Every change to the default branch is reviewed before merge. An automated
@@ -45,6 +60,10 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
     Refined by ENG-DEC-012: on `main`, the required checks and an automated
     critic review each change; a human approves each promotion to `stable`
     and each security-related change (§2.5).
+    Refined by ENG-DEC-015: on `main`, each change MUST pass the required
+    checks and an automated or human review before it merges. A human
+    MUST approve each promotion to `stable`, on its release record (§2.6),
+    and each security-related change.
 3.2 A fix to a recorded violation updates the violation register in the same change.
 
 ## 4. Hardware change control
@@ -72,9 +91,11 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 
 | 2.3 | Git host rules per branch (authoritative) + the agent's merge guard + review |
 | 2.4 | `commit-check.yml` job `questions`, required on `main` (authoritative, ENG-DEC-010, ENG-DEC-012) + host rules + review |
 | 2.5 | `security` label; the agent's local guard refuses to merge a pull request carrying it; review |
+| 2.6 | Review of each promotion to `stable` against its release record; AGENTS.md roles reviewed |
 | 3.x, 4.x, 6.x | Review |
 
 Amended: 2026-11-08 — §6 added (ENG-DEC-006). Enforcement table points to reference hooks (ENG-DEC-007).
 Amended: 2026-11-16 — §1.5 added: commit rules checked on the git host by one shared workflow (ENG-DEC-009).
 Amended: 2026-11-17 — §2.3 refined and §2.4 added: develop, qa, main flow with a questions register (ENG-DEC-010).
 Amended: 2026-11-22 — §2.3, §2.4, §3.1, §5.1 refined and §2.5 added: `main` and `stable`, work branches, security changes merged by a human (ENG-DEC-012, superseding ENG-DEC-010's develop and qa).
+Amended: 2026-11-22 — §2.3, §3.1 refined in role-neutral words and §2.6 added: merges gated on evidence, a release record for every release (ENG-DEC-015, Q-005).
