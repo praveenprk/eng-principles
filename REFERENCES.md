@@ -22,7 +22,6 @@ These are reference models (CHARTER: External Standards). No certification is cl
 | ISO 9001:2015 | Control of changes (§8.5.6), documented information (§7.5) | ENG-STD-005, 006 | QMS certification |
 | ISO/IEC 27001:2022 | Statement of Applicability shape → ICS | ENG-STD-006 | ISMS |
 | ISO/IEC 9646, RFC 7942 | Implementation conformance statement | ENG-STD-006 | — |
-| ISO 16290:2013 | Technology Readiness Level headings, as the nearest equivalent of each maturity level | ENG-STD-009 §2 | Assessment criteria; certification. Checked against ESA's published level headings, not the full text |
 | RFC 7942 | Judging a specification by its implementations | ENG-STD-009 §3.2 | The Implementation Status section format |
 | IEC 61508 | Hazard analysis structure for safety-relevant hardware | ENG-STD-007 §3 | SIL certification |
 | IPC-2221 | Generic PCB design rules | ENG-STD-004 §6.2 | — |

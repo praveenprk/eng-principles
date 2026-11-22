@@ -1,32 +1,30 @@
 # ENG-STD-009 — Evidence and Maturity
-Status: ACTIVE (ENG-DEC-017) · Refs: ISO 16290:2013 (Technology Readiness Levels), RFC 7942 (Implementation Status), IETF BCP 14 (RFC 2119, RFC 8174), ENG-P-02, ENG-P-06
+Status: ACTIVE (ENG-DEC-017) · Refs: RFC 7942 (Implementation Status), IETF BCP 14 (RFC 2119, RFC 8174), ENG-P-02, ENG-P-06
 
 ## 1. Purpose
 1.1 A maturity level says how far a deliverable's claims are backed by
     evidence. It is meant to be read the same way by a contributor, a
     partner and an auditor.
 1.2 The levels are internal classifications. They are not certification
-    levels. ISO 16290 and RFC 7942 are reference models (CHARTER: External
+    levels. RFC 7942 is a reference model (CHARTER: External
     Standards).
 
 ## 2. The levels
 2.1 A deliverable MUST be placed at exactly one level:
 
-| Level | Name | Evidence that places it there | Nearest TRL (ISO 16290) |
-|-------|------|-------------------------------|-------------------------|
-| L0 | Vision | The intended outcome is written down | — |
-| L1 | Scientific feasibility | Basic principles are known; a concept is formulated; prior art is searched (ENG-P-14) | TRL 1–2 |
-| L2 | Engineering feasibility | A critical function is proven analytically or experimentally, or a component works in a laboratory | TRL 3–4 |
-| L3 | Demonstrated prototype | Critical functions are demonstrated in a relevant environment | TRL 5–6 |
-| L4 | Integrated validation | The system performs in its operational environment | TRL 7 |
-| L5 | Operational deployment | The complete system is qualified and proven in operation | TRL 8–9 |
-| L6 | Replicable, sustainable scale | It is replicated and sustained beyond its first operation, at the scale it meets | Beyond TRL |
+| Level | Name | Evidence that places it there |
+|-------|------|-------------------------------|
+| L0 | Vision | The intended outcome is written down |
+| L1 | Scientific feasibility | Basic principles are known; a concept is formulated; prior art is searched (ENG-P-14) |
+| L2 | Engineering feasibility | A critical function is proven analytically or experimentally, or a component works in a laboratory |
+| L3 | Demonstrated prototype | Critical functions are demonstrated in a relevant environment |
+| L4 | Integrated validation | The system performs in its operational environment |
+| L5 | Operational deployment | The complete system is qualified and proven in operation |
+| L6 | Replicable, sustainable scale | It is replicated and sustained beyond its first operation, at the scale it meets |
 
-2.2 The TRL column is this practice's mapping, made so that a partner can
-    read our levels in their own terms. It was checked against ISO
-    16290's level headings, as ESA publishes them; the standard's detailed
-    assessment criteria have not been checked. A claim to a partner MUST
-    state the level, not a TRL.
+2.2 No equivalence to Technology Readiness Levels is claimed. A mapping
+    to TRL is added only in the change that records a check against the
+    defining standard's own text (ENG-DEC-018, Q-016).
 2.3 A level advances only when the acceptance criteria of the next level
     are met and the evidence is named at a commit, a record or a
     measurement. Agent confidence, presentation quality, code volume, or
@@ -52,8 +50,7 @@ Status: ACTIVE (ENG-DEC-017) · Refs: ISO 16290:2013 (Technology Readiness Level
 3.3 **Documentation.** A document takes the level of what it describes. A
     page describing an untested process is at that process's level,
     however well it is written.
-3.4 **Hardware and physical systems.** The TRL column of §2.1 applies as
-    written. A domain standard MAY refine it when a project in that domain
+3.4 **Hardware and physical systems.** §2.1 applies as written. A domain standard MAY refine it when a project in that domain
     exists (CHARTER: Authority Order).
 
 ## 4. Where levels are recorded
@@ -70,3 +67,5 @@ Status: ACTIVE (ENG-DEC-017) · Refs: ISO 16290:2013 (Technology Readiness Level
 |--------|-----------|
 | 2.1, 2.3, 4.2 | Review of each change to the Maturity table: every level cites evidence at a commit |
 | 2.4 | Review; a contradicted claim is a violation of ENG-P-06 |
+
+Amended: 2026-11-23 — TRL column and ISO 16290 citation held until checked against the standard's text (ENG-DEC-018, Q-016).
