@@ -6,11 +6,12 @@ Each principle has a statement, a reason, and a **check**: how anyone can
 tell whether it is being followed. A principle without a check is a wish.
 
 IDs are never renumbered. ENG-P-13 was added after ENG-P-01..12, but it is
-the ground the others rest on, so it is listed first.
+the software ground the others rest on, so it is listed first. The ground of
+the whole practice is physical reality and evidence (CHARTER, ENG-DEC-016).
 
 ---
 
-## ENG-P-13 — Unix discipline (the ground)
+## ENG-P-13 — Unix discipline (the software ground)
 Build small tools that do one thing, speak plain text, compose through
 pipes, stay quiet on success, fail loudly, and run on the smallest substrate
 they can.

@@ -23,7 +23,11 @@ direction; measured evidence sets the pace (ENG-DEC-016).
 
 ## Grounding
 
-The practice is grounded in **Unix**: an ecosystem of small, composable
+The practice is grounded in **physical reality and evidence**: what a
+system does in the world, measured, is what counts, and every claim rests on
+evidence someone else can check (ENG-DEC-016).
+
+For software, the ground is **Unix**: an ecosystem of small, composable
 tools, joined by plain text, that run on anything from a coffee machine to a
 space station (ENG-P-13).
 
@@ -84,3 +88,4 @@ exactly what is taken from each.
 | 2026-11-08 | Grounding section: Unix, industrial discipline, institutional truth | ENG-DEC-005 |
 | 2026-11-15 | Scope: add adp-protocol, fid, factory-protocol | ENG-DEC-008 |
 | 2026-11-22 | Purpose: North Star, as aspiration | ENG-DEC-016 |
+| 2026-11-22 | Grounding: physical reality and evidence; Unix as the software ground | ENG-DEC-016 |
