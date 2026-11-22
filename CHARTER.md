@@ -57,6 +57,21 @@ New projects are added to CONFORMANCE.md on creation, not later.
 3. standards/ENG-STD-*.md
 4. A project's own governance documents (e.g. contextos KERNEL_SPEC.md, DISCIPLINE.md)
 
+These are four layers (ENG-DEC-016):
+
+| Layer | Holds | Lives in |
+|-------|-------|----------|
+| Portfolio doctrine | North Star, ground, principles, decision rules | CHARTER.md, PRINCIPLES.md |
+| Domain standards | Software, hardware, and later AI, robotics, manufacturing, space | standards/ENG-STD-*.md, written only when a project in that domain exists |
+| Product requirements | Mission, stakeholders, boundaries, guarantees | Each project, by its own process (ENG-STD-002 §5) |
+| Implementation contracts | RFCs, specifications, interfaces, tests, evidence | Each project, by its own process |
+
+**Never a runtime dependency.** No product depends on this repository to
+build or run (ENG-DEC-007). The one exception is the shared commit check,
+called at CI time pinned to a commit (ENG-DEC-009). A project chooses its
+own language, architecture, process and specification format within these
+rules.
+
 A project's documents govern **what** that project is. This repository governs
 **how** things are built. Where both speak to the same thing:
 
@@ -96,3 +111,4 @@ exactly what is taken from each.
 | 2026-11-22 | Purpose: North Star, as aspiration | ENG-DEC-016 |
 | 2026-11-22 | Grounding: physical reality and evidence; Unix as the software ground | ENG-DEC-016 |
 | 2026-11-22 | "Never weakened" becomes "the bar may never be lowered", with the bar defined | ENG-DEC-016 |
+| 2026-11-22 | Authority Order: four layers; never a runtime dependency | ENG-DEC-016 |
