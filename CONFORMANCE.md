@@ -1,7 +1,23 @@
 # CONFORMANCE.md
 # Cross-project conformance against ENG-STD-*
 # Vocabulary: conformant / partial / not yet / n/a / not assessed (ENG-STD-006 §2.4)
-# Every non-"not assessed" row cites evidence. Date of last update: 2026-11-22
+# Every non-"not assessed" row cites evidence. Date of last update: 2026-11-23
+
+
+## Maturity (ENG-STD-009)
+
+One row per deliverable. Read from the git host on 2026-11-23 (validation 1).
+
+| Deliverable | Kind | Level | Evidence (commit) | Blocks the next level |
+|-------------|------|-------|-------------------|-----------------------|
+| fid | software | L3 | a460eab: release v0.2.0; tests incl. tests/conformance.rs; calibration results committed under calibration/results/; CI green | L4: a dated, committed record of runs in real use |
+| phasectl | software | L3 | b91611a: tag v0.1.0; SPEC-001..003 with tests; field-test runner (tests/field/); CI green | L4: field-test runs committed as a dated record |
+| contextos | software | L3 | c757698: 35 Python test files; CI green; daily use by the governor, not yet recorded | L4: a dated, committed record of runs in daily use |
+| contextos factory | software | L3 | factory/supervisor.sh and state machine since 53db88c; 11 work items with hashed gate transitions in .factory/ (local, git-ignored) | L4: transition records committed where others can check them |
+| agent-dispatch-protocol | specification | L2 | 5167c83: ADP-0/1/2; 101 conformance vector files checked against JSON schemas in CI; no implementation | L3: one implementation passes every vector (ADP issue #28) |
+| factory-protocol | documentation | L3 | 1340fa7: describes the contextos factory, which runs (row above) | L4: the factory reaches L4, and the page is checked against the running state machine |
+| eng-principles audit | software | L5 | d887b6c: audit runs daily and on every merge; dashboard on GitHub Pages; selftest in CI | L6: used by a second organisation |
+| eng-principles standards | documentation | L3 | Applied to six projects; measured by the audit (row above) | Level of the practice it describes; rises with the projects |
 
 ## contextos
 

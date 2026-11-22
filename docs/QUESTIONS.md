@@ -504,3 +504,90 @@ Status   : ANSWERED (governor, 2026-11-22, PR #14 comment 7086345693):
            product depends on this repository at runtime into the CHARTER
            Authority Order, with the CI-time exception of ENG-DEC-009." →
            ENG-DEC-016
+
+### Q-013
+Scenario : A partner from a space programme reads that fid is "mature" and
+           asks what that means. Today nothing in the standards says. The
+           North Star review proposed seven levels, L0 (vision) to L6
+           (replicable, sustainable scale), and validation 1 placed the six
+           live projects on them (2026-11-23): fid, phasectl, contextos L3;
+           agent-dispatch-protocol L2; factory-protocol L3 through the
+           factory it describes; none at L4.
+Options  : A — New standard ENG-STD-009 Evidence and maturity: L0 vision; L1
+               scientific feasibility; L2 engineering feasibility; L3
+               demonstrated prototype; L4 integrated validation; L5
+               operational deployment; L6 replicable, sustainable scale. Each
+               level is mapped to the Technology Readiness Levels of ISO
+               16290 (L1 ≈ TRL 1–2, L2 ≈ 3–4, L3 ≈ 5–6, L4 ≈ 7, L5 ≈ 8–9,
+               L6 beyond TRL, where manufacturing readiness applies), so a
+               partner reads our levels in their own terms. A level advances
+               only on met acceptance criteria and named evidence; agent
+               confidence, demos, simulation alone or code volume never
+               advance it. The mapping is checked against ISO 16290's text
+               before the standard cites it.
+           B — A level scale of our own, without the TRL mapping.
+           C — No scale yet.
+Recommend: A. The governor, in session on 2026-11-23: "good starting point
+           now", "it will be more detailed in future". Mapping to TRL avoids
+           duplicating an existing industry scale (North Star dispatch §10).
+Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-013 — A. Adopt ENG-STD-009 with L0–L6 mapped to ISO 16290 TRL. A
+           level advances only on met acceptance criteria and named
+           evidence." → ENG-DEC-017
+
+### Q-014
+Scenario : Validation 1 could not place three projects on a scale written
+           for physical prototypes: what is a "relevant environment" for a
+           CLI, a "prototype" of a specification, or the maturity of a web
+           page that documents a process?
+Options  : A — ENG-STD-009 says how each kind of deliverable reads the scale:
+               Software: L3 passes its tests on real inputs; L4 runs in a
+               real operating environment, the governor's own daily use
+               included, with a dated, committed record of runs, inputs,
+               results and issues; L5 is used beyond its author with
+               incidents tracked; L6 just works at any scale it meets.
+               Specification (after IETF practice, RFC 7942): L2 every rule
+               is decidable by conformance vectors; L3 one implementation
+               passes every vector; L4 two independent implementations
+               interoperate; L5 implementers other than the authors run it in
+               production; L6 stable and widely adopted.
+               Documentation: takes the level of what it describes; a page
+               describing an untested process stays at that process's level.
+           B — One reading for all kinds.
+Recommend: A. The governor, in session on 2026-11-23, on software: "my daily
+           use count go with default", the record "go with Default", and L6
+           as software "that just works at galactic scale"; on documentation:
+           option B of the review (takes the level of what it describes),
+           confirmed by the factory running inside contextos. The
+           specification ladder is this review's proposal; the governor said
+           "okay I am listening" and has not ruled on it.
+Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-014 — A. Each kind of deliverable has its own reading of the
+           scale." Software counts the governor's daily use, with a dated,
+           committed record; documentation takes the level of what it
+           describes; specifications use the ladder L2 vectors, L3 one
+           implementation, L4 two interoperating, L5 others in production.
+           → ENG-DEC-017
+
+### Q-015
+Scenario : eng-principles holds both an audit tool that runs daily and a set
+           of standards with no running form. contextos holds a product and
+           the factory that builds it. One level per repository cannot
+           describe either. And a level needs a home: if it lives in two
+           places, the two will disagree.
+Options  : A — A level belongs to a deliverable, not a repository. Each
+               project's levels live in one place: a Maturity table in this
+               repository's CONFORMANCE.md, one row per deliverable, with
+               the level, the evidence at a named commit, and what blocks
+               the next level (ENG-STD-006 §2.5, one fact in one register).
+           B — One level per repository, in CONFORMANCE.md.
+Recommend: A. The governor, in session on 2026-11-23, on levels per
+           deliverable: "yes correct". CONFORMANCE.md already holds each
+           project's evidence-backed status, so adding a table there keeps
+           one register.
+Raised by: this pull request (docs/ENG-DEC-017-maturity-scale)
+Status   : ANSWERED (governor, 2026-11-23, PR #15 comment 7087064034):
+           "Q-015 — A. Levels belong to deliverables, not repositories, and are
+           recorded in one Maturity table in CONFORMANCE.md." → ENG-DEC-017
