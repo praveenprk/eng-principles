@@ -1,6 +1,6 @@
 # PRINCIPLES.md
 # Engineering — Core Principles
-# Status: Append only. A principle may be refined. It may never be weakened or removed.
+# Status: Append only. A principle may be refined. Its bar may never be lowered, and it may never be removed (CHARTER: The bar).
 
 Each principle has a statement, a reason, and a **check**: how anyone can
 tell whether it is being followed. A principle without a check is a wish.

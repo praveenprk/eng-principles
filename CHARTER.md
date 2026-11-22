@@ -1,6 +1,6 @@
 # CHARTER.md
 # Engineering — Charter
-# Status: Living document. Append only. A rule may be refined. It may never be weakened.
+# Status: Living document. Append only. A rule may be refined. Its bar may never be lowered.
 # Authority: Highest document in this repository.
 
 ---
@@ -60,8 +60,8 @@ New projects are added to CONFORMANCE.md on creation, not later.
 A project's documents govern **what** that project is. This repository governs
 **how** things are built. Where both speak to the same thing:
 
-- **Tighten, never weaken.** A project MAY impose stricter rules. It MUST NOT
-  relax a rule stated here.
+- **Tighten, never lower the bar.** A project MAY impose stricter rules. It
+  MUST NOT relax a rule stated here.
 - **Deviation is visible.** A project that cannot meet a standard records a
   waiver in its own decision register, citing the ENG-STD clause, the reason,
   and the condition under which the waiver ends. A silent deviation is a violation.
@@ -72,6 +72,12 @@ A project's documents govern **what** that project is. This repository governs
   superseded, never deleted.
 - Every change to a principle or standard has a DECISIONS.md entry.
 - Uncertainty resolves in favour of the existing rule.
+- **The bar.** A rule's bar is the evidence, traceability and accountability
+  it demands. A rule may be refined; its bar may never be lowered. Changing
+  who or what performs a step, or aligning a term with the meaning an
+  external standard gives it, is a refinement when the bar is kept or
+  raised. The decision making such a change states, for each of the three,
+  why it is not lower (ENG-DEC-016).
 
 ## External Standards
 
@@ -89,3 +95,4 @@ exactly what is taken from each.
 | 2026-11-15 | Scope: add adp-protocol, fid, factory-protocol | ENG-DEC-008 |
 | 2026-11-22 | Purpose: North Star, as aspiration | ENG-DEC-016 |
 | 2026-11-22 | Grounding: physical reality and evidence; Unix as the software ground | ENG-DEC-016 |
+| 2026-11-22 | "Never weakened" becomes "the bar may never be lowered", with the bar defined | ENG-DEC-016 |
