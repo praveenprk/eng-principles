@@ -1,0 +1,11 @@
+# Automated update proposals for pinned actions (ENG-STD-008 `dependabot`).
+# The audit and hooks use only the Python standard library and POSIX sh;
+# the CI tools pip installs (ruff, shellcheck-py, shfmt-py) are pinned in
+# the workflow and not covered here. Updates arrive as pull requests;
+# the governor merges them.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
