@@ -156,8 +156,16 @@ dephuman=$(git rev-parse HEAD)
 git switch -q -c dep-mixed "$dep"
 git commit -q --allow-empty --no-verify --author "$bot" -m "chore(deps): and anything else at all"
 depmixed=$(git rev-parse HEAD)
+printf '%s\n' "$dep" "$depdir" "$depmixed" "$dephuman" > "$work/signed"
 dpr() { # dpr <author> <base> <head> <title> [body]
-    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 PR_BODY=${5:-} sh hooks/check-pr
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 PR_BODY=${5:-} ENG_SIGNED_FILE="$work/signed" sh hooks/check-pr
+}
+dpr_unsigned() { # as dpr, but no commit is signed by GitHub
+    : > "$work/unsigned"
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 ENG_SIGNED_FILE="$work/unsigned" sh hooks/check-pr
+}
+dpr_nofile() { # as dpr, without the signed list at all
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 sh hooks/check-pr
 }
 dep_title="chore(deps): bump clap from 4.6.7 to 4.6.9"
 notes=$(printf 'Release notes\n\nCo-authored-by: someone <a@example.invalid>')
@@ -167,6 +175,8 @@ check pass "dependabot: group update title" dpr "dependabot[bot]" "$a" "$dep" "c
 check pass "dependabot: upstream release notes not checked" dpr "dependabot[bot]" "$a" "$dep" "$dep_title" "$notes"
 check "format" "same commit and title, PR by someone else" dpr "praveenprk" "$a" "$dep" "$dep_title"
 check "format" "same commit and title, run locally" pr "$a" "$dep" "$dep_title"
+check "format" "dependabot PR, forged Dependabot author not signed by GitHub" dpr_unsigned "dependabot[bot]" "$a" "$dep" "$dep_title"
+check "format" "dependabot PR, no signed list given" dpr_nofile "dependabot[bot]" "$a" "$dep" "$dep_title"
 check "format" "dependabot PR, bump subject from another author" dpr "dependabot[bot]" "$a" "$dephuman" "$dep_title"
 check "format" "dependabot PR, a non-bump commit by Dependabot" dpr "dependabot[bot]" "$a" "$depmixed" "$dep_title"
 check "version-bump shape" "dependabot PR, title not a bump" dpr "dependabot[bot]" "$a" "$dep" "chore(deps): do something else"

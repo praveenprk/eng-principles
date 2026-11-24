@@ -684,7 +684,9 @@ Options  : A — The shared check (hooks/check-pr) treats a Dependabot version
                - its title has Dependabot's bump shape, with a type from
                  `types`;
                - each commit counts only if its git author is Dependabot's
-                 noreply address and its subject has the bump shape.
+                 noreply address, GitHub verifies it as signed by GitHub
+                 itself (committer noreply@github.com), and its subject has
+                 the bump shape.
                Any other commit in that PR, and any such subject from
                anyone else, gets the usual check. The PR description is not
                checked, because it is upstream release notes; those can
@@ -702,11 +704,13 @@ Recommend: A. It needs no change to the format rule and no per-repository
            config. The exception is keyed on an identity the PR cannot
            forge: the host-given author. It is narrowed by the subject
            shape and the commit author, so a person's bump-shaped commit is
-           still refused. Remaining risk: someone with write access pushes a
-           commit with a forged Dependabot author and a bump-shaped subject
-           onto a Dependabot branch. The message check then passes. The
-           content is still reviewed when merged, and required checks still
-           run. Dependabot PRs touch dependencies, so a repository may label
+           still refused. A forged Dependabot author pushed from a clone is
+           refused too, because it is not signed by GitHub. Remaining risk:
+           a GitHub-signed commit that is not Dependabot's, for example a
+           web-editor commit whose author is Dependabot. The editor sets the
+           author to the signed-in person, so this is not known to be
+           possible. The content is still reviewed when merged, and the
+           required checks still run. Dependabot PRs touch dependencies, so a repository may label
            them `security` to keep the governor's merge.
 Raised by: PR for fix/Q-019-dependabot-anchors (requested by engineering-fa
            from fid #36–#45)

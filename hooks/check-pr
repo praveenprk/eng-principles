@@ -13,11 +13,14 @@
 #   ENG_ISSUES_FILE      optional: existing issue/PR numbers, one per line
 #   PR_AUTHOR            optional: the PR author's login, as the git host gives
 #                        it (never from the PR's own text)
+#   ENG_SIGNED_FILE      optional: full SHAs the host verified as signed by
+#                        GitHub itself (committer noreply@github.com), one per line
 #
 # Dependabot (ENG-DEC-021, Q-019). A pull request whose host-given author is
 # dependabot[bot] is checked differently. Its title must have Dependabot's
 # version-bump shape, with a type from `types`. A commit whose git author is
-# Dependabot and whose message has that shape needs no anchor; any other
+# Dependabot, which GitHub signed (listed in ENG_SIGNED_FILE), and whose
+# message has that shape needs no anchor; any other
 # commit in the range is checked as usual. The description is not checked:
 # it is generated release notes from upstream. Locally PR_AUTHOR is unset, so
 # every message gets the usual check.
@@ -66,6 +69,7 @@ for sha in $(git rev-list --no-merges --reverse "${BASE:?BASE not set}..${HEAD:?
     label="commit $(git log -1 --format='%h %s' "$sha" | cut -c1-72)"
     if [ "${PR_AUTHOR:-}" = "dependabot[bot]" ] &&
         [ "$(git log -1 --format=%ae "$sha")" = "$dependabot_email" ] &&
+        [ -n "${ENG_SIGNED_FILE:-}" ] && grep -qx "$sha" "$ENG_SIGNED_FILE" &&
         is_bump "$(git log -1 --format=%s "$sha")"; then
         n=$((n + 1))
         printf 'ok %s (dependabot version bump)\n' "$label"

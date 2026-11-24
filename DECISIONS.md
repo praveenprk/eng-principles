@@ -605,15 +605,17 @@ Decision: Pending Q-019, the pull request applies option A. hooks/check-pr
           is given PR_AUTHOR from the git host. When the author is
           `dependabot[bot]`:
           - the title must have Dependabot's version-bump shape;
-          - a commit by Dependabot's noreply author with that shape needs no
-            anchor;
+          - a commit by Dependabot's noreply author, verified by the host as
+            signed by GitHub itself, with that shape needs no anchor;
           - other commits are checked as usual;
           - the description is not checked.
           Without PR_AUTHOR (locally, or any other author), nothing changes.
 Reason  : Dependabot cannot append " — ANCHOR". Without an exception, the
           automated dependency updates that ENG-STD-008 asks for can never
           pass the check that ENG-STD-005 requires.
-Risk    : A forged Dependabot author on a Dependabot branch passes the
-          message check (Q-019, A). Bounded by: the host-given PR author;
-          write access to push; review at merge; required checks.
+Risk    : A GitHub-signed commit that is not Dependabot's but carries its
+          author would pass the message check (Q-019, A); none is known.
+          A forged author pushed from a clone is unsigned, so it is
+          refused. Bounded by: the host-given PR author; GitHub's
+          signature; review at merge; required checks.
 Status  : PROPOSED
