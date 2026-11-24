@@ -6,6 +6,9 @@ A private repository shows its name and statuses only, never evidence text
 (governor, 2026-11-18).
 
 Usage: audit/render.py report.json > site/index.html
+       audit/render.py --public report.json > site/report.json
+The second form writes the report with private evidence removed; only that
+form may be published.
 Substrate: Python 3.11+ standard library.
 """
 
@@ -170,7 +173,23 @@ certification or compliance with any of them (ENG-DEC-004). Private repositories
 """
 
 
+def public(report):
+    """The report as it may be published: a private repository keeps its name and
+    statuses, never evidence text or its HEAD commit (governor, 2026-11-18)."""
+    out = json.loads(json.dumps(report))
+    for p in out["projects"]:
+        if p.get("private"):
+            p["head"] = ""
+            for c in p.get("checks", []):
+                c["evidence"] = ""
+    return out
+
+
 def main():
+    if sys.argv[1] == "--public":
+        json.dump(public(json.load(open(sys.argv[2]))), sys.stdout, indent=1, ensure_ascii=False)
+        print()
+        return
     sys.stdout.write(page(json.load(open(sys.argv[1]))))
 
 

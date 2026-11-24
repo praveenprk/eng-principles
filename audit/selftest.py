@@ -115,6 +115,9 @@ fixture = {
 html = render.page(fixture)
 check(html.startswith("<!doctype html>") and "</html>" in html, "render produces a whole page")
 check(secret not in html, "private project's evidence not rendered")
+pub = json.dumps(render.public(fixture))
+check(secret not in pub and "def5678" not in pub, "published report.json carries no private evidence or HEAD")
+check("README.md" in pub, "public project's evidence kept in the published report")
 check("not assessed" in html, "unreadable project shown as not assessed")
 check('class="sev HIGH"' in html, "failing check shows its severity")
 
@@ -142,7 +145,9 @@ check(audit.languages(["README.md", "docs/a.md"], lambda p: "") == {}, "no execu
 
 # The shared commit check is called pinned to a full commit SHA (ENG-DEC-009).
 pin = "uses: praveenprk/eng-principles/.github/workflows/commit-check.yml@"
-check(audit.shared_check_ref([pin + "f972b72d677281e33373ed6e3368027ec443a4d0\n"]) == "pinned", "a 40-hex SHA is pinned")
+check(
+    audit.shared_check_ref([pin + "f972b72d677281e33373ed6e3368027ec443a4d0\n"]) == "pinned", "a 40-hex SHA is pinned"
+)
 check(audit.shared_check_ref([pin + "main\n"]) == "unpinned", "a branch is not pinned")
 check(audit.shared_check_ref([pin + "f972b72\n"]) == "unpinned", "a short SHA is not pinned")
 check(audit.shared_check_ref(["name: ci\n"]) is None, "no call: not called")

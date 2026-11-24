@@ -145,7 +145,9 @@ def c_registers(r, x):
 
 def c_ruleset(r, x):
     if r.meta.get("private") and gh(f"repos/{r.full}/rules/branches/{r.default}") is None:
-        return result("fail", "branch rules unreadable: none exist, or this token cannot read them (private repository)")
+        return result(
+            "fail", "branch rules unreadable: none exist, or this token cannot read them (private repository)"
+        )
     rules = gh(f"repos/{r.full}/rules/branches/{r.default}") or []
     types = {ru["type"] for ru in rules}
     prot = gh(f"repos/{r.full}/branches/{r.default}/protection")
@@ -189,7 +191,9 @@ def c_commit_check(r, x):
     req = "commit-check / check" in x["required"]
     if how == "unpinned":
         return result("fail", "shared check called by branch or tag, not pinned to a commit (ENG-DEC-009)")
-    return ok(how and req, "shared check, pinned and required", "shared check " + ("not required" if how else "not called"))
+    return ok(
+        how and req, "shared check, pinned and required", "shared check " + ("not required" if how else "not called")
+    )
 
 
 def c_ci(r, x):

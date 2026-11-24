@@ -31,7 +31,9 @@ jobs:
           GH_TOKEN: ${{ secrets.AUDIT_TOKEN || github.token }}
         run: |
           mkdir -p site
-          python3 audit/audit.py audit/projects.json > site/report.json
+          # The raw report stays on the runner; only the redacted one is published.
+          python3 audit/audit.py audit/projects.json > "$RUNNER_TEMP/report.json"
+          python3 audit/render.py --public "$RUNNER_TEMP/report.json" > site/report.json
           python3 audit/render.py site/report.json > site/index.html
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
