@@ -4,10 +4,9 @@ Status   : RESEARCH INPUT. Not a decision. Nothing here binds a project.
 Date     : 2026-11-23
 Principle: ENG-P-14 Look before you build (operating systems first, OSTEP)
 Author   : engineering-ab (eng-principles session), for the governor
-Asked by : the governor, 2026-11-23: "I need this scheduler stuff also
-           abstractable … traditional OS job schedulers and algos are not
-           enough for AI-assisted workflows. be it software or robotics and
-           large scale where automation needs to be there in the future."
+Asked by : the governor, 2026-11-23: whether scheduling can be a shared
+           abstraction for AI-assisted work in software, robotics and large
+           automated systems, where classical schedulers may fall short.
 
 Every row below says how it was verified (REFERENCES.md levels). **Fact**
 means a claim about the source, at the level shown, read on 2026-11-23.
@@ -38,7 +37,7 @@ collaborators, researched, or built?
 
 ## 3. What AI-assisted work adds (judgment, to be tested)
 
-The governor said classical schedulers "are not enough". Read against the
+The question is whether classical schedulers fall short. Read against the
 sources above, the gap is less in the algorithms than in what the
 scheduler has to know about. AI-assisted work differs in these ways:
 
