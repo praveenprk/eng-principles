@@ -57,3 +57,7 @@ make them stricter; they may never lower their bar (CHARTER: The bar).
 
 ## Changing this repository
 Every change needs an ENG-DEC entry. Commits follow ENG-STD-005 with ENG-* anchors.
+
+## Licence
+
+Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
