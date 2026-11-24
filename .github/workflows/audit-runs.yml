@@ -26,17 +26,9 @@ jobs:
   record:
     runs-on: ubuntu-latest
     steps:
-      - id: app
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          app-id: ${{ secrets.AUDIT_RUNS_APP_ID }}
-          private-key: ${{ secrets.AUDIT_RUNS_APP_KEY }}
-          repositories: eng-principles
-          permission-contents: write
-          permission-pull-requests: write
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.app.outputs.token }}
+          persist-credentials: false
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
@@ -49,11 +41,22 @@ jobs:
           mkdir -p audit/runs
           python3 audit/audit.py audit/projects.json > "$RUNNER_TEMP/report.json"
           python3 audit/render.py --public "$RUNNER_TEMP/report.json" > "audit/runs/$day.json"
+      # Minted only after the audit, so no step holds both the read token and
+      # this write token; only the next step uses it.
+      - id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.AUDIT_RUNS_APP_ID }}
+          private-key: ${{ secrets.AUDIT_RUNS_APP_KEY }}
+          repositories: eng-principles
+          permission-contents: write
+          permission-pull-requests: write
       - name: Open a pull request with the record
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
           APP_SLUG: ${{ steps.app.outputs.app-slug }}
         run: |
+          gh auth setup-git
           branch="chore/ENG-STD-009-audit-run-$DAY"
           # One record per day: a second run that day leaves the first in place.
           if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
