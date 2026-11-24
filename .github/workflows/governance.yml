@@ -25,6 +25,20 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 audit/selftest.py
+  lint:
+    # fmt_lint for every language here (ENG-STD-004 §0, ENG-DEC-015):
+    # Python by ruff, shell by shellcheck and shfmt. Tool versions pinned.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install ruff==0.8.6 shellcheck-py==0.10.0.1 shfmt-py==3.12.0.2
+      - run: ruff format --check audit/
+      - run: ruff check audit/
+      - run: shellcheck -s sh hooks/check-pr hooks/check-questions hooks/commit-msg hooks/install hooks/pre-push hooks/test
+      - run: shfmt -d -i 4 -ci -sr hooks/check-pr hooks/check-questions hooks/commit-msg hooks/install hooks/pre-push hooks/test
   commit-check:
     uses: ./.github/workflows/commit-check.yml
     with:

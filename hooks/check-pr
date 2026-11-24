@@ -22,7 +22,7 @@ trap 'rm -rf "$tmp"' EXIT INT TERM
 failed=0
 n=0
 
-run() {   # run <label> <message file>
+run() { # run <label> <message file>
     n=$((n + 1))
     if out=$(sh "$here/commit-msg" "$2" 2>&1); then
         printf 'ok %s\n' "$1"
