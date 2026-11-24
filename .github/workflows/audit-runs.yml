@@ -6,17 +6,17 @@ name: Audit run record
 # record is the redacted report: no evidence from private repositories
 # (render.py --public).
 #
-# Needs the repository setting "Allow GitHub Actions to create and approve
-# pull requests". Pull requests opened with GITHUB_TOKEN do not trigger other
-# workflows, so these PRs carry no CI runs of their own; they add one JSON file.
+# The push and the pull request use a token minted from a GitHub App
+# (secrets AUDIT_RUNS_APP_ID, AUDIT_RUNS_APP_KEY), installed on eng-principles
+# only, with Contents and Pull requests read and write. Unlike GITHUB_TOKEN,
+# its pull requests trigger CI, so they can pass required checks (issue #22).
 on:
   schedule:
     - cron: "41 5 * * 1"
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: audit-runs
@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
@@ -39,18 +41,31 @@ jobs:
           mkdir -p audit/runs
           python3 audit/audit.py audit/projects.json > "$RUNNER_TEMP/report.json"
           python3 audit/render.py --public "$RUNNER_TEMP/report.json" > "audit/runs/$day.json"
+      # Minted only after the audit, so no step holds both the read token and
+      # this write token; only the next step uses it.
+      - id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.AUDIT_RUNS_APP_ID }}
+          private-key: ${{ secrets.AUDIT_RUNS_APP_KEY }}
+          repositories: eng-principles
+          permission-contents: write
+          permission-pull-requests: write
       - name: Open a pull request with the record
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
         run: |
+          gh auth setup-git
           branch="chore/ENG-STD-009-audit-run-$DAY"
           # One record per day: a second run that day leaves the first in place.
           if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
             echo "A record for $DAY is already open on $branch; nothing to do."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bot_id=$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id)
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${bot_id}+${APP_SLUG}[bot]@users.noreply.github.com"
           git switch -c "$branch"
           git add "audit/runs/$DAY.json"
           git commit -m "chore(audit): record the audit run of $DAY — ENG-STD-009"
