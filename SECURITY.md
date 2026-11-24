@@ -9,8 +9,13 @@ is supported.
 
 Please report privately. Do not open a public issue.
 
-Email the maintainer at **justpraveenhere@protonmail.com**. Put
-"eng-principles security" in the subject.
+Use GitHub's private vulnerability reporting:
+**[Report a vulnerability](https://github.com/praveenprk/eng-principles/security/advisories/new)**
+(the repository's Security tab → "Report a vulnerability").
+
+If you cannot use GitHub, email the maintainer at
+**justpraveenhere@protonmail.com**, with "eng-principles security" in the
+subject.
 
 Include:
 
@@ -19,8 +24,9 @@ Include:
 - what an attacker can do, and the steps or input that show it;
 - any fix you suggest.
 
-You will get a reply by email. Once a fix is merged, the report is credited
-to you in the fixing pull request, unless you ask not to be named.
+You will get an answer in the advisory thread, or by email. Once a fix is
+merged, the advisory is published with credit to you, unless you ask not to
+be named.
 
 ## In scope
 
