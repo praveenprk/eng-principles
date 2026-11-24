@@ -643,10 +643,9 @@ Scenario : An auditor asks where ENG-STD-007's "nine product-quality
            25010:2023. Nobody has: iso.org refuses automated reads and the text
            is paywalled. Today REFERENCES.md names standards without saying
            where each was read or how far, and ISO 16290 was cited from a
-           summary (Q-016). The governor asked that citations be grounded:
-           "be specific and redirect me to the real standard", public
-           summaries such as ESA's where available, and a maintained list of
-           what must be bought.
+           summary (Q-016). The governor asked that each citation point to
+           the real standard, use public summaries such as ESA's where
+           available, and that a list be kept of what must be bought.
 Options  : A — Adopt contextos's register policy (RFC-032 RP-7) as prior art
                (ENG-P-14). CHARTER External Standards states the rule.
                REFERENCES.md gains Source and Verified columns, with levels
