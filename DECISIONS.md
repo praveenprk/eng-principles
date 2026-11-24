@@ -518,6 +518,9 @@ Risk    : The TRL mapping is this practice's judgment and is checked
           §2.2). No project
           shows L4 yet: committed records of use are missing everywhere.
 Status  : ACCEPTED (governor, 2026-11-23)
+          SUPERSEDED in part by ENG-DEC-018 (2026-11-23): the TRL column and
+          the ISO 16290 citation are held until checked against the
+          standard's text; four maturity levels are corrected.
 
 ---
 
@@ -554,3 +557,20 @@ Risk    : Reviews held outside the pull request are not seen at merge
           time. Where an independent review is run, its findings belong on
           the pull request.
 Status  : ACCEPTED (governor, 2026-11-23)
+
+---
+
+## ENG-DEC-019 — Maturity of a document that describes several deliverables
+
+Date    : 2026-11-23
+Refs    : docs/QUESTIONS.md Q-017; ENG-STD-009 §3.3; ENG-DEC-018;
+          CONFORMANCE.md Maturity; ENG-P-06
+Decision: Per the governor's answer to Q-017 (A): ENG-STD-009 §3.3, a
+          document that describes several deliverables takes the lowest of
+          their levels.
+Reason  : ENG-DEC-018 placed the eng-principles standards at "the lowest
+          of the deliverables it governs", a rule written into a register
+          and not into the standard (independent review of PR #16).
+Risk    : None beyond the rule itself; the level it gives is already in
+          CONFORMANCE.md.
+Status  : ACCEPTED (governor, 2026-11-24)
