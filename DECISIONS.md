@@ -574,3 +574,23 @@ Reason  : ENG-DEC-018 placed the eng-principles standards at "the lowest
 Risk    : None beyond the rule itself; the level it gives is already in
           CONFORMANCE.md.
 Status  : ACCEPTED (governor, 2026-11-24)
+
+---
+
+## ENG-DEC-020 — Grounded citations and a procurement list
+
+Date    : 2026-11-23
+Refs    : docs/QUESTIONS.md Q-018; CHARTER (External Standards);
+          REFERENCES.md; docs/PROCUREMENT.md; ENG-DEC-018 (Q-016); ENG-P-14;
+          contextos RFC-032 RP-7 and docs/proposals/2026-11-07-clause-verification.md
+Decision: Per the governor's answer to Q-018 (A): CHARTER External
+          Standards states the grounded-citations rule; REFERENCES.md names
+          each reference's source and verification level;
+          docs/PROCUREMENT.md lists what to obtain. The policy follows
+          contextos RFC-032 RP-7.
+Reason  : A citation is a claim. ENG-DEC-018 found one cited beyond what was
+          read; the same gap is open for most ISO references.
+Risk    : References below primary stay cited while procurement is pending;
+          their levels say so. Rules that rely on P1 content (ENG-STD-002
+          §2.2, ENG-STD-007) are not checked against the text until bought.
+Status  : ACCEPTED (governor, 2026-11-24)
