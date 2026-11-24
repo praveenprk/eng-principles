@@ -175,10 +175,12 @@ certification or compliance with any of them (ENG-DEC-004). Private repositories
 
 def public(report):
     """The report as it may be published: a private repository keeps its name and
-    statuses, never evidence text or its HEAD commit (governor, 2026-11-18)."""
+    statuses, never evidence text or its HEAD commit (governor, 2026-11-18).
+    A repository this token cannot read is treated as private: redaction never
+    depends on readability."""
     out = json.loads(json.dumps(report))
     for p in out["projects"]:
-        if p.get("private"):
+        if p.get("private") or not p.get("readable", True):
             p["head"] = ""
             for c in p.get("checks", []):
                 c["evidence"] = ""

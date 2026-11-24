@@ -746,7 +746,8 @@ def audit(owner, name, kinds, overrides):
         "name": name,
         "url": f"https://github.com/{r.full}",
         "kinds": sorted(kinds),
-        "private": r.meta.get("private", False),
+        # Unreadable means unknown, and unknown is treated as private (fail safe).
+        "private": r.meta.get("private", True) if readable else True,
         "readable": readable,
         "head": (gh(f"repos/{r.full}/commits/{r.default}") or {}).get("sha", "")[:7],
         "must": [sum(c["status"] == "pass" for c in must), len(must)],
