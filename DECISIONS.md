@@ -565,10 +565,12 @@ Status  : ACCEPTED (governor, 2026-11-23)
 Date    : 2026-11-23
 Refs    : docs/QUESTIONS.md Q-017; ENG-STD-009 §3.3; ENG-DEC-018;
           CONFORMANCE.md Maturity; ENG-P-06
-Decision: Per the governor's answer to Q-017.
+Decision: Per the governor's answer to Q-017 (A): ENG-STD-009 §3.3, a
+          document that describes several deliverables takes the lowest of
+          their levels.
 Reason  : ENG-DEC-018 placed the eng-principles standards at "the lowest
           of the deliverables it governs", a rule written into a register
           and not into the standard (independent review of PR #16).
 Risk    : None beyond the rule itself; the level it gives is already in
           CONFORMANCE.md.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-24)
