@@ -76,4 +76,11 @@ check(set(found) == {"Shell", "Python", "JavaScript/TypeScript", "Rust"}, f"fmt_
 check(found["JavaScript/TypeScript"] == "index.html (inline <script>)", "an external <script src> alone is not inline code")
 check(audit.languages(["README.md", "docs/a.md"], lambda p: "") == {}, "no executable text: fmt_lint is n/a")
 
+# The shared commit check is called pinned to a full commit SHA (ENG-DEC-009).
+pin = "uses: praveenprk/eng-principles/.github/workflows/commit-check.yml@"
+check(audit.shared_check_ref([pin + "f972b72d677281e33373ed6e3368027ec443a4d0\n"]) == "pinned", "a 40-hex SHA is pinned")
+check(audit.shared_check_ref([pin + "main\n"]) == "unpinned", "a branch is not pinned")
+check(audit.shared_check_ref([pin + "f972b72\n"]) == "unpinned", "a short SHA is not pinned")
+check(audit.shared_check_ref(["name: ci\n"]) is None, "no call: not called")
+
 sys.exit(1 if failed else 0)
