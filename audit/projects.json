@@ -15,13 +15,7 @@
     },
     {
       "name": "contextos",
-      "kinds": ["python"],
-      "overrides": {
-        "rules": {
-          "status": "fail",
-          "why": "blocked: private repository on GitHub's free plan; the host offers no branch rules (governor, 2026-11-18: keep private)"
-        }
-      }
+      "kinds": ["python"]
     },
     {"name": "factory-protocol", "kinds": ["docs"]},
     {"name": "eng-principles", "kinds": ["standards"]}
