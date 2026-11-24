@@ -636,6 +636,7 @@ Raised by: PR #18 (fix/ENG-DEC-018-review-followups)
 Status   : ANSWERED (governor, 2026-11-24, given in the engineering-fa
            session and relayed; PR #18 comment 7139324060): "Q-017 A"
            → ENG-DEC-019
+
 ### Q-018
 Scenario : An auditor asks where ENG-STD-007's "nine product-quality
            characteristics" come from, and whether anyone here has read ISO/IEC
@@ -661,5 +662,8 @@ Recommend: A. It is the governor's request, and contextos has run this policy
            six more are free to read (POSIX, SemVer, RFC 7942, OSTEP, the 1978
            BSTJ article, SEVOCAB); the rest are paywalled, and four of those
            (ISO 16290, 29148, 25010, 12207) carry content our rules rely on.
-Raised by: this pull request (docs/ENG-DEC-019-citation-grounding)
-Status   : OPEN
+Raised by: PR #19 (docs/ENG-DEC-019-citation-grounding), carried into
+           the PR that replaces it
+Status   : ANSWERED (governor, 2026-11-24, given in the engineering-fa
+           session and relayed; PR #19 comment 7139325034): "Q-018 A"
+           → ENG-DEC-020

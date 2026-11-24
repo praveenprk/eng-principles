@@ -101,8 +101,7 @@ practice borrows their structure and vocabulary. It does not claim
 certification or formal compliance with any of them. See REFERENCES.md for
 exactly what is taken from each.
 
-**Grounded citations** (ENG-DEC-020; pending the governor's answer to Q-018,
-option A applied as recommended). Every reference names its source and how
+**Grounded citations** (ENG-DEC-020). Every reference names its source and how
 far it was read: primary, abstract-only, secondary or unverified, with the
 date. No rule or check relies on more of a standard's content than was read at
 the primary source. A paywall does not block work: the reference is recorded
@@ -121,4 +120,4 @@ text is not copied.
 | 2026-11-22 | Grounding: physical reality and evidence; Unix as the software ground | ENG-DEC-016 |
 | 2026-11-22 | "Never weakened" becomes "the bar may never be lowered", with the bar defined | ENG-DEC-016 |
 | 2026-11-22 | Authority Order: four layers; never a runtime dependency | ENG-DEC-016 |
-| 2026-11-23 | External Standards: grounded citations, procurement list (pending Q-018) | ENG-DEC-020 |
+| 2026-11-23 | External Standards: grounded citations, procurement list | ENG-DEC-020 |
