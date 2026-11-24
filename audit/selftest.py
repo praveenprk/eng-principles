@@ -118,6 +118,19 @@ check(secret not in html, "private project's evidence not rendered")
 pub = json.dumps(render.public(fixture))
 check(secret not in pub and "def5678" not in pub, "published report.json carries no private evidence or HEAD")
 check("README.md" in pub, "public project's evidence kept in the published report")
+unreadable = {
+    "projects": [
+        {
+            "name": "u",
+            "private": False,
+            "readable": False,
+            "head": "0a1b2c3",
+            "checks": [mk("not assessed", "LEAK-IF-SHOWN")],
+        }
+    ]
+}
+pub_u = json.dumps(render.public(unreadable))
+check("LEAK-IF-SHOWN" not in pub_u and "0a1b2c3" not in pub_u, "an unreadable repository is redacted as private")
 check("not assessed" in html, "unreadable project shown as not assessed")
 check('class="sev HIGH"' in html, "failing check shows its severity")
 
