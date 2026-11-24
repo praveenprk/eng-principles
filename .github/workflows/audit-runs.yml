@@ -1,0 +1,55 @@
+name: Audit run record
+
+# A dated, committed record of audit runs: the L4 evidence ENG-STD-009 §3.1
+# asks for (issue #22 item 8, option a). Each run opens a pull request that
+# adds audit/runs/YYYY-MM-DD.json; nothing reaches main without a PR. The
+# record is the redacted report: no evidence from private repositories
+# (render.py --public).
+#
+# Needs the repository setting "Allow GitHub Actions to create and approve
+# pull requests". Pull requests opened with GITHUB_TOKEN do not trigger other
+# workflows, so these PRs carry no CI runs of their own; they add one JSON file.
+on:
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: audit-runs
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Audit every governed project and keep the redacted report
+        env:
+          GH_TOKEN: ${{ secrets.AUDIT_TOKEN || github.token }}
+        run: |
+          day=$(date -u +%Y-%m-%d)
+          echo "DAY=$day" >> "$GITHUB_ENV"
+          mkdir -p audit/runs
+          python3 audit/audit.py audit/projects.json > "$RUNNER_TEMP/report.json"
+          python3 audit/render.py --public "$RUNNER_TEMP/report.json" > "audit/runs/$day.json"
+      - name: Open a pull request with the record
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="chore/ENG-STD-009-audit-run-$DAY"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add "audit/runs/$DAY.json"
+          git commit -m "chore(audit): record the audit run of $DAY — ENG-STD-009"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "chore(audit): record the audit run of $DAY — ENG-STD-009" \
+            --body "Dated record of the audit run of $DAY (ENG-STD-009 §3.1, the L4 evidence for the eng-principles audit). Redacted: no evidence from private repositories. Opened by the Audit run record workflow; the governor merges."
