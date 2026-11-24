@@ -44,6 +44,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           branch="chore/ENG-STD-009-audit-run-$DAY"
+          # One record per day: a second run that day leaves the first in place.
+          if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
+            echo "A record for $DAY is already open on $branch; nothing to do."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
