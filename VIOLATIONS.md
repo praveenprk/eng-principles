@@ -51,15 +51,22 @@ Status    : RESOLVED — 2026-11-24, 030ed11 (PR #29)
 Anchor    : ENG-STD-008
 
 ### ENG-V-003
-Rule says : ENG-STD-004 §6.1, as applied by CI (PR #21): Python is formatted
-            by ruff, and the `lint` check runs it.
-Repo did  : PR #20 (merged 8d64fd2, 2026-11-24) brought unformatted Python
-            in audit/ after #21 (8ac97b3) had made formatting a check, so
-            `ruff format --check` failed on main. Found and fixed in PR #29.
+Rule says : ENG-STD-004 §6.1, as enforced by the `lint` check (PR #21):
+            Python is formatted by the pinned ruff. ENG-STD-006 §2.3: a rule
+            is broken when what is on the default branch does not meet it.
+Repo did  : A merge skew. PR #20 merged first (8d64fd2, 2026-11-24 17:18Z),
+            with Python in audit/ that ruff would reformat; no formatting
+            check existed yet. PR #21 merged 72 seconds later (8ac97b3,
+            17:19Z) and made `ruff format --check` a check. Its CI run had
+            not seen #20's code. From 8ac97b3, main failed `lint`. Found and
+            fixed in PR #29.
 Severity  : MEDIUM — ENG-STD-006 §2.3 c: eng-principles' own rule; no
             behaviour changed
 Impact    : Every pull request failed `lint` until the fix merged
-Fix       : audit/ formatted with the pinned ruff
+Fix       : audit/ formatted with the pinned ruff (PR #29). Guard against a
+            repeat: the main ruleset's "require branches to be up to date
+            before merging" (strict status checks, now off), the governor's
+            setting
 When      : PR #29
 Status    : RESOLVED — 2026-11-24, 030ed11 (PR #29)
 Anchor    : ENG-STD-004
