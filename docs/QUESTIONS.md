@@ -714,4 +714,6 @@ Recommend: A. It needs no change to the format rule and no per-repository
            them `security` to keep the governor's merge.
 Raised by: PR for fix/Q-019-dependabot-anchors (requested by engineering-fa
            from fid #36–#45)
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-25, given in the engineering-5b
+           session; PR #36 comment 7168430269): "Q-019 A"
+           → ENG-DEC-021

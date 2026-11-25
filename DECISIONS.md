@@ -601,7 +601,7 @@ Date    : 2026-11-25
 Refs    : docs/QUESTIONS.md Q-019; ENG-STD-005 §1, §1.5; ENG-STD-008
           (`dependabot`); ENG-DEC-009; hooks/check-pr;
           .github/workflows/commit-check.yml; fid #36–#45
-Decision: Pending Q-019, the pull request applies option A. hooks/check-pr
+Decision: Per the governor's answer to Q-019 (A). hooks/check-pr
           is given PR_AUTHOR from the git host. When the author is
           `dependabot[bot]`:
           - the title must have Dependabot's version-bump shape;
@@ -618,4 +618,4 @@ Risk    : A GitHub-signed commit that is not Dependabot's but carries its
           A forged author pushed from a clone is unsigned, so it is
           refused. Bounded by: the host-given PR author; GitHub's
           signature; review at merge; required checks.
-Status  : PROPOSED
+Status  : ACCEPTED (governor, 2026-11-25)
