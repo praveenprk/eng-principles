@@ -619,3 +619,32 @@ Risk    : A GitHub-signed commit that is not Dependabot's but carries its
           refused. Bounded by: the host-given PR author; GitHub's
           signature; review at merge; required checks.
 Status  : ACCEPTED (governor, 2026-11-25)
+
+## ENG-DEC-022 — Merging a pull request that only records a governor's ruling
+
+Date    : 2026-11-26
+Refs    : ENG-DEC-012 (amended in part); ENG-DEC-015; ENG-STD-005 §2.5;
+          AGENTS.md (Roles); docs/QUESTIONS.md
+Decision: Amends ENG-DEC-012's roles. A pull request whose only change
+          records something the governor has already accepted first-hand
+          (a decision's acceptance, or the answer to a question) may be
+          merged by the agent once every required check passes and the
+          master review (engineering-fa) has recorded it ok. This holds
+          also where the agent otherwise may not merge. A pull request
+          labelled `security` still goes to the governor.
+Reason  : The governor's ruling, relayed by engineering-fa on 2026-11-26,
+          to be recorded in each repository. Recording an answer the
+          governor has already given adds no judgment; waiting for a second
+          human merge only delays it.
+          In eng-principles, after the move to `main` and `stable`, an
+          agent already merges non-`security` pull requests (ENG-DEC-012).
+          Here the ruling adds the condition of a master review. It
+          matters most in repositories where only the governor merges.
+Risk    : A pull request described as record-only could carry other
+          changes. Bounded by: the master review, which checks that the
+          diff only records the ruling and that the ruling was given
+          first-hand; and the `security` label, which keeps the governor's
+          merge.
+Status  : PROPOSED (relayed by engineering-fa from the governor,
+          2026-11-26; the governor accepts it first-hand or by merging)
+
