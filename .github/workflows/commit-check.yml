@@ -13,7 +13,9 @@ name: Commit check
 #         config: scripts/hooks      # the project's types and anchors
 #
 # It runs hooks/check-pr from the same eng-principles commit as this file,
-# against the project's own config and registers. Job `questions` runs
+# against the project's own config and registers, read from the pull
+# request's head commit. A pull request opened before the project adopted
+# this check fails until its branch is updated with main (README: Adopting). Job `questions` runs
 # hooks/check-questions on pull requests into the default branch
 # (ENG-DEC-010); a project without docs/QUESTIONS.md passes it.
 on:
