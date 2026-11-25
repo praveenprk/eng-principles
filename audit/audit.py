@@ -175,6 +175,7 @@ def required_checks(r):
 
 
 SHARED_CHECK = re.compile(r"eng-principles/\.github/workflows/commit-check\.yml@([^\s'\"]+)")
+HOME = "praveenprk/eng-principles"  # the repository the shared check lives in
 SELF_CALL = re.compile(r"^\s*(-\s+)?uses:\s*\./\.github/workflows/commit-check\.yml\s*$", re.M)
 
 
@@ -196,7 +197,7 @@ def shared_check_ref(texts, home=False):
 
 
 def c_commit_check(r, x):
-    how = shared_check_ref(r.workflows().values(), home=r.full.endswith("/eng-principles"))
+    how = shared_check_ref(r.workflows().values(), home=r.full == HOME)
     req = "commit-check / check" in x["required"]
     if how == "unpinned":
         return result("fail", "shared check called by branch or tag, not pinned to a commit (ENG-DEC-009)")
