@@ -666,3 +666,54 @@ Raised by: PR #19 (docs/ENG-DEC-019-citation-grounding), carried into
 Status   : ANSWERED (governor, 2026-11-24, given in the engineering-fa
            session and relayed; PR #19 comment 7139325034): "Q-018 A"
            → ENG-DEC-020
+
+### Q-019
+Scenario : fid adopted Dependabot (ENG-STD-008 `dependabot`), and its first
+           run opened ten pull requests, fid #36–#45. Every one fails
+           `commit-check / check` and nothing else. Dependabot writes
+           "chore(deps): bump clap from 4.6.7 to 4.6.9", with no
+           " — ANCHOR", and the shared check refuses that format. phasectl
+           and factory-protocol are next to adopt Dependabot, so they would
+           hit the same wall. Today each bump can only be merged by
+           rewriting it by hand, or not at all.
+Options  : A — The shared check (hooks/check-pr) treats a Dependabot version
+               bump as anchored to ENG-DEC-021, with three conditions:
+               - the pull request's author, as the git host gives it
+                 (`github.event.pull_request.user.login`, which the PR
+                 cannot set), is `dependabot[bot]`;
+               - its title has Dependabot's bump shape, with a type from
+                 `types`;
+               - each commit counts only if its git author is Dependabot's
+                 noreply address, GitHub verifies it as signed by GitHub
+                 itself (committer noreply@github.com), and its subject has
+                 the bump shape.
+               Any other commit in that PR, and any such subject from
+               anyone else, gets the usual check. The PR description is not
+               checked, because it is upstream release notes; those can
+               carry their own "Co-authored-by" lines.
+           B — A repository-level anchor (for example `DEP`), with each
+               repository's dependabot.yml `commit-message.prefix`.
+               Dependabot can only add a *prefix* before the colon, so the
+               anchor would sit where the type and scope go. The format rule
+               of ENG-STD-005 §1 would have to accept that for everyone, and
+               each repository would carry its own config.
+           C — No exception. Someone retitles and rewrites each Dependabot
+               PR. After a person edits a branch, Dependabot stops rebasing
+               it, and every bump costs a manual step.
+Recommend: A. It needs no change to the format rule and no per-repository
+           config. The exception is keyed on an identity the PR cannot
+           forge: the host-given author. It is narrowed by the subject
+           shape and the commit author, so a person's bump-shaped commit is
+           still refused. A forged Dependabot author pushed from a clone is
+           refused too, because it is not signed by GitHub. Remaining risk:
+           a GitHub-signed commit that is not Dependabot's, for example a
+           web-editor commit whose author is Dependabot. The editor sets the
+           author to the signed-in person, so this is not known to be
+           possible. The content is still reviewed when merged, and the
+           required checks still run. Dependabot PRs touch dependencies, so a repository may label
+           them `security` to keep the governor's merge.
+Raised by: PR for fix/Q-019-dependabot-anchors (requested by engineering-fa
+           from fid #36–#45)
+Status   : ANSWERED (governor, 2026-11-25, given in the engineering-5b
+           session; PR #36 comment 7168430269): "Q-019 A"
+           → ENG-DEC-021

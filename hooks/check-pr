@@ -11,6 +11,19 @@
 #   BASE, HEAD           commit range; every non-merge commit in BASE..HEAD
 #   ENG_HOOKS_CONFIG     directory with the project's types and anchors
 #   ENG_ISSUES_FILE      optional: existing issue/PR numbers, one per line
+#   PR_AUTHOR            optional: the PR author's login, as the git host gives
+#                        it (never from the PR's own text)
+#   ENG_SIGNED_FILE      optional: full SHAs the host verified as signed by
+#                        GitHub itself (committer noreply@github.com), one per line
+#
+# Dependabot (ENG-DEC-021, Q-019). A pull request whose host-given author is
+# dependabot[bot] is checked differently. Its title must have Dependabot's
+# version-bump shape, with a type from `types`. A commit whose git author is
+# Dependabot, which GitHub signed (listed in ENG_SIGNED_FILE), and whose
+# message has that shape needs no anchor; any other
+# commit in the range is checked as usual. The description is not checked:
+# it is generated release notes from upstream. Locally PR_AUTHOR is unset, so
+# every message gets the usual check.
 # Substrate: POSIX sh, git, grep. Exit: 0 all pass, 1 any refused.
 
 set -u
@@ -32,12 +45,38 @@ run() { # run <label> <message file>
     fi
 }
 
-printf '%s\n\n%s\n' "${PR_TITLE:-}" "${PR_BODY:-}" > "$tmp/pr"
-run "PR title and description" "$tmp/pr"
+dependabot_email='49699333+dependabot[bot]@users.noreply.github.com'
+config=${ENG_HOOKS_CONFIG:-$here}
+types=$(grep -v '^#' "$config/types" | grep . | paste -sd'|' -)
+bump="^($types)(\([A-Za-z0-9_./-]+\))?: ([Bb]ump [^ ]+ from [^ ]+ to [^ ]+|[Bb]ump the [^ ]+ group( across [0-9]+ directories)? with [0-9]+ updates?|[Uu]pdate [^ ]+ requirement from [^ ]+ to [^ ]+)( in [^ ]+)?$"
+
+is_bump() { printf '%s\n' "$1" | grep -qE "$bump"; }
+
+if [ "${PR_AUTHOR:-}" = "dependabot[bot]" ]; then
+    n=$((n + 1))
+    if is_bump "${PR_TITLE:-}"; then
+        printf 'ok PR title (dependabot version bump; description not checked)\n'
+    else
+        printf 'refused PR title\ncheck-pr: refused: dependabot pull request without the version-bump shape\n  got: %s\n' "${PR_TITLE:-}" >&2
+        failed=1
+    fi
+else
+    printf '%s\n\n%s\n' "${PR_TITLE:-}" "${PR_BODY:-}" > "$tmp/pr"
+    run "PR title and description" "$tmp/pr"
+fi
 
 for sha in $(git rev-list --no-merges --reverse "${BASE:?BASE not set}..${HEAD:?HEAD not set}"); do
+    label="commit $(git log -1 --format='%h %s' "$sha" | cut -c1-72)"
+    if [ "${PR_AUTHOR:-}" = "dependabot[bot]" ] &&
+        [ "$(git log -1 --format=%ae "$sha")" = "$dependabot_email" ] &&
+        [ -n "${ENG_SIGNED_FILE:-}" ] && grep -qx "$sha" "$ENG_SIGNED_FILE" &&
+        is_bump "$(git log -1 --format=%s "$sha")"; then
+        n=$((n + 1))
+        printf 'ok %s (dependabot version bump)\n' "$label"
+        continue
+    fi
     git log -1 --format=%B "$sha" > "$tmp/commit"
-    run "commit $(git log -1 --format='%h %s' "$sha" | cut -c1-72)" "$tmp/commit"
+    run "$label" "$tmp/commit"
 done
 
 [ "$failed" -eq 0 ] || exit 1

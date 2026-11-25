@@ -142,6 +142,46 @@ session_body=$(printf 'What\n\n---\nSession-Id: session_0123')
 check "tool attribution" "attribution in PR description" pr "$a" "$d" "$good_title" "$tool_body"
 check pass "Session-Id in PR description" pr "$a" "$d" "$good_title" "$session_body"
 
+# Dependabot pull requests (ENG-DEC-021, Q-019).
+bot="dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>"
+git switch -q -c dep "$a"
+git commit -q --allow-empty --no-verify --author "$bot" -m "chore(deps): bump clap from 4.6.7 to 4.6.9"
+dep=$(git rev-parse HEAD)
+git switch -q -c dep-dir "$a"
+git commit -q --allow-empty --no-verify --author "$bot" -m "chore(deps): bump pyo3 from 0.29.3 to 0.30.1 in /bindings/python"
+depdir=$(git rev-parse HEAD)
+git switch -q -c dep-human "$a"
+git commit -q --allow-empty --no-verify -m "chore(deps): bump clap from 4.6.7 to 4.6.9"
+dephuman=$(git rev-parse HEAD)
+git switch -q -c dep-mixed "$dep"
+git commit -q --allow-empty --no-verify --author "$bot" -m "chore(deps): and anything else at all"
+depmixed=$(git rev-parse HEAD)
+printf '%s\n' "$dep" "$depdir" "$depmixed" "$dephuman" > "$work/signed"
+dpr() { # dpr <author> <base> <head> <title> [body]
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 PR_BODY=${5:-} ENG_SIGNED_FILE="$work/signed" sh hooks/check-pr
+}
+dpr_unsigned() { # as dpr, but no commit is signed by GitHub
+    : > "$work/unsigned"
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 ENG_SIGNED_FILE="$work/unsigned" sh hooks/check-pr
+}
+dpr_nofile() { # as dpr, without the signed list at all
+    PR_AUTHOR=$1 BASE=$2 HEAD=$3 PR_TITLE=$4 sh hooks/check-pr
+}
+dep_title="chore(deps): bump clap from 4.6.7 to 4.6.9"
+notes=$(printf 'Release notes\n\nCo-authored-by: someone <a@example.invalid>')
+check pass "dependabot: a real version bump" dpr "dependabot[bot]" "$a" "$dep" "$dep_title"
+check pass "dependabot: bump in a subdirectory" dpr "dependabot[bot]" "$a" "$depdir" "chore(deps): bump pyo3 from 0.29.3 to 0.30.1 in /bindings/python"
+check pass "dependabot: group update title" dpr "dependabot[bot]" "$a" "$dep" "chore(deps): bump the cargo group across 2 directories with 3 updates"
+check pass "dependabot: upstream release notes not checked" dpr "dependabot[bot]" "$a" "$dep" "$dep_title" "$notes"
+check "format" "same commit and title, PR by someone else" dpr "praveenprk" "$a" "$dep" "$dep_title"
+check "format" "same commit and title, run locally" pr "$a" "$dep" "$dep_title"
+check "format" "dependabot PR, forged Dependabot author not signed by GitHub" dpr_unsigned "dependabot[bot]" "$a" "$dep" "$dep_title"
+check "format" "dependabot PR, no signed list given" dpr_nofile "dependabot[bot]" "$a" "$dep" "$dep_title"
+check "format" "dependabot PR, bump subject from another author" dpr "dependabot[bot]" "$a" "$dephuman" "$dep_title"
+check "format" "dependabot PR, a non-bump commit by Dependabot" dpr "dependabot[bot]" "$a" "$depmixed" "$dep_title"
+check "version-bump shape" "dependabot PR, title not a bump" dpr "dependabot[bot]" "$a" "$dep" "chore(deps): do something else"
+check "version-bump shape" "dependabot PR, type not in types" dpr "dependabot[bot]" "$a" "$dep" "deps(x): bump clap from 4.6.7 to 4.6.9"
+
 # check-questions: no OPEN entry reaches the default branch (ENG-DEC-010).
 q() {
     printf '%s\n' "$@" > "$work/QUESTIONS.md"

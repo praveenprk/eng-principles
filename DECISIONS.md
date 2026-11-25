@@ -594,3 +594,28 @@ Risk    : References below primary stay cited while procurement is pending;
           their levels say so. Rules that rely on P1 content (ENG-STD-002
           §2.2, ENG-STD-007) are not checked against the text until bought.
 Status  : ACCEPTED (governor, 2026-11-24)
+
+## ENG-DEC-021 — Dependabot version bumps pass the shared commit check
+
+Date    : 2026-11-25
+Refs    : docs/QUESTIONS.md Q-019; ENG-STD-005 §1, §1.5; ENG-STD-008
+          (`dependabot`); ENG-DEC-009; hooks/check-pr;
+          .github/workflows/commit-check.yml; fid #36–#45
+Decision: Per the governor's answer to Q-019 (A). hooks/check-pr
+          is given PR_AUTHOR from the git host. When the author is
+          `dependabot[bot]`:
+          - the title must have Dependabot's version-bump shape;
+          - a commit by Dependabot's noreply author, verified by the host as
+            signed by GitHub itself, with that shape needs no anchor;
+          - other commits are checked as usual;
+          - the description is not checked.
+          Without PR_AUTHOR (locally, or any other author), nothing changes.
+Reason  : Dependabot cannot append " — ANCHOR". Without an exception, the
+          automated dependency updates that ENG-STD-008 asks for can never
+          pass the check that ENG-STD-005 requires.
+Risk    : A GitHub-signed commit that is not Dependabot's but carries its
+          author would pass the message check (Q-019, A); none is known.
+          A forged author pushed from a clone is unsigned, so it is
+          refused. Bounded by: the host-given PR author; GitHub's
+          signature; review at merge; required checks.
+Status  : ACCEPTED (governor, 2026-11-25)

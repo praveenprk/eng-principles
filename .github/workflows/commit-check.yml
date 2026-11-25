@@ -50,14 +50,23 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api --paginate "repos/$GITHUB_REPOSITORY/issues?state=all&per_page=100" --jq '.[].number' > "$RUNNER_TEMP/issues"
+      - name: Commits of this pull request that GitHub signed (ENG-DEC-021)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: >-
+          gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/commits?per_page=100"
+          --jq '.[] | select(.commit.verification.verified and .commit.committer.email == "noreply@github.com") | .sha'
+          > "$RUNNER_TEMP/github-signed"
       - name: Title, description and every commit follow ENG-STD-005 §1
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           BASE: ${{ github.event.pull_request.base.sha }}
           HEAD: ${{ github.event.pull_request.head.sha }}
           CONFIG: ${{ inputs.config }}
-        run: ENG_HOOKS_CONFIG="$PWD/$CONFIG" ENG_ISSUES_FILE="$RUNNER_TEMP/issues" sh .eng-principles/hooks/check-pr
+        run: ENG_HOOKS_CONFIG="$PWD/$CONFIG" ENG_ISSUES_FILE="$RUNNER_TEMP/issues" ENG_SIGNED_FILE="$RUNNER_TEMP/github-signed" sh .eng-principles/hooks/check-pr
 
   questions:
     runs-on: ubuntu-latest
