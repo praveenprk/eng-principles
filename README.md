@@ -43,6 +43,14 @@ make them stricter; they may never lower their bar (CHARTER: The bar).
          config: scripts/hooks
    ```
    Then require `commit-check / check` in the default branch's rules.
+   **Pull requests already open when you adopt it.** The check runs on the
+   pull request's head commit (`pull_request.head.sha`), and reads `types`,
+   `anchors` and the registers from that branch, not from `main`. A branch
+   cut before adoption has none of them, so its check fails until the branch
+   is updated with `main` ("Update branch", or a merge of `main` into it).
+   Updating does not change its existing commits. Every non-merge commit the
+   pull request brings must still follow ENG-STD-005 §1, so a branch whose
+   commits predate the format is redone on a fresh branch from `main`.
    Optional, for feedback before pushing: copy `hooks/` itself into
    `scripts/hooks/`, run `hooks/test` and `scripts/hooks/install`.
 4. Put agent instructions in `AGENTS.md`. Tool-specific files only point to it (ENG-STD-005 §6).
