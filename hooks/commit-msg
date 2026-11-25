@@ -94,7 +94,7 @@ for anchor in $anchors; do
         fi
         for file in $root/$files; do
             [ -f "$file" ] || continue
-            if grep -qE "^$prefix $anchor( |\$)" "$file"; then
+            if grep -qE "^$prefix $anchor( |:|\$)" "$file"; then
                 found=yes
                 break 2
             fi
