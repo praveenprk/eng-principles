@@ -33,7 +33,11 @@ the short version.
     `ENG-P-14`, `Q-016`.
 - **Install the hooks once per clone:** `hooks/install`. Never bypass them.
 - **No co-author or tool-attribution lines** in commits or the description.
-- **Merging:** the human governor merges into `main` (AGENTS.md: Roles).
+- **Merging** (AGENTS.md: Roles), effective when the `stable` branch exists:
+  a pull request merges into `main` once every required check passes and no
+  question is OPEN. A pull request labelled `security` waits for the
+  governor. The governor promotes `main` → `stable` and tags releases there.
+  Until `stable` exists, the governor merges into `main`.
 
 ## Checks you can run locally
 
