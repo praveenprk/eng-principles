@@ -15,6 +15,14 @@
 #                        it (never from the PR's own text)
 #   ENG_SIGNED_FILE      optional: full SHAs the host verified as signed by
 #                        GitHub itself (committer noreply@github.com), one per line
+#   ENG_LANDED           optional: the default branch's commit, set by the host
+#                        only when the PR's base is not the default branch
+#
+# Promotions (ENG-STD-005 §1.5, §2.3). When ENG_LANDED is set, commits
+# reachable from it are not checked again: each was checked when its own pull
+# request landed on the default branch. A main → stable promotion therefore
+# checks its title and description, and only commits not on the default
+# branch. If ENG_LANDED is not a commit, the check refuses.
 #
 # Dependabot (ENG-DEC-021, Q-019). A pull request whose host-given author is
 # dependabot[bot] is checked differently. Its title must have Dependabot's
@@ -65,7 +73,21 @@ else
     run "PR title and description" "$tmp/pr"
 fi
 
-for sha in $(git rev-list --no-merges --reverse "${BASE:?BASE not set}..${HEAD:?HEAD not set}"); do
+landed=${ENG_LANDED:-}
+if [ -n "$landed" ]; then
+    if ! git rev-parse -q --verify "$landed^{commit}" > /dev/null; then
+        printf 'check-pr: refused: ENG_LANDED is not a commit: %s\n' "$landed" >&2
+        exit 1
+    fi
+    total=$(git rev-list --no-merges --count "${BASE:?BASE not set}..${HEAD:?HEAD not set}")
+    left=$(git rev-list --no-merges --count "$BASE..$HEAD" "^$landed")
+    printf 'skipped %d commit(s) already on the default branch\n' "$((total - left))"
+    set -- "^$landed"
+else
+    set --
+fi
+
+for sha in $(git rev-list --no-merges --reverse "${BASE:?BASE not set}..${HEAD:?HEAD not set}" "$@"); do
     label="commit $(git log -1 --format='%h %s' "$sha" | cut -c1-72)"
     if [ "${PR_AUTHOR:-}" = "dependabot[bot]" ] &&
         [ "$(git log -1 --format=%ae "$sha")" = "$dependabot_email" ] &&
