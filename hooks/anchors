@@ -1,7 +1,7 @@
 # Anchor sources for commit-msg. One source per line, whitespace-separated:
 #   TYPE   FILES (glob, relative to repo root; '-' = exempt)   LINE-PREFIX
 # An anchor resolves if a matching file has a line '<LINE-PREFIX> <ANCHOR>'
-# followed by a space or end of line. A TYPE may appear on several lines.
+# followed by a space, a colon, or end of line. A TYPE may appear on several lines.
 # Paths must not contain spaces. LINE-PREFIX must be literal (no regex).
 # A line 'ISSUE - -' allows issue anchors (#N): checked against the host's
 # issue list in CI, accepted offline (ENG-DEC-009). This repository has none.

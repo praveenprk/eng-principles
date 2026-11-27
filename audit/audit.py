@@ -175,19 +175,29 @@ def required_checks(r):
 
 
 SHARED_CHECK = re.compile(r"eng-principles/\.github/workflows/commit-check\.yml@([^\s'\"]+)")
+HOME = "praveenprk/eng-principles"  # the repository the shared check lives in
+SELF_CALL = re.compile(r"^\s*(-\s+)?uses:\s*\./\.github/workflows/commit-check\.yml\s*$", re.M)
 
 
-def shared_check_ref(texts):
+def uncommented(text):
+    """Workflow text without YAML comments, so a usage example in a comment is not a call."""
+    return "\n".join(re.sub(r"(^|\s)#.*$", "", line) for line in text.splitlines())
+
+
+def shared_check_ref(texts, home=False):
     """How the shared check is called: 'pinned', 'unpinned' (a branch or tag), or None.
-    ENG-DEC-009: it is called pinned to a commit, a full 40-hex SHA."""
+    ENG-DEC-009: it is called pinned to a commit, a full 40-hex SHA. In
+    eng-principles itself (home), a local call runs the check from the same
+    commit as the change, so it is pinned by construction."""
+    texts = [uncommented(t) for t in texts]
     refs = [m for t in texts for m in SHARED_CHECK.findall(t)]
     if not refs:
-        return None
+        return "pinned" if home and any(SELF_CALL.search(t) for t in texts) else None
     return "pinned" if all(re.fullmatch(r"[0-9a-f]{40}", ref) for ref in refs) else "unpinned"
 
 
 def c_commit_check(r, x):
-    how = shared_check_ref(r.workflows().values())
+    how = shared_check_ref(r.workflows().values(), home=r.full == HOME)
     req = "commit-check / check" in x["required"]
     if how == "unpinned":
         return result("fail", "shared check called by branch or tag, not pinned to a commit (ENG-DEC-009)")

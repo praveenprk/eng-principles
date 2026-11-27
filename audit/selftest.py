@@ -164,5 +164,12 @@ check(
 check(audit.shared_check_ref([pin + "main\n"]) == "unpinned", "a branch is not pinned")
 check(audit.shared_check_ref([pin + "f972b72\n"]) == "unpinned", "a short SHA is not pinned")
 check(audit.shared_check_ref(["name: ci\n"]) is None, "no call: not called")
+check(
+    audit.shared_check_ref(["#       uses: " + pin.split("uses: ")[-1] + "<sha>\n"]) is None,
+    "a usage example in a comment is not a call",
+)
+local = "    uses: ./.github/workflows/commit-check.yml\n"
+check(audit.shared_check_ref([local], home=True) == "pinned", "eng-principles calling its own check locally: pinned")
+check(audit.shared_check_ref([local]) is None, "another repository's local copy is not the shared check")
 
 sys.exit(1 if failed else 0)

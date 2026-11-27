@@ -48,7 +48,7 @@ DECISION  DECISIONS.md  ##
 V         docs/*.md     ###
 INV       -             -
 EOF
-printf '## DECISION-001 — first\n' > DECISIONS.md
+printf '## DECISION-001 — first\n## DECISION-010: a heading in ID-colon style\n' > DECISIONS.md
 mkdir docs && printf '### V-002-03\n' > docs/VIOLATIONS.md
 
 msg() {
@@ -68,6 +68,9 @@ check "format" "bad format" msg "add the first decision DECISION-001"
 check "format" "unknown type" msg "feature(seed): add the first decision — DECISION-001"
 check "format" "description too short" msg "docs(seed): short — DECISION-001"
 check "anchor not found" "anchor does not resolve" msg "docs(seed): add a missing decision — DECISION-999"
+check pass "anchor heading ending in a colon" msg "docs(seed): follow the colon-style decision — DECISION-010"
+check "anchor not found" "anchor that is a prefix of a longer ID" msg "docs(seed): only a prefix of DECISION-010 — DECISION-01"
+check "anchor not found" "anchor followed by other punctuation" msg "docs(seed): not the colon-style decision — DECISION-0"
 check "unknown anchor type" "unknown anchor type" msg "docs(seed): add the first decision — FOO-001"
 check "co-author" "co-author line" msg "docs(seed): add the first decision — DECISION-001" "" "Co-authored-by: x <x@y>"
 check "empty message" "empty message" msg ""
@@ -181,6 +184,29 @@ check "format" "dependabot PR, bump subject from another author" dpr "dependabot
 check "format" "dependabot PR, a non-bump commit by Dependabot" dpr "dependabot[bot]" "$a" "$depmixed" "$dep_title"
 check "version-bump shape" "dependabot PR, title not a bump" dpr "dependabot[bot]" "$a" "$dep" "chore(deps): do something else"
 check "version-bump shape" "dependabot PR, type not in types" dpr "dependabot[bot]" "$a" "$dep" "deps(x): bump clap from 4.6.7 to 4.6.9"
+
+# Promotions: commits already on the default branch are not checked again
+# (ENG-STD-005 §1.5). Fixture: `landed` is the default branch, holding a
+# Dependabot bump and a free-form commit; `promo` adds one more commit on top.
+git switch -q -c landed "$dep"
+git commit -q --allow-empty --no-verify -m "free-form commit that predates the check"
+landed=$(git rev-parse HEAD)
+git switch -q -c promo "$landed"
+git commit -q --allow-empty --no-verify -m "another free-form commit, not on main"
+promo=$(git rev-parse HEAD)
+git switch -q -c promo-ok "$landed"
+git commit -q --allow-empty --no-verify -m "docs(seed): fixed on the release branch — DECISION-001"
+promook=$(git rev-parse HEAD)
+lpr() { # lpr <landed> <base> <head> <title>
+    ENG_LANDED=$1 PR_AUTHOR=someone BASE=$2 HEAD=$3 PR_TITLE=$4 ENG_SIGNED_FILE="$work/signed" sh hooks/check-pr
+}
+promo_title="chore(release): promote main to stable — DECISION-001"
+check pass "promotion: dependabot and older commits already on main skipped" lpr "$landed" "$a" "$landed" "$promo_title"
+check pass "promotion: a governed commit not on main is checked" lpr "$landed" "$a" "$promook" "$promo_title"
+check "format" "promotion: a commit not on main is still checked" lpr "$landed" "$a" "$promo" "$promo_title"
+check "format" "promotion: the title is still checked" lpr "$landed" "$a" "$landed" "promote main"
+check "format" "same range without ENG_LANDED: the dependabot commit is checked" dpr someone "$a" "$landed" "$promo_title"
+check "not a commit" "promotion: ENG_LANDED that is not a commit" lpr "0000000000000000000000000000000000000000" "$a" "$landed" "$promo_title"
 
 # check-questions: no OPEN entry reaches the default branch (ENG-DEC-010).
 q() {
