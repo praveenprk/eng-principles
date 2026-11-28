@@ -770,4 +770,6 @@ Recommend: A. It keeps what is load-bearing: the reference-implementation
            level without its basis.
 Raised by: cleanup pass requested by the governor, relayed by engineering-fa
            on 2026-11-28
-Status   : OPEN
+Status   : ANSWERED (governor, 2026-11-28, given in the engineering-5b
+           session): "Q-020 A"
+           → an ENG-DEC in the PR that makes the option A changes
