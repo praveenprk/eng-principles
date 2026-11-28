@@ -648,3 +648,42 @@ Risk    : A pull request described as record-only could carry other
 Status  : ACCEPTED (governor, 2026-11-26, by merging PR #41, merge commit
           9634421; proposed as relayed by engineering-fa from the governor)
 
+
+## ENG-DEC-023 — A private project is named once; its internal pointers leave the public rules
+
+Date    : 2026-11-28
+Refs    : docs/QUESTIONS.md Q-020; ENG-DEC-003; ENG-DEC-020; CHARTER
+          (Scope, Authority Order, Amendment); ENG-STD-001 to 006;
+          CONFORMANCE.md; REFERENCES.md; docs/PROCUREMENT.md
+Decision: Per the governor's answer to Q-020 (A). contextos is private, so
+          a public reader cannot follow a pointer into it.
+          - Rule text: the "Reference implementation: contextos …" headers
+            in ENG-STD-002, 005 and 006 become "Origin: ENG-DEC-003" (005
+            also cites ENG-DEC-007). Examples naming contextos files or
+            decisions in ENG-STD-001 to 006 become neutral words. ENG-DEC-003
+            remains the record of where the rules came from.
+          - CHARTER: the Scope table names repositories instead of local
+            paths, and marks contextos private as the reference
+            implementation. The Authority Order example is generic.
+          - CONFORMANCE.md: contextos's levels and statuses stay. Its
+            evidence describes what was read, and when, without commit
+            SHAs or paths inside the private repository.
+          - Sources in REFERENCES.md and docs/PROCUREMENT.md name
+            "contextos (private)" with the date, as ENG-DEC-020 requires.
+          - Unchanged: registers (append-only), amendment logs, and
+            audit/projects.json, which the audit needs. The dashboard
+            already redacts private projects.
+Reason  : The governor's cleanup request: no mention a reader does not
+          need. The bar is kept (CHARTER: The bar).
+          - Evidence: every level and status keeps its evidence, and the
+            evidence still says what was read and when. Only pointers that a
+            public reader could not open are gone.
+          - Traceability: ENG-DEC-003 and the registers still trace each
+            rule to its origin, and each source is still named with its
+            date and level.
+          - Accountability: who read what, and who decides, is unchanged.
+Risk    : A reader can check contextos's evidence less precisely than
+          before; they could not open it before either. Anyone with access
+          finds the exact commits in the private repository's own
+          history.
+Status  : ACCEPTED (governor's answer to Q-020 (A), 2026-11-28)

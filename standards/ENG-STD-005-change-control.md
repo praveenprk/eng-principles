@@ -1,9 +1,9 @@
 # ENG-STD-005 — Change Control: Commits, Branches, Review
-Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 §8.5.6 (control of changes) · Reference implementation: contextos CONVENTIONS.md, scripts/hooks/
+Status: ACTIVE · Refs: ISO/IEC/IEEE 12207 (configuration management), ISO 9001 §8.5.6 (control of changes) · Origin: ENG-DEC-003, ENG-DEC-007
 
 ## 1. Commit messages
 1.1 A commit message MUST follow the format `type(scope): description — ANCHOR[, ANCHOR…]`.
-1.2 The type MUST be one of `feat fix test refactor docs chore design`. Projects MAY add types (contextos adds `spec-test`, `connector`).
+1.2 The type MUST be one of `feat fix test refactor docs chore design`. Projects MAY add types (e.g. `spec-test`).
 1.3 Every commit MUST carry at least one anchor that resolves to a governed entry
     in that project (RFC/SPEC/INV/V/DECISION) or in this repository (ENG-*).
 1.4 Commits MUST NOT carry AI co-author or attribution lines. Accountability
@@ -106,3 +106,4 @@ Amended: 2026-11-22 — §2.3, §2.4, §3.1, §5.1 refined and §2.5 added: `mai
 Amended: 2026-11-22 — §2.3, §3.1 refined in role-neutral words and §2.6 added: merges gated on evidence, a release record for every release (ENG-DEC-015, Q-005).
 Amended: 2026-11-22 — §2.6: a human authorises and signs each release (ENG-DEC-015, Q-007).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).

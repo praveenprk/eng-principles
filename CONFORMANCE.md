@@ -12,8 +12,8 @@ One row per deliverable, each with the date it was read (ENG-STD-009 §4.2).
 |-------------|------|-------|------|-------------------|-----------------------|
 | fid | software | L3 | 2026-11-23 | a460eab: release v0.2.0; tests incl. tests/conformance.rs; calibration results committed under calibration/results/; CI green | L4: a dated, committed record of runs in real use |
 | phasectl | software | L3 | 2026-11-23 | b91611a: tag v0.1.0; SPEC-001..003 with tests; field-test runner (tests/field/); CI green | L4: field-test runs committed as a dated record |
-| contextos | software | L3 | 2026-11-23 | c757698: 35 Python test files; CI green; daily use by the governor, not yet recorded | L4: a dated, committed record of runs in daily use |
-| contextos factory | software | L2 | 2026-11-23 | contextos 53db88c: factory/supervisor.sh and factory/protocol/state-machine; one committed run, factory/gates/WID-20260520-001/transitions.log. No tests of the supervisor; other runs' records are in .factory/, git-ignored, which no one else can check | L3: tests of supervisor.sh against the state machine, passing on real work items |
+| contextos | software | L3 | 2026-11-23 | Private repository, read 2026-11-23: tests in CI, green; daily use by the governor, not yet recorded | L4: a dated, committed record of runs in daily use |
+| contextos factory | software | L2 | 2026-11-23 | Private repository, read 2026-11-23: a supervisor and a state machine; one committed run. No tests of the supervisor; other runs' records are not committed, so no one else can check them | L3: tests of the supervisor against the state machine, passing on real work items |
 | agent-dispatch-protocol | specification | L2 | 2026-11-23 | 5167c83: ADP-0/1/2; 101 conformance vector files checked against JSON schemas in CI; no implementation | L3: one implementation passes every vector (ADP issue #28) |
 | factory-protocol | documentation | L2 | 2026-11-23 | 1340fa7: describes the contextos factory (row above) | L3: the factory reaches L3 |
 | eng-principles audit | software | L3 | 2026-11-23 | d887b6c: audit/selftest.py in CI; runs daily against six real repositories; dashboard deployed to GitHub Pages. Runs are not committed: dashboard.yml deploys and commits nothing | L4: a dated, committed record of audit runs |
@@ -23,12 +23,12 @@ One row per deliverable, each with the date it was read (ENG-STD-009 §4.2).
 
 | Standard | Status | Evidence |
 |----------|--------|----------|
-| ENG-STD-001 Language & IDs | partial | RFC 2119 MUST/MUST NOT used throughout docs/specs. IDs stable. No `ENG-` anchors are accepted by commit-msg regex yet |
-| ENG-STD-002 Lifecycle gates | conformant | docs/DISCIPLINE.md §3 (adds DESIGN gate). factory/supervisor.sh |
+| ENG-STD-001 Language & IDs | partial | Private repository: RFC 2119 keywords used throughout its specs; IDs stable. Its commit check does not yet accept `ENG-` anchors |
+| ENG-STD-002 Lifecycle gates | conformant | Private repository: its discipline document adds a DESIGN gate; a supervisor enforces the gates |
 | ENG-STD-003 Design / SOLID | not assessed | — |
-| ENG-STD-004 Clean code | not assessed | No pinned formatter or linter observed at repo root |
-| ENG-STD-005 Change control | conformant | scripts/hooks/commit-msg, pre-commit, pre-push. Git log shows anchored commits (e.g. 13225f5 — RFC-031) |
-| ENG-STD-006 Registers | conformant | docs/DECISIONS.md, docs/VIOLATIONS.md, docs/conformance/ContextOS-ICS.md |
+| ENG-STD-004 Clean code | not assessed | Private repository: no pinned formatter or linter observed |
+| ENG-STD-005 Change control | conformant | Private repository: commit-msg, pre-commit and pre-push hooks; its history shows anchored commits |
+| ENG-STD-006 Registers | conformant | Private repository: its own decisions and violations registers, and an ICS |
 | ENG-STD-007 Quality model | not assessed | — |
 
 ## phasectl

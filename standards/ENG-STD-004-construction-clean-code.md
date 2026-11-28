@@ -23,7 +23,7 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 ## 2. Functions and modules
 2.1 A function SHOULD do one thing at one level of abstraction.
 2.2 Default limits: function ≤ 40 lines, ≤ 4 parameters, nesting ≤ 3. Code SHOULD stay within them; exceeding them MUST be given a stated reason in review.
-2.3 Pure decision logic SHOULD be separated from I/O (contextos DECISION-001 pattern: one read, one pure decision).
+2.3 Pure decision logic SHOULD be separated from I/O (one read, one pure decision).
 2.4 A function MUST NOT take a flag argument that switches its behaviour. Write two functions.
 
 ## 3. Comments
@@ -57,3 +57,4 @@ tighten it, or MAY loosen it only by recorded waiver (CHARTER: Deviation is visi
 | 0, 1, 3, 4 | Review |
 Amended: 2026-11-22 — §0 Scope added: code is any executable text, applied proportionately (ENG-DEC-015, Q-003).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).

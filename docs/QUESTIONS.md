@@ -772,4 +772,4 @@ Raised by: cleanup pass requested by the governor, relayed by engineering-fa
            on 2026-11-28
 Status   : ANSWERED (governor, 2026-11-28, given in the engineering-5b
            session): "Q-020 A"
-           → an ENG-DEC in the PR that makes the option A changes
+           → ENG-DEC-023
