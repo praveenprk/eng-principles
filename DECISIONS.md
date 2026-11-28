@@ -645,6 +645,6 @@ Risk    : A pull request described as record-only could carry other
           diff only records the ruling and that the ruling was given
           first-hand; and the `security` label, which keeps the governor's
           merge.
-Status  : PROPOSED (relayed by engineering-fa from the governor,
-          2026-11-26; the governor accepts it first-hand or by merging)
+Status  : ACCEPTED (governor, 2026-11-26, by merging PR #41, merge commit
+          9634421; proposed as relayed by engineering-fa from the governor)
 
