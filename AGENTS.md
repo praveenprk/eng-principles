@@ -18,6 +18,8 @@ Read CHARTER.md first.
   Until then the governor alone merges into `main`. Merge into `main`: an automated
   contributor merges its pull request once every required check passes, no Q-NNN is
   OPEN, and the pull request is not labelled `security`; a `security` pull request
-  waits for the governor, who merges it. Push to `main`: nobody; every change arrives
+  waits for the governor, who merges it. A pull request that only records a ruling the
+  governor gave first-hand also needs the master review's ok before the agent merges
+  it (ENG-DEC-022). Push to `main`: nobody; every change arrives
   by pull request. Promote `main` → `stable`: the human governor, with a merge commit,
   on a release record. Tag: the human governor, on `stable` only.
