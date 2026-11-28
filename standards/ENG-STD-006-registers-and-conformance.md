@@ -1,5 +1,5 @@
 # ENG-STD-006 — Registers and Conformance
-Status: ACTIVE · Refs: ISO/IEC 9646 (PICS), RFC 7942, ISO/IEC 27001 Statement of Applicability, ISO 9001 §7.5 (documented information) · Reference implementation: contextos docs/DECISIONS.md, docs/VIOLATIONS.md, docs/conformance/ContextOS-ICS.md
+Status: ACTIVE · Refs: ISO/IEC 9646 (PICS), RFC 7942, ISO/IEC 27001 Statement of Applicability, ISO 9001 §7.5 (documented information) · Origin: ENG-DEC-003
 
 ## 1. Required registers
 Every project MUST keep three registers. All three are append-only.
@@ -36,7 +36,7 @@ Every project MUST keep three registers. All three are append-only.
     assessed`. Each such row MUST state why it is not assessed and what
     assessing it needs. A `not assessed` row without both is a violation
     of this clause.
-2.5 One fact MUST live in one register. Parallel trackers MUST NOT be kept (contextos DECISION-004).
+2.5 One fact MUST live in one register. Parallel trackers MUST NOT be kept.
 
 ## 3. Cross-project conformance
 3.1 This repository's CONFORMANCE.md MUST record each project's status against each ENG-STD.
@@ -45,3 +45,4 @@ Amended: 2026-11-22 — §2.3 severity graded by OpenSSF placement, then impact;
 Amended: 2026-11-22 — §2.4 refined: `not assessed` in a project ICS, with a reason (ENG-DEC-015, Q-001).
 Amended: 2026-11-22 — §2.3 rule e added: a bypassed gate is never below HIGH (ENG-DEC-015, Q-006).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).

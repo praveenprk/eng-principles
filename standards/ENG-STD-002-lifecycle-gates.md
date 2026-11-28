@@ -1,5 +1,5 @@
 # ENG-STD-002 — Lifecycle Gates
-Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 29148 · Reference implementation: contextos DISCIPLINE.md §3
+Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 29148 · Origin: ENG-DEC-003
 
 ## 1. The gate sequence
 1.1 All work passes through five gates, in order. A gate MUST NOT open until the
@@ -13,8 +13,8 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 | 4 | BUILD      | Code that makes tests pass        | Schematic → layout → prototype             | Design definition, Implementation     |
 | 5 | REFINE     | Refactor, same pass/xfail count   | Revision, DFM/DFT fixes, same verification | Integration, Verification (executed)  |
 
-1.2 The gate names are fixed. A project MAY add gates (e.g. contextos adds
-    DESIGN between SPEC and TEST). It MUST NOT remove or reorder gates.
+1.2 The gate names are fixed. A project MAY add gates (e.g. a
+    DESIGN gate between SPEC and TEST). It MUST NOT remove or reorder gates.
 
 ## 2. Exit conditions (minimum)
 2.1 **RFC MUST NOT close until:** the problem statement and the options
@@ -73,3 +73,4 @@ Status: ACTIVE · Refs: ISO/IEC/IEEE 12207, ISO/IEC/IEEE 15288, ISO/IEC/IEEE 291
 Amended: 2026-11-22 — §4.1 refined: MUST stop, open and backfill; severity per ENG-STD-006 §2.3 with a HIGH floor (ENG-DEC-015, Q-006).
 Amended: 2026-11-22 — §5 added: equivalent change processes, mapping recorded once (ENG-DEC-015, Q-002).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).

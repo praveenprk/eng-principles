@@ -40,13 +40,13 @@ ground itself.
 
 Every project, current and future. Current projects:
 
-| Project   | Kind     | Location                         |
+| Project   | Kind     | Repository                       |
 |-----------|----------|----------------------------------|
-| contextos | software | ~/Desktop/contextos              |
-| phasectl  | software | ~/Desktop/phasectl               |
-| agent-dispatch-protocol (ADP) | specification | ~/Desktop/adp-protocol |
-| fid       | software | ~/Desktop/fid                    |
-| factory-protocol | documentation | ~/Desktop/factory-protocol |
+| contextos | software | praveenprk/contextos (private; the reference implementation, ENG-DEC-003) |
+| phasectl  | software | [praveenprk/phasectl](https://github.com/praveenprk/phasectl) |
+| agent-dispatch-protocol (ADP) | specification | [praveenprk/agent-dispatch-protocol](https://github.com/praveenprk/agent-dispatch-protocol) |
+| fid       | software | [praveenprk/fid](https://github.com/praveenprk/fid) |
+| factory-protocol | documentation | [praveenprk/factory-protocol](https://github.com/praveenprk/factory-protocol) |
 
 New projects are added to CONFORMANCE.md on creation, not later.
 
@@ -55,7 +55,7 @@ New projects are added to CONFORMANCE.md on creation, not later.
 1. CHARTER.md
 2. PRINCIPLES.md
 3. standards/ENG-STD-*.md
-4. A project's own governance documents (e.g. contextos KERNEL_SPEC.md, DISCIPLINE.md)
+4. A project's own governance documents (e.g. its specification and its discipline document)
 
 These are four layers (ENG-DEC-016):
 
@@ -121,3 +121,4 @@ text is not copied.
 | 2026-11-22 | "Never weakened" becomes "the bar may never be lowered", with the bar defined | ENG-DEC-016 |
 | 2026-11-22 | Authority Order: four layers; never a runtime dependency | ENG-DEC-016 |
 | 2026-11-23 | External Standards: grounded citations, procurement list | ENG-DEC-020 |
+| 2026-11-28 | Scope: repositories instead of local paths; Authority Order example made generic | ENG-DEC-023 |

@@ -13,7 +13,7 @@ Status: ACTIVE · Refs: RFC 2119, RFC 8174, ISO 8601, ISO/IEC/IEEE 24765, SemVer
 2.1 Every governed entry MUST have a stable identifier that is never reused.
 2.2 Repository-level IDs MUST carry the `ENG-` prefix so they never collide with project IDs:
 
-| Kind       | Here (engineering) | In a project (e.g. contextos) |
+| Kind       | Here (engineering) | In a project                  |
 |------------|--------------------|-------------------------------|
 | Principle  | ENG-P-NN           | —                             |
 | Standard   | ENG-STD-NNN        | —                             |
@@ -50,3 +50,4 @@ Status: ACTIVE · Refs: RFC 2119, RFC 8174, ISO 8601, ISO/IEC/IEEE 24765, SemVer
 
 Amended: 2026-11-22 — §3.4 added: major version 0 until the governor declares a project market-ready (ENG-DEC-014).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).

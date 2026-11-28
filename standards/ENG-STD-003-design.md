@@ -1,5 +1,5 @@
 # ENG-STD-003 — Design: Unix Discipline, Interface Contracts, SOLID
-Status: ACTIVE · Refs: Unix philosophy (McIlroy, 1978), POSIX (IEEE Std 1003.1 / ISO/IEC/IEEE 9945), SOLID (R. C. Martin), ISO/IEC/IEEE 42010 · Related: ENG-P-07, ENG-P-13, contextos DECISION-003 (no formal DbC) · Refined by: ENG-DEC-005
+Status: ACTIVE · Refs: Unix philosophy (McIlroy, 1978), POSIX (IEEE Std 1003.1 / ISO/IEC/IEEE 9945), SOLID (R. C. Martin), ISO/IEC/IEEE 42010 · Related: ENG-P-07, ENG-P-13, the reference implementation's decision against formal DbC (recorded via ENG-DEC-003) · Refined by: ENG-DEC-005
 
 The ground is Unix: small tools, plain text, composition. Interface contracts
 make the composition safe. SOLID is one way to express the same discipline
@@ -78,3 +78,4 @@ tool runs on its declared minimum substrate in CI or on a bench.
 7.1 Each project SHOULD keep one ARCHITECTURE.md that names its stakeholders, their
     concerns, and the views that address those concerns (ISO/IEC/IEEE 42010 structure, lightweight).
 Amended: 2026-11-22 — RFC 2119 keywords added to requirement clauses that lacked one, meaning unchanged (ENG-DEC-015, Q-004).
+Amended: 2026-11-28 — pointers into a private project replaced by neutral words; meaning unchanged (ENG-DEC-023, Q-020).
