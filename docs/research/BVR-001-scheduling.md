@@ -3,7 +3,7 @@
 Status   : RESEARCH INPUT. Not a decision. Nothing here binds a project.
 Date     : 2026-11-23
 Principle: ENG-P-14 Look before you build (operating systems first, OSTEP)
-Author   : engineering-ab (eng-principles session), for the governor
+Author   : an eng-principles agent session, for the governor
 Asked by : the governor, 2026-11-23: whether scheduling can be a shared
            abstraction for AI-assisted work in software, robotics and large
            automated systems, where classical schedulers may fall short.
@@ -44,11 +44,11 @@ scheduler has to know about. AI-assisted work differs in these ways:
 | # | Property of the work | Nearest existing answer | Gap (hypothesis) |
 |---|----------------------|-------------------------|------------------|
 | 1 | **Unknown, heavy-tailed duration and cost** (tokens, money, retries) | MLFQ learns priority from behaviour (OSTEP ch. 8); CBS bounds a budget (SCHED_DEADLINE) | Budgets are in money and tokens, not CPU time; nobody schedules on them across tools |
-| 2 | **Waiting on a human** (a governor's ruling, a review) as a normal state | A2A TASK_STATE_INPUT_REQUIRED; Kubernetes `Permit`; Temporal waits for years | Human attention is a scarce resource with its own queue. Batching rulings ("review by exception", contextos RFC-032) is a scheduling decision |
+| 2 | **Waiting on a human** (a governor's ruling, a review) as a normal state | A2A TASK_STATE_INPUT_REQUIRED; Kubernetes `Permit`; Temporal waits for years | Human attention is a scarce resource with its own queue. Batching rulings, so that the governor reviews by exception, is a scheduling decision |
 | 3 | **Evidence gates**: a step may only start when evidence exists | Kubernetes Filter and Permit; workflow DAGs | A gate predicate over records (questions OPEN, checks green, levels per ENG-STD-009) is not a standard plugin anywhere found |
 | 4 | **Preemption costs context**: stopping an agent loses state | Temporal recreates state by replay; OS context switch | Agent context is large and lossy; resuming means a handoff (phasectl's domain) |
 | 5 | **Authority bounded by evidence** (ENG-P-15): for physical work, the envelope limits what may be scheduled | SCHED_DEADLINE admission control; real-time executors | Admission control that consults a safety envelope and a safe state is domain work, not a general scheduler |
-| 6 | **Many peers coordinating**, as tonight's sessions do (review, fix, relay) | A2A; ADP | Who may take which work item is today settled by messages, not by a register |
+| 6 | **Many peers coordinating**, as the agent sessions on these projects do (review, fix, relay) | A2A; ADP | Who may take which work item is today settled by messages, not by a register |
 
 ## 4. Options (ENG-P-14)
 

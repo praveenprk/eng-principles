@@ -717,3 +717,59 @@ Raised by: PR for fix/Q-019-dependabot-anchors (requested by engineering-fa
 Status   : ANSWERED (governor, 2026-11-25, given in the engineering-5b
            session; PR #36 comment 7168430269): "Q-019 A"
            → ENG-DEC-021
+
+### Q-020
+Scenario : A reader of this public repository meets contextos in about 50
+           places. contextos is private, so every pointer into it
+           (DISCIPLINE.md §3, DECISION-004, RFC-032, a commit SHA) leads
+           nowhere for them. The governor asked for a cleanup with no
+           unneeded mentions. The mentions that remain fall into five groups:
+           1. Registers (DECISIONS, VIOLATIONS, this file): about 25,
+              mostly ENG-DEC-003, which makes contextos the reference
+              implementation. The registers are append-only.
+           2. Rule text: the "Reference implementation: contextos …"
+              headers and examples in ENG-STD-001, 002, 003, 004, 005 and
+              006, and PRINCIPLES.md's amendment log. Each change needs an
+              ENG-DEC.
+           3. CHARTER: the Scope table, which gives local paths
+              (~/Desktop/…) as locations, and the example in Authority
+              Order, item 4.
+           4. CONFORMANCE.md: two maturity rows (contextos L3, contextos
+              factory L2) and a section of evidence giving commit SHAs and
+              file paths inside the private repository. factory-protocol's
+              row rests on the factory row.
+           5. Sources: REFERENCES.md (RFC 2119, 12207, 29148, "per
+              contextos") and docs/PROCUREMENT.md (prior art and 2026-11-08
+              prices). The grounded-citations rule (ENG-DEC-020) requires
+              them to name their source.
+           audit/projects.json keeps its entry in every option: the audit
+           needs it, and the dashboard already redacts private projects.
+Options  : A — Name it once, generalise the rest. Registers stay as they
+               are. One new ENG-DEC rewrites the rule-text pointers in
+               neutral words (for example "a project MAY add gates") and
+               leaves ENG-DEC-003 as the record of where they came from.
+               CHARTER's Scope table names repositories and marks contextos
+               private, and the Authority Order example becomes generic.
+               CONFORMANCE keeps the two contextos maturity rows and their
+               levels, but the evidence says "private repository; read by
+               the governor's sessions on <date>", without SHAs or paths.
+               Sources keep "contextos (private), <date>" as the source
+               name, as ENG-DEC-020 requires.
+           B — Keep every mention as it is. They are accurate, and naming a
+               private project exposes nothing of its content beyond the
+               SHAs and paths already listed.
+           C — Remove contextos from everything except the registers and
+               the audit config, including its CONFORMANCE rows. The
+               REFERENCES and PROCUREMENT entries drop to "unverified"
+               until each is read again at a public source.
+Recommend: A. It keeps what is load-bearing: the reference-implementation
+           record, the maturity levels, and named sources under ENG-DEC-020.
+           It drops what a public reader cannot use: file pointers, commit
+           SHAs and local paths. B leaves dead links in the rules. C throws
+           away verification already done, and leaves factory-protocol's
+           level without its basis.
+Raised by: cleanup pass requested by the governor, relayed by engineering-fa
+           on 2026-11-28
+Status   : ANSWERED (governor, 2026-11-28, given in the engineering-5b
+           session): "Q-020 A"
+           → an ENG-DEC in the PR that makes the option A changes

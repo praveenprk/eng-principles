@@ -36,5 +36,5 @@ withdrawn 12207:2017. Secondary: search summaries, 2026-11-25. Standards publish
 
 Prior art: contextos RFC-032 RP-7 register policy and its clause verification log
 (docs/proposals/2026-11-07-clause-verification.md), from which the 2026-11-08 prices come.
-The 2026-11-25 facts come from engineering-fa's purchase plan for the governor (overnight
+The 2026-11-25 facts come from a purchase plan prepared for the governor (an overnight
 search; none is read at the primary source yet).
