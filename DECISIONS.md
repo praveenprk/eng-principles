@@ -686,4 +686,4 @@ Risk    : A reader can check contextos's evidence less precisely than
           before; they could not open it before either. Anyone with access
           finds the exact commits in the private repository's own
           history.
-Status  : ACCEPTED (governor, 2026-11-28)
+Status  : ACCEPTED (governor's answer to Q-020 (A), 2026-11-28)
